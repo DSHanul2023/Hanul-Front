@@ -142,6 +142,16 @@ form-banner 1
   }
   input[type="text"] {
     color: $bodytext;
+    border-radius: 36px;
+    text-indent: 35px;
+    padding-right: 15px;
+    width: 88%;
+    font-weight: 300;
+    box-shadow: -58px 0 30px 0 rgba(0, 0, 0, 0.05);
+    text-overflow: ellipsis;
+  }
+  input[type="password"] {
+    color: $bodytext;
     border-radius: 36px 0 0 36px;
     text-indent: 35px;
     padding-right: 15px;

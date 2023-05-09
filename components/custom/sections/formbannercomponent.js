@@ -6,20 +6,6 @@ import banner from "../../../assets/images/form-banners/banner1/banner-img.png";
 const FormBannerComponent = () => {
   return (
     <div>
-      <div className="spacer bg-light">
-        <Container>
-          <Row className="justify-content-center">
-            <Col md="7" className="text-center">
-              <h1 className="title font-bold">Form Banner</h1>
-              <h6 className="subtitle">
-                Here you can check Demos we created based on WrapKit. Its quite
-                easy to Create your own dream website &amp; dashboard in
-                No-time.
-              </h6>
-            </Col>
-          </Row>
-        </Container>
-      </div>
       <div className="bg-light">
         <section>
           <div id="banner1" className="banner spacer">
@@ -27,7 +13,7 @@ const FormBannerComponent = () => {
               <Row>
                 <Col lg="5" md="7" className="align-self-center">
                   <h2 className="title font-bold">
-                    Give your Business Real boost Now!
+                    AI 챗봇 기반 
                   </h2>
                   <p className="m-t-40 m-b-30">
                     To accomplish great things, we must not only act, but also
@@ -40,9 +26,17 @@ const FormBannerComponent = () => {
                       placeholder="Enter Email Address"
                       className="font-16"
                     />
+                  </Form>
+                  <Form className="m-t-40">
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="Enter Password"
+                      className="font-16"
+                    />
                     <input
                       type="submit"
-                      value="Get Started"
+                      value="회원가입"
                       className="bg-info font-semibold font-16 btn-rounded text-uppercase text-white text-center"
                     />
                   </Form>

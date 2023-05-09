@@ -1,5 +1,5 @@
 import React from "react";
-import Banner from "../banner/Banner";
+import Banner from "../banner/Banner2";
 // sections for this page
 import Buttons from "./buttons";
 import Labels from "./labels";

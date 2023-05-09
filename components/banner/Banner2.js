@@ -23,11 +23,11 @@ const Banner2 = () => {
               href="https://wrappixel.com/templates/nextkit-nextjs-free-uikit"
               className="btn btn-danger m-r-20 btn-md m-t-30 "
             >
-              Download Free
+              회원가입
             </a>
             <Link href="/#coming" className="btn btn-md m-t-30  btn-outline-light ">
               
-                Upgrade To Pro
+
               
             </Link>
           </Col>
