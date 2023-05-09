@@ -23,43 +23,43 @@ const Footer = () => {
             <h5 className="m-b-20">Email</h5>
             <p>
               Office :
-              <Link href="#">
-                <a className="link">info@wrappixel.com</a>
+              <Link href="#" className="link">
+                info@wrappixel.com
               </Link>
               <br />
               Site :
-              <Link href="https://www.wrappixel.com">
-                <a className="link">wrappixel.com</a>
+              <Link href="https://www.wrappixel.com" className="link">
+                wrappixel.com
               </Link>
             </p>
           </Col>
           <Col lg="3" md="6">
             <h5 className="m-b-20">Social</h5>
             <div className="round-social light">
-              <Link href="#">
-                <a className="link">
-                  <i className="fa fa-facebook"></i>
-                </a>
+              <Link href="#" className="link">
+
+                <i className="fa fa-facebook"></i>
+
               </Link>
-              <Link href="#">
-                <a className="link">
-                  <i className="fa fa-twitter"></i>
-                </a>
+              <Link href="#" className="link">
+
+                <i className="fa fa-twitter"></i>
+
               </Link>
-              <Link href="#">
-                <a className="link">
-                  <i className="fa fa-google-plus"></i>
-                </a>
+              <Link href="#" className="link">
+
+                <i className="fa fa-google-plus"></i>
+
               </Link>
-              <Link href="#">
-                <a className="link">
-                  <i className="fa fa-youtube-play"></i>
-                </a>
+              <Link href="#" className="link">
+
+                <i className="fa fa-youtube-play"></i>
+
               </Link>
-              <Link href="#">
-                <a className="link">
-                  <i className="fa fa-instagram"></i>
-                </a>
+              <Link href="#" className="link">
+
+                <i className="fa fa-instagram"></i>
+
               </Link>
             </div>
           </Col>
@@ -70,19 +70,19 @@ const Footer = () => {
               <div className="d-flex font-14">
                 <div className="m-t-10 m-b-10 copyright">
                   All Rights Reserved by{" "}
-                  <Link href="https://www.wrappixel.com">
-                    <a className="link">wrappixel.com</a>
+                  <Link href="https://www.wrappixel.com" className="link">
+                    wrappixel.com
                   </Link>
                 </div>
                 <div className="links ml-auto m-t-10 m-b-10">
-                  <Link href="#">
-                    <a className="p-10 p-l-0">Terms of Use</a>
+                  <Link href="#" className="p-10 p-l-0">
+                    Terms of Use
                   </Link>
-                  <Link href="#">
-                    <a className="p-10">Legal Disclaimer</a>
+                  <Link href="#" className="p-10">
+                    Legal Disclaimer
                   </Link>
-                  <Link href="#">
-                    <a className="p-10">Privacy Policy</a>
+                  <Link href="#" className="p-10">
+                    Privacy Policy
                   </Link>
                 </div>
               </div>
