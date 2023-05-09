@@ -21,18 +21,7 @@ const CustomComponents = () => {
   return (
     <div>
       <Banner2 />
-      <HeaderComponent />
-      <BannerComponent />
       <FormBannerComponent />
-      <FeatureComponent />
-      <PortfolioComponent />
-      <PricingComponent />
-      <TeamComponent />
-      <TestimonialComponent />
-      <BlogComponent />
-      <C2aComponent />
-      <ContactComponent />
-      <CallToAction />
     </div>
   );
 };

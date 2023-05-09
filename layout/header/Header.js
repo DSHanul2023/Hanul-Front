@@ -37,29 +37,29 @@ const Header = () => {
             >
               <Nav navbar className="ml-auto">
                 <NavItem>
-                  <Link href="/">
-                    <a
-                      className={
-                        router.pathname == "/"
-                          ? "text-white nav-link"
-                          : "nav-link"
-                      }
-                    >
-                      Custom Components
-                    </a>
+                  <Link
+                    href="/"
+                    className={
+                      router.pathname == "/"
+                        ? "text-white nav-link"
+                        : "nav-link"
+                    }>
+                    
+                      Chatbot
+                    
                   </Link>
                 </NavItem>
                 <NavItem>
-                  <Link href="/basic">
-                    <a
-                      className={
-                        router.pathname == "/basic"
-                          ? "text-white nav-link"
-                          : "nav-link"
-                      }
-                    >
-                      Basic-Components
-                    </a>
+                  <Link
+                    href="/basic"
+                    className={
+                      router.pathname == "/basic"
+                        ? "text-white nav-link"
+                        : "nav-link"
+                    }>
+                    
+                      Community
+                    
                   </Link>
                 </NavItem>
               </Nav>
@@ -69,9 +69,10 @@ const Header = () => {
                   className="btn btn-light font-14"
                   target="_blank"
                 >
-                  Download Free
+                  Login
                 </NavLink>
               </div>
+            
             </Collapse>
           </Navbar>
         </Container>

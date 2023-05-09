@@ -3,6 +3,9 @@ import Link from "next/link";
 import { Container, Row, Col } from "reactstrap";
 import Image from "next/image";
 import bannerimg from "../../assets/images/landingpage/banner-img.png";
+/**
+ * Main Page 1 
+ */
 
 const Banner2 = () => {
   return (
@@ -11,11 +14,10 @@ const Banner2 = () => {
         <Row className="">
           <Col lg="6" md="6" className="align-self-center">
             <h1 className="title">
-              Build stunning websites with NextJs UI Kit
+              WeLover
             </h1>
             <h4 className="subtitle font-light">
-              Free Reactstrap UI Kit with Lots of
-              <br /> Ready to Use Sections
+            We provide books and movies based on counseling chatbots.
             </h4>
             <a
               href="https://wrappixel.com/templates/nextkit-nextjs-free-uikit"
@@ -23,10 +25,10 @@ const Banner2 = () => {
             >
               Download Free
             </a>
-            <Link href="/#coming">
-              <a className="btn btn-md m-t-30  btn-outline-light ">
+            <Link href="/#coming" className="btn btn-md m-t-30  btn-outline-light ">
+              
                 Upgrade To Pro
-              </a>
+              
             </Link>
           </Col>
           <Col lg="6" md="6">
