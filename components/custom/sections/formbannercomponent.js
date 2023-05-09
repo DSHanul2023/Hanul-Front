@@ -13,11 +13,10 @@ const FormBannerComponent = () => {
               <Row>
                 <Col lg="5" md="7" className="align-self-center">
                   <h2 className="title font-bold">
-                    AI 챗봇 기반 
+                    AI 챗봇 기반 상담 서비스
                   </h2>
                   <p className="m-t-40 m-b-30">
-                    To accomplish great things, we must not only act, but also
-                    dream; not only plan, but also believe.
+                    로그인 후 서비스를 이용해 보세요!
                   </p>
                   <Form className="m-t-40">
                     <input
