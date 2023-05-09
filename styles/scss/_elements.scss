@@ -126,7 +126,7 @@ form-banner 1
 
 #banner1 {
   background: right -3em center no-repeat #e9f3f8;
-  background-image: $form-banner;
+  background-color: #F9F4E8;
   h2 {
     font-size: 48px;
     line-height: 1;
@@ -145,7 +145,7 @@ form-banner 1
     border-radius: 36px;
     text-indent: 35px;
     padding-right: 15px;
-    width: 88%;
+    width: 89%;
     font-weight: 300;
     box-shadow: -58px 0 30px 0 rgba(0, 0, 0, 0.05);
     text-overflow: ellipsis;
@@ -166,6 +166,7 @@ form-banner 1
     padding: 0 30px;
     cursor: pointer;
     margin-left: -4px;
+    background-color: #EFA374;
     box-shadow: 5px 0 30px 0 rgba(0, 0, 0, 0.05);
     transition: all 0.5s ease-in-out;
 
