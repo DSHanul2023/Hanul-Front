@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col, Container, Form } from "reactstrap";
 import Image from "next/image";
+import { gsap } from "gsap/dist/gsap";
 import banner from "../../../assets/images/form-banners/banner1/banner-img.png";
 
 const FormBannerComponent = () => {
@@ -41,7 +42,7 @@ const FormBannerComponent = () => {
                   </Form>
                 </Col>
                 <Col lg="6" md="5" className="align-self-center ml-auto">
-                  <Image
+                  <Image 
                     src={banner}
                     alt="We are Digital Agency"
                     className="img-fluid"
