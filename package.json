@@ -9,11 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ap.cx/react-fullpage": "^0.3.0",
     "@types/react-dom": "18.2.4",
     "autoprefixer": "10.4.14",
     "bootstrap": "^4.6.2",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.1",
+    "gasp": "^0.0.2",
+    "gsap": "^3.11.5",
     "next": "^13.4.1",
     "postcss": "8.4.23",
     "prop-types": "15.7.2",
