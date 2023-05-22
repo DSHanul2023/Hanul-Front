@@ -1,0 +1,25 @@
+#booklist{
+    margin-left:175px;
+    margin-top:214px;
+}
+#bookitem{
+    margin-right:30px;
+}
+#bookimg{
+    height: 260px;
+    width: 250px;
+    background-color: #D9D9D9;
+}
+#booksummary{
+    padding-left:25px;
+    height:90px;
+    width:250px;
+}
+#booktitle{
+    margin-top:30px;
+    font-size: 18px;
+}
+#bookcontent{
+    margin-top:5px;
+    font-size:13px;
+}
