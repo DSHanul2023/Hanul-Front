@@ -1,7 +1,6 @@
 import React from "react";
 import { Row, Col, Container, Form } from "reactstrap";
 import Image from "next/image";
-import { gsap } from "gsap/dist/gsap";
 import banner from "../../../assets/images/form-banners/banner1/banner-img.png";
 
 const FormBannerComponent = () => {
