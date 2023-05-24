@@ -69,7 +69,7 @@ const InquiryBoard = () => {
                 </Row>
                 <Row>
                     <Col className='page'>
-                        <Pagination aria-label="Page navigation example">
+                        <Pagination>
                             <PaginationItem>
                                 <PaginationLink first href="#" />
                             </PaginationItem>
