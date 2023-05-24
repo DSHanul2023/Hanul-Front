@@ -62,17 +62,27 @@ const Header = () => {
                     
                   </Link>
                 </NavItem>
+                <NavItem>
+                  <Link
+                    href="/basic"
+                    className={
+                      router.pathname == "/basic"
+                        ? "text-white nav-link"
+                        : "nav-link"
+                    }>
+                    Inquiry
+                  </Link>
+                </NavItem>
               </Nav>
               <div className="act-buttons">
                 <NavLink
                   href="https://wrappixel.com/templates/nextkit-nextjs-free-uikit"
-                  className="btn btn-light font-14"
+                  className="btn btn-light font-14 text-white"
                   target="_blank"
                 >
                   Login
                 </NavLink>
-              </div>
-            
+              </div>         
             </Collapse>
           </Navbar>
         </Container>
