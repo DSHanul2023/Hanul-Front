@@ -20,7 +20,9 @@ const Banner2 = () => {
             </h4>
           </Col>
           <Col lg="6" md="6">
-            <Image src={bannerimg} alt="hero banner" className=" m-t-40 ml-4"/>
+          <Image src={bannerimg} alt="hero banner" className="m-t-40 ml-4" 
+          style={{ width: '100%', height: 'auto' }} />
+
           </Col>
         </Row>
       </Container>
