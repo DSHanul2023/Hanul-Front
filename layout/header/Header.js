@@ -75,6 +75,19 @@ const Header = () => {
                     
                   </Link>
                 </NavItem>
+                <NavItem>
+                  <Link
+                    href="/inquiry"
+                    className={
+                      router.pathname == "/inquiry"
+                        ? "text-white nav-link"
+                        : "nav-link"
+                    }>
+                    
+                      Inquiry
+                    
+                  </Link>
+                </NavItem>
               </Nav>
               <div className="act-buttons">
                 <NavLink

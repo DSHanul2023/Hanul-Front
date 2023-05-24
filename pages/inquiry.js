@@ -1,9 +1,10 @@
 import Head from "next/head";
-import CommunityComponents from "../components/custom/Community-components";
+import InquiryBoard from '../components/custom/sections/inquiryboardcomponent';
 
-export default function Community() {
+export default function Inquiry() {
     return (
         <div>
+            <InquiryBoard />
         </div>
     );
 }
