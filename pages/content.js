@@ -23,7 +23,7 @@ function Content() {
         </div>
     )
     return (
-        <div id="body">
+        <div id="contentbody">
             <p id="title">추천 콘텐츠</p>
             <p id="ex">콘텐츠 추천기능을 체험해보세요.</p>
             <div id="booklist">{bookitem}</div>
