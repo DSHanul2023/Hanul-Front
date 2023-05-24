@@ -500,4 +500,45 @@ Community
   .card-raw {
     width: 100vh;
   }
+  .card-main {
+    margin-top: 10px;
+  }
+}
+
+.board-button {
+  position: fixed;
+  right: 3%;
+  bottom: 3%;
+}
+
+.board-right {
+  text-align: right;
+}
+
+
+/*******************
+Inquiry
+*******************/
+.inquiry {
+  padding: 20px;
+  justify-items: center;
+  align-items: center;
+
+  .btn-group-board{
+    display: inline-flex;
+    margin-left: 10px;
+  }
+
+  .inquiry-table{
+    margin-top: 30px;
+    fill-opacity: 0.5;
+    background-color: white;
+    border-radius: 20px;
+  }
+  
+  .page {
+    margin-top: 10px;
+    align-self: center;
+    justify-self: center;
+  }
 }

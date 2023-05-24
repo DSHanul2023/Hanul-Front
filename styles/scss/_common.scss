@@ -156,6 +156,7 @@ card
 .card {
   border: 0px;
   margin-bottom: 30px;
+  border-radius: 20px;
 
   &.card-shadow {
     box-shadow: $card-shadow;
