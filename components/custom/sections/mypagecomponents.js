@@ -18,7 +18,7 @@ const MyPageComponents = () => {
         <Container>
           <Row className="justify-content-center">
             <Col md="6" className="text-center">
-              <h1 className="title font-bold">My Page</h1>
+              <h1 className="my-title font-bold">My Page</h1>
               <h6 className="subtitle">마이페이지입니다.</h6>
             </Col>
           </Row>
@@ -57,7 +57,7 @@ const MyPageComponents = () => {
               </Button>
             </div>
             <div style={{ width: "135px" }}>
-              <Button outline color="secondary" className="w-100">
+              <Button outline color="secondary" className="w-100" href="/savepage">
                 북마크
               </Button>
             </div>
