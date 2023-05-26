@@ -7,6 +7,7 @@ import Banner2 from "../banner/Banner2";
 
 import FormBannerComponent from "./sections/formbannercomponent";
 import LoginComponent from "./sections/logincomponent";
+import ChatComponent from "./sections/chatcomponent";
 
 const CustomComponents = () => {
   return (
@@ -14,6 +15,7 @@ const CustomComponents = () => {
       <Banner2 />
       <FormBannerComponent />
       <LoginComponent />
+      <ChatComponent />
     </div>
   );
 };
