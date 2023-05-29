@@ -6,7 +6,6 @@ Topbar
   padding: 0px;
   transition: 0.2s ease-in;
   width: 100%;
-  position: absolute;
   z-index: 20;
 }
 
@@ -157,6 +156,7 @@ card
 .card {
   border: 0px;
   margin-bottom: 30px;
+  border-radius: 20px;
 
   &.card-shadow {
     box-shadow: $card-shadow;

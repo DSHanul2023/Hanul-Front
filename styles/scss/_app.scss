@@ -1111,20 +1111,20 @@ Buttons
 
 .btn-themecolor,
 .btn-themecolor.disabled {
-  background: $themecolor;
+  background: $headingtext;
   color: $white;
-  border: 1px solid $themecolor;
+  border: 1px solid $headingtext;
 
   &:hover {
-    background: $themecolor-dark;
+    background: $themecolor;
 
-    border: 1px solid $themecolor-dark;
+    border: 1px solid $themecolor
   }
 
   &.active,
   &:active,
   &:focus {
-    background: $themecolor-dark;
+    background: $themecolor;
   }
 }
 
@@ -1483,8 +1483,8 @@ a.btn-outline-success {
 .open > .dropdown-toggle.btn-success:hover,
 .btn-success.focus,
 .btn-success:focus {
-  background-color: $success-dark;
-  border: 1px solid $success-dark;
+  background-color: $headingtext;
+  border: 1px solid $headingtext;
 }
 
 .btn-info.active.focus,

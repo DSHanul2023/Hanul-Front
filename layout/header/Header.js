@@ -58,22 +58,45 @@ const Header = () => {
                         : "nav-link"
                     }>
                     
+                      basic
+                    
+                  </Link>
+                </NavItem>
+                <NavItem>
+                  <Link
+                    href="/community"
+                    className={
+                      router.pathname == "/community"
+                        ? "text-white nav-link"
+                        : "nav-link"
+                    }>
+                    
                       Community
                     
                   </Link>
                 </NavItem>
-                {/* 마이페이지 추가 */}
+
+                <NavItem>
+                  <Link
+                    href="/inquiry"
+                    className={
+                      router.pathname == "/inquiry"
+                        : "nav-link"
+                    }>
+                      Inquiry
+                  </Link>
+                </NavItem>
+         {/* 마이페이지 추가 */}
                 <NavItem>
                   <Link
                     href="/mypage"
                     className={
                       router.pathname == "/mypage"
+
                         ? "text-white nav-link"
                         : "nav-link"
                     }>
-                    
                       MyPage
-                    
                   </Link>
                 </NavItem>
               </Nav>

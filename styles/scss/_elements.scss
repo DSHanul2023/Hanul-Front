@@ -472,6 +472,77 @@ Responsive
 }
 
 /*******************
+Community
+*******************/
+.sidebar {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  border-right: 1px solid;
+  border-color: $muted;
+  .title {
+    padding: 20px;
+  }
+  .tab-row{
+    flex-grow: 1;
+    width: 100%;
+    height: 100vh;
+  }
+}
+
+.board {
+  margin-top: 20px;
+  width: 90%;
+  grid-template-rows: 100%;
+  .card {
+    width: 100%
+  }
+  .card-raw {
+    width: 100vh;
+  }
+  .card-main {
+    margin-top: 10px;
+  }
+}
+
+.board-button {
+  position: fixed;
+  right: 3%;
+  bottom: 3%;
+}
+
+.board-right {
+  text-align: right;
+}
+
+
+/*******************
+Inquiry
+*******************/
+.inquiry {
+  padding: 20px;
+  justify-items: center;
+  align-items: center;
+
+  .btn-group-board{
+    display: inline-flex;
+    margin-left: 10px;
+  }
+
+  .inquiry-table{
+    margin-top: 30px;
+    fill-opacity: 0.5;
+    background-color: white;
+    border-radius: 20px;
+  }
+  
+  .page {
+    margin-top: 10px;
+    align-self: center;
+    justify-self: center;
+  }
+}
+=======
 Content
 *******************/
 .contentlist{
@@ -627,3 +698,4 @@ Survey
 /*******************
 listpagination
 *******************/
+
