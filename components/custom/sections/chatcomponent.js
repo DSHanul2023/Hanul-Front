@@ -1,9 +1,7 @@
 import React from "react";
 import { Row, Col, Container, Form} from "reactstrap";
-import Image from "next/image";
-import siginupimage from "../../../assets/images/form-banners/banner1/siginupimage.jpg"
 
-const FormBannerComponent = () => {
+const ChatComponent = () => {
   return (
     <div>
       <div className="bg-light">
@@ -45,11 +43,6 @@ const FormBannerComponent = () => {
                     이야기 치료법 체험해보기</button>
                 </Col>
                 <Col lg="5" md="5" className="align-self-center ml-auto">
-                  <Image 
-                    src={siginupimage}
-                    alt="We are Digital Agency"
-                    className="img-fluid"
-                  />
                 </Col>
               </Row>
             </Container>
@@ -60,4 +53,4 @@ const FormBannerComponent = () => {
   );
 };
 
-export default FormBannerComponent;
+export default ChatComponent;
