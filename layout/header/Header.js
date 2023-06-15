@@ -38,9 +38,9 @@ const Header = () => {
               <Nav navbar className="ml-auto">
                 <NavItem>
                   <Link
-                    href="/"
+                    href="/chat"
                     className={
-                      router.pathname == "/"
+                      router.pathname == "/chat"
                         ? "text-white nav-link"
                         : "nav-link"
                     }
@@ -101,7 +101,7 @@ const Header = () => {
               </Nav>
               <div className="act-buttons">
                 <NavLink
-                  href="https://wrappixel.com/templates/nextkit-nextjs-free-uikit"
+                  href="/login"
                   className="btn btn-light font-14 text-white"
                   target="_blank"
                 >
