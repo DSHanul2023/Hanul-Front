@@ -85,6 +85,83 @@ Header 6 : Main Page - navigationbar
   width: 100%;
 }
 
+
+/*******************
+HeaderMain : Main Page - navigationbar
+*******************/
+.headermain {
+  .navbar-toggler {
+    color: $white;
+  }
+}
+
+.h6-nav-bar {
+  padding: 0px;
+
+  .navbar-nav {
+    .nav-link {
+      padding: 35px 15px;
+      color: rgba(255, 255, 255, 0.5);
+      transition-duration: 0.2s;
+    }
+
+    .nav-item:hover .nav-link,
+    .nav-item.active .nav-link {
+      color: rgba(255, 255, 255, 1);
+    }
+  }
+
+  .act-buttons {
+    .btn {
+      margin: 10px 0 10px 10px;
+      background-color: #B95C37;
+      border: none; /* 테두리 없애기 */
+    }
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
+
+@media (max-width: 1023px) {
+  .h6-nav-bar {
+    .navbar-nav {
+      .nav-link {
+        padding: 15px 15px;
+      }
+    }
+
+    .act-buttons {
+      .btn {
+        margin: 10px 0 10px 0px;
+      }
+    }
+  }
+}
+
+.static-slider-head {
+  min-height: 600px;
+  display: flex;
+
+  background-color: #EFA374;
+
+  .title {
+    color: $white;
+    font-weight: 700;
+    font-size: 42px;
+    line-height: 54px;
+  }
+
+  .subtitle {
+    color: $white;
+    line-height: 30px;
+  }
+}
+
+.carousel-item > img {
+  width: 100%;
+}
+
 /******************* 
 Main & Page wrapper
 *******************/
