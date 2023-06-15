@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Row, Col, Container, Form, Input, Button } from "reactstrap";
+import { Row, Col, Container, Form, Input, Button, Image } from "reactstrap";
+import Link from "next/link";
 
 const ChatComponent = () => {
   const [inputMessage, setInputMessage] = useState("");
@@ -29,10 +30,12 @@ const ChatComponent = () => {
             <Container className="h-100">
               <Row>
                 <Col md="6">
+    
                   <div className="chat-div">
                     안녕하세요! 저는 We:Lover에요. <br />
                     저한테 고민을 얘기해주세요!
                   </div>
+                  <p className="timestamp">12:00PM | 3월 28일</p>
                 </Col>
               </Row>
 
@@ -45,7 +48,9 @@ const ChatComponent = () => {
                     <br />
                     <br />
                   </div>
+                  <p className="timestamp2">12:07PM | 3월 28일</p>
                 </Col>
+
               </Row>
 
               <Row className="mt-4">
@@ -56,7 +61,11 @@ const ChatComponent = () => {
                     <br />
                     <br />
                     <br />
+                    <Button className="treat-div">
+                    이야기 치료법 보러가기
+                    </Button>
                   </div>
+                  <p className="timestamp">12:13PM | 3월 28일</p>
                 </Col>
               </Row>
 
