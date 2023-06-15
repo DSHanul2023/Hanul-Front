@@ -1,48 +1,111 @@
-import React from "react";
-import { Row, Col, Container, Form} from "reactstrap";
+import React, { useState } from "react";
+import { Row, Col, Container, Form, Input, Button } from "reactstrap";
 
 const ChatComponent = () => {
+  const [inputMessage, setInputMessage] = useState("");
+  const [chatMessages, setChatMessages] = useState([]);
+  const [showChat, setShowChat] = useState(false);
+
+  const handleMessageSubmit = (e) => {
+    e.preventDefault();
+    if (inputMessage.trim() === "") {
+      return;
+    }
+    const newMessage = {
+      content: inputMessage,
+      sender: "user",
+    };
+    setChatMessages((prevMessages) => [...prevMessages, newMessage]);
+    setInputMessage("");
+    setShowChat(true);
+    // Handle sending the message to Dialogflow or your chatbot backend
+  };
+
   return (
-    <div>
+    <div className="full-height">
       <div className="bg-light">
         <section>
-          <div id="banner1" className="banner spacer">
-            <Container>
+          <div id="chat" className="banner spacer">
+            <Container className="h-100">
               <Row>
-                <Col lg="7" md="7" className="align-self-center">
-                  <h2 className="title font-bold">
-                  고민 상담 AI 챗봇 기반 이야기 치료법 제공 서비스
-                  </h2>
-                  <p className="m-t-15 m-b-30">
-                  회원가입 후 서비스를 이용해 보세요
-                  </p>
-                  <Form className="m-t-40">
-                    <div>
-                    <input
-                      type="text"
-                      name="email"
-                      placeholder="Email"
-                      className="font-14"
-                    />
-                    </div>
-                    <div className="m-t-10">
-                    <input
-                      type="password"
-                      name="password"
-                      placeholder="Password"
-                      className="font-14"
-                    />
-                    <input 
-                      type="submit"
-                      value="Enter"
-                      className="font-14 btn-rounded text-white text-center ml-2"
-                    />
-                    </div>
-                  </Form>
-                  <button className="m-t-10 font-14 text-white text-center">
-                    이야기 치료법 체험해보기</button>
+                <Col md="6">
+                  <div className="chat-div">
+                    안녕하세요! 저는 We:Lover에요. <br />
+                    저한테 고민을 얘기해주세요!
+                  </div>
                 </Col>
-                <Col lg="5" md="5" className="align-self-center ml-auto">
+              </Row>
+
+              <Row className="mt-4">
+                <Col md="6"></Col>
+                <Col md="6">
+                  <div className="user-div">
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                  </div>
+                </Col>
+              </Row>
+
+              <Row className="mt-4">
+                <Col md="6">
+                  <div className="chat-div">
+                    그런 일이 있으셨군요. 제가 도움이 될 만한 책과 영화를 추천해드릴게요. 
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                  </div>
+                </Col>
+              </Row>
+
+              {showChat && (
+                <Row className="mt-4">
+                  <Col md="6"></Col>
+                  <Col md="6">
+                    <div className="test-div">
+                      {chatMessages.map((message, index) => (
+                        <div
+                          key={index}
+                          className={`message ${
+                            message.sender === "user" ? "user-message" : "bot-message"
+                          }`}
+                        >
+                          {message.content}
+                        </div>
+                      ))}
+                      {inputMessage && (
+                        <div className="message user-message">{inputMessage}</div>
+                      )}
+                    </div>
+                  </Col>
+                </Row>
+              )}
+
+              <Row className="mt-4 justify-content-between">
+                <Col className="col-10">
+                  <Form onSubmit={handleMessageSubmit} className="w-100">
+                    <Input
+                      type="text"
+                      name="message"
+                      placeholder="메시지를 입력하세요"
+                      value={inputMessage}
+                      className="font-14 chat-input"
+                      onChange={(e) => setInputMessage(e.target.value)}
+                    />
+                  </Form>
+                </Col>
+                <Col className="col-2">
+                  <Button
+                    type="submit"
+                    color="primary"
+                    className="font-14 btn-rounded text-white text-center"
+                    onClick={handleMessageSubmit}
+                    style={{ height: "100%" }}
+                  >
+                    보내기
+                  </Button>
                 </Col>
               </Row>
             </Container>
