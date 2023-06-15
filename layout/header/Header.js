@@ -48,18 +48,7 @@ const Header = () => {
                     Chatbot
                   </Link>
                 </NavItem>
-                <NavItem>
-                  <Link
-                    href="/basic"
-                    className={
-                      router.pathname == "/basic"
-                        ? "text-white nav-link"
-                        : "nav-link"
-                    }
-                  >
-                    Basic
-                  </Link>
-                </NavItem>
+              
                 <NavItem>
                   <Link
                     href="/community"
