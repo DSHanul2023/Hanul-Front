@@ -43,10 +43,9 @@ const Header = () => {
                       router.pathname == "/"
                         ? "text-white nav-link"
                         : "nav-link"
-                    }>
-                    
-                      Chatbot
-                    
+                    }
+                  >
+                    Chatbot
                   </Link>
                 </NavItem>
                 <NavItem>
@@ -56,10 +55,9 @@ const Header = () => {
                       router.pathname == "/basic"
                         ? "text-white nav-link"
                         : "nav-link"
-                    }>
-                    
-                      basic
-                    
+                    }
+                  >
+                    Basic
                   </Link>
                 </NavItem>
                 <NavItem>
@@ -69,10 +67,9 @@ const Header = () => {
                       router.pathname == "/community"
                         ? "text-white nav-link"
                         : "nav-link"
-                    }>
-                    
-                      Community
-                    
+                    }
+                  >
+                    Community
                   </Link>
                 </NavItem>
 
@@ -81,23 +78,24 @@ const Header = () => {
                     href="/inquiry"
                     className={
                       router.pathname == "/inquiry"
+                        ? "text-white nav-link"
                         : "nav-link"
-                    }>
-                      Inquiry
+                    }
+                  >
+                    Inquiry
                   </Link>
                 </NavItem>
-         {/* 마이페이지 추가 */}
+
                 <NavItem>
                   <Link
                     href="/mypage"
                     className={
                       router.pathname == "/mypage"
-
                         ? "text-white nav-link"
                         : "nav-link"
-                    }>
-                      MyPage
-
+                    }
+                  >
+                    MyPage
                   </Link>
                 </NavItem>
               </Nav>
@@ -109,7 +107,7 @@ const Header = () => {
                 >
                   Login
                 </NavLink>
-              </div>         
+              </div>
             </Collapse>
           </Navbar>
         </Container>
