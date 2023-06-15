@@ -742,7 +742,21 @@ Responsive
     min-width: 0;
     background-color: #FFFFFF; /* Set background color to white */
   }
+  .treat-div {
+    color: #B95C37; /* Set text color to black */
+    border-radius: 16px;
+    text-indent: 0; /* Remove indentation */
+    padding: 10px; /* Add padding to all sides */
+    font-weight: 300;
+    box-shadow: -58px 0 30px 0 rgba(0, 0, 0, 0.05);
+    text-overflow: ellipsis;
+    flex-grow: 1;
+    width: 100%;
+    min-width: 0;
+    background-color: #FFEAC8; /* Set background color to white */
+  }
 }
+
 
 
 /*******************
