@@ -14,3 +14,8 @@ a {
 * {
   box-sizing: border-box;
 }
+#bookitem{
+  height: 300px;
+  width: 250px;
+  background-color: #D9D9D9;
+}
