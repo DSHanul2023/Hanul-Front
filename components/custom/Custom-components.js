@@ -14,8 +14,6 @@ const CustomComponents = () => {
     <div>
       <Banner2 />
       <FormBannerComponent />
-      <LoginComponent />
-      <ChatComponent />
     </div>
   );
 };
