@@ -38,30 +38,17 @@ const Header = () => {
               <Nav navbar className="ml-auto">
                 <NavItem>
                   <Link
-                    href="/"
+                    href="/chat"
                     className={
-                      router.pathname == "/"
+                      router.pathname == "/chat"
                         ? "text-white nav-link"
                         : "nav-link"
-                    }>
-                    
-                      Chatbot
-                    
+                    }
+                  >
+                    Chatbot
                   </Link>
                 </NavItem>
-                <NavItem>
-                  <Link
-                    href="/basic"
-                    className={
-                      router.pathname == "/basic"
-                        ? "text-white nav-link"
-                        : "nav-link"
-                    }>
-                    
-                      basic
-                    
-                  </Link>
-                </NavItem>
+              
                 <NavItem>
                   <Link
                     href="/community"
@@ -69,10 +56,9 @@ const Header = () => {
                       router.pathname == "/community"
                         ? "text-white nav-link"
                         : "nav-link"
-                    }>
-                    
-                      Community
-                    
+                    }
+                  >
+                    Community
                   </Link>
                 </NavItem>
 
@@ -81,35 +67,36 @@ const Header = () => {
                     href="/inquiry"
                     className={
                       router.pathname == "/inquiry"
+                        ? "text-white nav-link"
                         : "nav-link"
-                    }>
-                      Inquiry
+                    }
+                  >
+                    Inquiry
                   </Link>
                 </NavItem>
-         {/* 마이페이지 추가 */}
+
                 <NavItem>
                   <Link
                     href="/mypage"
                     className={
                       router.pathname == "/mypage"
-
                         ? "text-white nav-link"
                         : "nav-link"
-                    }>
-                      MyPage
+                    }
+                  >
+                    MyPage
                   </Link>
                 </NavItem>
               </Nav>
               <div className="act-buttons">
                 <NavLink
-                  href="https://wrappixel.com/templates/nextkit-nextjs-free-uikit"
-                  className="btn btn-light font-14"
+                  href="/login"
+                  className="btn btn-light font-14 text-white"
                   target="_blank"
                 >
                   Login
                 </NavLink>
               </div>
-            
             </Collapse>
           </Navbar>
         </Container>
