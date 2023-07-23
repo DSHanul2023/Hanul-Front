@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Row, Col, Container, Form } from "reactstrap";
 import Image from "next/image";
+
 import siginupimage from "../../../assets/images/form-banners/banner1/siginupimage.jpg";
 import { useRouter } from "next/router";
 
@@ -109,6 +110,7 @@ const FormBannerComponent = () => {
                   <button className="m-t-10 font-14 text-white text-center">
                     이야기 치료법 체험해보기
                   </button>
+
                 </Col>
                 <Col lg="5" md="5" className="align-self-center ml-auto">
                   <Image
