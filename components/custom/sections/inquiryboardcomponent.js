@@ -17,7 +17,9 @@ import InquiryForm from './inquiryformcomponent';
 
 const InquiryBoard = () => {
     const [inquiries, setInquiries] = useState([]);
-    const [showInquiryForm, setShowInquiryForm] = useState(false);
+    const [showCreateForm, setShowCreateForm] = useState(false);
+    const [showEditForm, setShowEditForm] = useState(false);
+    const [selectedInquiry, setSelectedInquiry] = useState(null);
     const apiUrl = 'http://localhost:8080/api/inquiry';
     const retrieveInquiryList = async () => {
         try {
@@ -34,7 +36,6 @@ const InquiryBoard = () => {
             }
 
             const inquiries = await response.json();
-            console.log("1"+inquiries);
             return inquiries.data;
         } catch (error) {
             console.error(error);
@@ -54,33 +55,44 @@ const InquiryBoard = () => {
             console.error(error);
         }
     };   
-    const toggleInquiryForm = () => {
-        setShowInquiryForm(!showInquiryForm);
+    const toggleCreateForm = () => {
+        setShowCreateForm(!showCreateForm);
+        setSelectedInquiry(null);
+    };
+    
+    const toggleEditForm = (inquiryId) => {
+        setShowEditForm(!showEditForm);
+        setSelectedInquiry(inquiryId);
+    };
+    const handleInquiryItemClick = (inquiryId) => {
+        setSelectedInquiry(inquiryId);
+        toggleEditForm(inquiryId);
     };
     const handleInquirySubmit = async (formData) => {
-        console.log('폼 데이터 제출:', formData);
-        // 필요한 경우 추가 작업을 수행합니다.
-
-        // 폼 제출이 끝나면 폼을 숨깁니다.
-        setShowInquiryForm(false);
-        // 필요한 경우 문의 목록을 업데이트합니다.
-        fetchInquiries();
+        try {
+            setShowCreateForm(false);
+            setShowEditForm(false);
+            fetchInquiries();
+        } catch (error) {
+            console.error(error);
+        }
     };
         
     const handleFormCancel = () => {
         // 사용자가 폼 제출을 취소하면 폼을 숨깁니다.
-        setShowInquiryForm(false);
+        setShowCreateForm(false);
+        setShowEditForm(false);
     };
     return (
         <div className='inquiry'>
-            {!showInquiryForm && (
+            {!showCreateForm && !showEditForm && (
             <Container>
                 <Row>
                     <Col md="6">
                         <h2 className="font-bold">문의하기</h2>
                     </Col>
                     <Col md="2">
-                        <Button color='themecolor' onClick={toggleInquiryForm}>문의하기</Button>
+                        <Button color='themecolor' onClick={toggleCreateForm}>문의하기</Button>
                     </Col>
                     <Col md="4">
                         <ButtonGroup className='btn-group-board'>
@@ -119,7 +131,7 @@ const InquiryBoard = () => {
                                 </thead>
                                 <tbody>
                                 {inquiries && inquiries.map((inquiry, index) => (
-                                    <tr key={index}>
+                                    <tr key={index}  onClick={() => handleInquiryItemClick(inquiry.id)}>
                                     <td>{index + 1}</td>
                                     <td>{inquiry.inquiryNm}</td>
                                     <td>{inquiry.inquiryDetail}</td>
@@ -177,12 +189,22 @@ const InquiryBoard = () => {
                 </Row>
             </Container> 
             )}  
-            {showInquiryForm && (
-                <Container>
-                    <h2 className="font-bold">문의하기</h2>
-                    <InquiryForm onFormSubmit={handleInquirySubmit} onFormCancel={handleFormCancel} />
-                </Container>
-            )}
+            {showCreateForm && (
+        <Container>
+            <h2 className="font-bold">문의하기</h2>
+            <InquiryForm onFormSubmit={handleInquirySubmit} onFormCancel={handleFormCancel} />
+        </Container>
+    )}
+    {showEditForm && (
+        <Container>
+            <h2 className="font-bold">문의 수정하기</h2>
+            <InquiryForm
+                inquiryToEdit={inquiries.find((inquiry) => inquiry.id === selectedInquiry)}
+                onFormSubmit={handleInquirySubmit}
+                onFormCancel={handleFormCancel}
+            />
+        </Container>
+    )}
         </div>
     );
 }
