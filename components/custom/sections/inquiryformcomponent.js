@@ -21,35 +21,58 @@ const InquiryForm = ({ inquiryToEdit, onFormSubmit, onFormCancel }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-        const requestUrl = 'http://localhost:8080/api/inquiry';
-        // const requestUrl = inquiryToEdit ? `${apiUrl}/${inquiryToEdit.id}` : apiUrl;
-        const method = inquiryToEdit ? 'PUT' : 'POST';
-
-        const response = await fetch(requestUrl, {
-            method,
-            headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoZWxsbzJAd29ybGQuY29tIiwiaWF0IjoxNjkwMjE5MDUyLCJleHAiOjE2OTAzMDU0NTIsImlkIjoiNDAyOGEzMjg4OTg4YWRmYzAxODk4OGFlNDY5MjAwMDAifQ.r1H0VUBMkZNzv4oBUTT5YF8k6pjKP2K411FbEa3yTuc' // `Bearer ${token}`
-        },
-            body: JSON.stringify(inquiry)
-        });
-
-        if (!response.ok) {
-            throw new Error('문의 제출에 실패했습니다.');
-        }
-
-        const responseData = await response.json();
-        onFormSubmit(responseData.data); // 폼 데이터를 부모 컴포넌트로 전달
-        setInquiry({ inquiryNm: '', inquiryDetail: '', state: '' });
+            const requestUrl = 'http://localhost:8080/api/inquiry';
+            const method = inquiryToEdit ? 'PUT' : 'POST';
+    
+            const response = await fetch(requestUrl, {
+                method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoZWxsbzJAd29ybGQuY29tIiwiaWF0IjoxNjkwNDEzMTcyLCJleHAiOjE2OTA0OTk1NzIsImlkIjoiNDAyOGEzNTU4OTk0NzljZTAxODk5NDc5ZTkyYTAwMDAifQ.QfO3TmkKeEWbOM8twKps7tW2B99opNwDhXvdIY5DioM' // `Bearer ${token}`
+                },
+                body: JSON.stringify(inquiry)
+            });
+    
+            if (!response.ok) {
+                throw new Error('문의 제출에 실패했습니다.');
+            }
+    
+            const responseData = await response.json();
+            onFormSubmit(responseData.data); // Pass the created/updated inquiry data to the parent component
+            setInquiry({ inquiryNm: '', inquiryDetail: '', state: false });
         } catch (error) {
-        console.error(error);
+            console.error(error);
         }
     };
+    
     const handleCancel = () => {
         // onFormCancel prop을 호출하여 InquiryBoard로 돌아갑니다.
         onFormCancel();
     };
-
+    const handleDelete = async () => {
+        try {
+            const requestUrl = 'http://localhost:8080/api/inquiry';
+            const method = 'DELETE';
+    
+            const response = await fetch(requestUrl, {
+                method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoZWxsbzJAd29ybGQuY29tIiwiaWF0IjoxNjkwNDEzMTcyLCJleHAiOjE2OTA0OTk1NzIsImlkIjoiNDAyOGEzNTU4OTk0NzljZTAxODk5NDc5ZTkyYTAwMDAifQ.QfO3TmkKeEWbOM8twKps7tW2B99opNwDhXvdIY5DioM' // `Bearer ${token}`
+                },
+                body: JSON.stringify(inquiryToEdit)
+            });
+    
+            if (!response.ok) {
+                throw new Error('문의 삭제에 실패했습니다.');
+            }
+            onFormSubmit(null);
+            onFormCancel();  // Pass null to indicate that the inquiry was deleted
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    
     return (
         <form onSubmit={handleSubmit}>
         <FormGroup>
@@ -82,6 +105,10 @@ const InquiryForm = ({ inquiryToEdit, onFormSubmit, onFormCancel }) => {
         <Button color="secondary" onClick={handleCancel}>
             취소
         </Button>
+        {inquiryToEdit &&(
+        <Button color="danger" onClick={handleDelete}>
+            삭제
+        </Button>)}
         </form>
     );
     };

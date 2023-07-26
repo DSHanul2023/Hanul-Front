@@ -27,7 +27,7 @@ const InquiryBoard = () => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoZWxsbzJAd29ybGQuY29tIiwiaWF0IjoxNjkwMjE5MDUyLCJleHAiOjE2OTAzMDU0NTIsImlkIjoiNDAyOGEzMjg4OTg4YWRmYzAxODk4OGFlNDY5MjAwMDAifQ.r1H0VUBMkZNzv4oBUTT5YF8k6pjKP2K411FbEa3yTuc' // `Bearer ${token}`
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoZWxsbzJAd29ybGQuY29tIiwiaWF0IjoxNjkwNDEzMTcyLCJleHAiOjE2OTA0OTk1NzIsImlkIjoiNDAyOGEzNTU4OTk0NzljZTAxODk5NDc5ZTkyYTAwMDAifQ.QfO3TmkKeEWbOM8twKps7tW2B99opNwDhXvdIY5DioM' // `Bearer ${token}`
                     }
             });
 
@@ -70,9 +70,15 @@ const InquiryBoard = () => {
     };
     const handleInquirySubmit = async (formData) => {
         try {
-            setShowCreateForm(false);
-            setShowEditForm(false);
-            fetchInquiries();
+            if (formData === null) {
+                // Handle deletion case
+                fetchInquiries(); // Fetch updated inquiry list after deletion
+            } else {
+                // Handle creation/update case
+                setShowCreateForm(false);
+                setShowEditForm(false);
+                fetchInquiries();
+            }
         } catch (error) {
             console.error(error);
         }
