@@ -20,6 +20,7 @@ const InquiryBoard = () => {
     const [showCreateForm, setShowCreateForm] = useState(false);
     const [showEditForm, setShowEditForm] = useState(false);
     const [selectedInquiry, setSelectedInquiry] = useState(null);
+    const [searchQuery, setSearchQuery] = useState('');
     const apiUrl = 'http://localhost:8080/api/inquiry';
     const retrieveInquiryList = async () => {
         try {
@@ -27,8 +28,8 @@ const InquiryBoard = () => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoZWxsbzJAd29ybGQuY29tIiwiaWF0IjoxNjkwNDEzMTcyLCJleHAiOjE2OTA0OTk1NzIsImlkIjoiNDAyOGEzNTU4OTk0NzljZTAxODk5NDc5ZTkyYTAwMDAifQ.QfO3TmkKeEWbOM8twKps7tW2B99opNwDhXvdIY5DioM' // `Bearer ${token}`
-                    }
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoZWxsbzJAd29ybGQuY29tIiwiaWF0IjoxNjkwNTQ0MzQ2LCJleHAiOjE2OTA2MzA3NDYsImlkIjoiNDAyODQ4ZTg4OTljNGEyZjAxODk5YzRiNjQ4ZDAwMDAifQ.M5SlUZt5OlEmWBY7jKMF9J1X-6oFw7AujMi0qXfZLwc' // `Bearer ${token}`
+            }
             });
 
             if (!response.ok) {
@@ -89,6 +90,30 @@ const InquiryBoard = () => {
         setShowCreateForm(false);
         setShowEditForm(false);
     };
+    const handleSearchInputChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    const handleSearchSubmit = async () => {
+        try {
+            const response = await fetch(`${apiUrl}/${searchQuery}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoZWxsbzJAd29ybGQuY29tIiwiaWF0IjoxNjkwNTQ0MzQ2LCJleHAiOjE2OTA2MzA3NDYsImlkIjoiNDAyODQ4ZTg4OTljNGEyZjAxODk5YzRiNjQ4ZDAwMDAifQ.M5SlUZt5OlEmWBY7jKMF9J1X-6oFw7AujMi0qXfZLwc' // `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch inquiries');
+            }
+
+            const inquiries = await response.json();
+            setInquiries(inquiries.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
     return (
         <div className='inquiry'>
             {!showCreateForm && !showEditForm && (
@@ -118,8 +143,17 @@ const InquiryBoard = () => {
                         </ButtonGroup>
                         <FormGroup className='btn-group-board'>
                                 <Label htmlFor="name"></Label>
-                                <Input type="text" className="form-control" id="name" placeholder="검색어를 입력하세요." />
-                        </FormGroup>
+                                <Input
+                                    type="text"
+                                    className="form-control"
+                                    id="name"
+                                    placeholder="검색어를 입력하세요."
+                                    value={searchQuery}
+                                    onChange={handleSearchInputChange}
+                                />
+                                <Button color='themecolor' onClick={handleSearchSubmit}>검색</Button>
+                            </FormGroup>
+
                     </Col>
                 </Row>
                 <Row>
