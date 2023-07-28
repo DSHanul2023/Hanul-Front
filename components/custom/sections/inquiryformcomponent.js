@@ -28,7 +28,7 @@ const InquiryForm = ({ inquiryToEdit, onFormSubmit, onFormCancel }) => {
                 method,
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoZWxsbzJAd29ybGQuY29tIiwiaWF0IjoxNjkwNDEzMTcyLCJleHAiOjE2OTA0OTk1NzIsImlkIjoiNDAyOGEzNTU4OTk0NzljZTAxODk5NDc5ZTkyYTAwMDAifQ.QfO3TmkKeEWbOM8twKps7tW2B99opNwDhXvdIY5DioM' // `Bearer ${token}`
+                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoZWxsbzJAd29ybGQuY29tIiwiaWF0IjoxNjkwNTQ0MzQ2LCJleHAiOjE2OTA2MzA3NDYsImlkIjoiNDAyODQ4ZTg4OTljNGEyZjAxODk5YzRiNjQ4ZDAwMDAifQ.M5SlUZt5OlEmWBY7jKMF9J1X-6oFw7AujMi0qXfZLwc' // `Bearer ${token}`
                 },
                 body: JSON.stringify(inquiry)
             });
@@ -58,7 +58,7 @@ const InquiryForm = ({ inquiryToEdit, onFormSubmit, onFormCancel }) => {
                 method,
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoZWxsbzJAd29ybGQuY29tIiwiaWF0IjoxNjkwNDEzMTcyLCJleHAiOjE2OTA0OTk1NzIsImlkIjoiNDAyOGEzNTU4OTk0NzljZTAxODk5NDc5ZTkyYTAwMDAifQ.QfO3TmkKeEWbOM8twKps7tW2B99opNwDhXvdIY5DioM' // `Bearer ${token}`
+                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoZWxsbzJAd29ybGQuY29tIiwiaWF0IjoxNjkwNTQ0MzQ2LCJleHAiOjE2OTA2MzA3NDYsImlkIjoiNDAyODQ4ZTg4OTljNGEyZjAxODk5YzRiNjQ4ZDAwMDAifQ.M5SlUZt5OlEmWBY7jKMF9J1X-6oFw7AujMi0qXfZLwc' // `Bearer ${token}`
                 },
                 body: JSON.stringify(inquiryToEdit)
             });
