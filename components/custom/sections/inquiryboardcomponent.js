@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Button, ButtonGroup,UncontrolledDropdown,DropdownToggle,DropdownMenu,
-    DropdownItem,
+    Button,
     Row,
     Col,
     Container,
@@ -22,13 +21,15 @@ const InquiryBoard = () => {
     const [selectedInquiry, setSelectedInquiry] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const apiUrl = 'http://localhost:8080/api/inquiry';
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 2; // 한 페이지에 보여질 항목 수
     const retrieveInquiryList = async () => {
         try {
             const response = await fetch(apiUrl, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoZWxsbzJAd29ybGQuY29tIiwiaWF0IjoxNjkwNTQ0MzQ2LCJleHAiOjE2OTA2MzA3NDYsImlkIjoiNDAyODQ4ZTg4OTljNGEyZjAxODk5YzRiNjQ4ZDAwMDAifQ.M5SlUZt5OlEmWBY7jKMF9J1X-6oFw7AujMi0qXfZLwc' // `Bearer ${token}`
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoZWxsbzJAd29ybGQuY29tIiwiaWF0IjoxNjkwNzAyMDA2LCJleHAiOjE2OTA3ODg0MDYsImlkIjoiNDAyODQ4ZTg4OWE1YjA4OTAxODlhNWIxMjhkZDAwMDAifQ.f7wYXaD1hqpeIzMLARNyK8f1zoeK2AkjZHM_74ZsMiM' // `Bearer ${token}`
             }
             });
 
@@ -45,7 +46,7 @@ const InquiryBoard = () => {
     };
     useEffect(() => {
         fetchInquiries();
-        }, []);
+        }, [currentPage]);
 
     const fetchInquiries = async () => {
         try {
@@ -100,7 +101,7 @@ const InquiryBoard = () => {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoZWxsbzJAd29ybGQuY29tIiwiaWF0IjoxNjkwNTQ0MzQ2LCJleHAiOjE2OTA2MzA3NDYsImlkIjoiNDAyODQ4ZTg4OTljNGEyZjAxODk5YzRiNjQ4ZDAwMDAifQ.M5SlUZt5OlEmWBY7jKMF9J1X-6oFw7AujMi0qXfZLwc' // `Bearer ${token}`
+                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoZWxsbzJAd29ybGQuY29tIiwiaWF0IjoxNjkwNzAyMDA2LCJleHAiOjE2OTA3ODg0MDYsImlkIjoiNDAyODQ4ZTg4OWE1YjA4OTAxODlhNWIxMjhkZDAwMDAifQ.f7wYXaD1hqpeIzMLARNyK8f1zoeK2AkjZHM_74ZsMiM' // `Bearer ${token}`
                 }
             });
 
@@ -114,35 +115,66 @@ const InquiryBoard = () => {
             console.error(error);
         }
     };
+    const handlePaginationClick = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+    
+    const renderPagination = () => {
+        const pageCount = Math.ceil(inquiries.length / itemsPerPage);
+        if (pageCount <= 1) return null;
+    
+        const paginationItems = [];
+        for (let i = 1; i <= pageCount; i++) {
+            paginationItems.push(
+            <PaginationItem key={i} active={i === currentPage}>
+                <PaginationLink onClick={() => handlePaginationClick(i)}>
+                    {i}
+                </PaginationLink>
+            </PaginationItem>
+            );
+        }
+        return (
+        <Pagination>
+            <PaginationItem>
+                <PaginationLink previous onClick={() => handlePaginationClick(currentPage - 1)} />
+            </PaginationItem>
+            {paginationItems}
+            <PaginationItem>
+                <PaginationLink next onClick={() => handlePaginationClick(currentPage + 1)} />
+            </PaginationItem>
+            </Pagination>
+        );
+    };
+    const renderInquiries = () => {
+        // 현재 페이지에 해당하는 데이터만 추출
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const inquiriesToShow = inquiries.slice(startIndex, endIndex);
+        return (
+            inquiriesToShow.map((inquiry, index) => (
+                <tr key={index} onClick={() => handleInquiryItemClick(inquiry.id)}>
+                    <td>{startIndex + index + 1}</td>
+                    <td>{inquiry.inquiryNm}</td>
+                    <td>{inquiry.createdAt}</td>
+                    <td>{inquiry.state}</td>
+                </tr>
+            ))
+        );
+    };
     return (
         <div className='inquiry'>
             {!showCreateForm && !showEditForm && (
             <Container>
                 <Row>
                     <Col md="6">
-                        <h2 className="font-bold">문의하기</h2>
+                        <h2 className="font-bold">문의 게시판</h2>
                     </Col>
                     <Col md="2">
                         <Button color='themecolor' onClick={toggleCreateForm}>문의하기</Button>
                     </Col>
                     <Col md="4">
-                        <ButtonGroup className='btn-group-board'>
-                            <UncontrolledDropdown setActiveFromChild>
-                                <DropdownToggle tag="button" className="btn btn-outline-secondary" caret>
-                                    제목
-                                </DropdownToggle>
-                                <DropdownMenu>
-                                <DropdownItem tag="a" href="/blah">
-                                    제목
-                                </DropdownItem>
-                                <DropdownItem tag="a" href="/blah">
-                                    작성자
-                                </DropdownItem>
-                                </DropdownMenu>
-                            </UncontrolledDropdown>
-                        </ButtonGroup>
                         <FormGroup className='btn-group-board'>
-                                <Label htmlFor="name"></Label>
+                            <Label htmlFor="name"></Label>
                                 <Input
                                     type="text"
                                     className="form-control"
@@ -151,9 +183,8 @@ const InquiryBoard = () => {
                                     value={searchQuery}
                                     onChange={handleSearchInputChange}
                                 />
-                                <Button color='themecolor' onClick={handleSearchSubmit}>검색</Button>
-                            </FormGroup>
-
+                            <Col md="6"><Button color='themecolor' onClick={handleSearchSubmit}>검색하기</Button></Col> 
+                        </FormGroup>
                     </Col>
                 </Row>
                 <Row>
@@ -164,21 +195,12 @@ const InquiryBoard = () => {
                                 <tr>
                                     <th>#</th>
                                     <th>제목</th>
-                                    <th>작성자</th>
                                     <th>작성일</th>
                                     <th>상태</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {inquiries && inquiries.map((inquiry, index) => (
-                                    <tr key={index}  onClick={() => handleInquiryItemClick(inquiry.id)}>
-                                    <td>{index + 1}</td>
-                                    <td>{inquiry.inquiryNm}</td>
-                                    <td>{inquiry.inquiryDetail}</td>
-                                    <td>{inquiry.state}</td>
-                                    {/* Add other inquiry properties as needed */}
-                                    </tr>
-                                ))}
+                                {renderInquiries()}
                                 </tbody>
                             </Table>
                         </div>
@@ -186,65 +208,27 @@ const InquiryBoard = () => {
                 </Row>
                 <Row>
                     <Col className='page'>
-                        <Pagination>
-                            <PaginationItem>
-                                <PaginationLink first href="#" />
-                            </PaginationItem>
-                            <PaginationItem>
-                                <PaginationLink previous href="#" />
-                            </PaginationItem>
-                            <PaginationItem>
-                                <PaginationLink href="#">
-                                    1
-                                    </PaginationLink>
-                            </PaginationItem>
-                            <PaginationItem>
-                                <PaginationLink href="#">
-                                    2
-                                    </PaginationLink>
-                            </PaginationItem>
-                            <PaginationItem>
-                                <PaginationLink href="#">
-                                    3
-                                    </PaginationLink>
-                            </PaginationItem>
-                            <PaginationItem>
-                                <PaginationLink href="#">
-                                    4
-                                    </PaginationLink>
-                            </PaginationItem>
-                            <PaginationItem>
-                                <PaginationLink href="#">
-                                    5
-                                    </PaginationLink>
-                            </PaginationItem>
-                            <PaginationItem>
-                                <PaginationLink next href="#" />
-                            </PaginationItem>
-                            <PaginationItem>
-                                <PaginationLink last href="#" />
-                            </PaginationItem>
-                        </Pagination>
+                        {renderPagination()}
                     </Col>
                 </Row>
             </Container> 
             )}  
             {showCreateForm && (
-        <Container>
-            <h2 className="font-bold">문의하기</h2>
-            <InquiryForm onFormSubmit={handleInquirySubmit} onFormCancel={handleFormCancel} />
-        </Container>
-    )}
-    {showEditForm && (
-        <Container>
-            <h2 className="font-bold">문의 수정하기</h2>
-            <InquiryForm
-                inquiryToEdit={inquiries.find((inquiry) => inquiry.id === selectedInquiry)}
-                onFormSubmit={handleInquirySubmit}
-                onFormCancel={handleFormCancel}
-            />
-        </Container>
-    )}
+                <Container>
+                    <h2 className="font-bold">문의하기</h2>
+                    <InquiryForm onFormSubmit={handleInquirySubmit} onFormCancel={handleFormCancel} />
+                </Container>
+            )}
+            {showEditForm && (
+            <Container>
+                <h2 className="font-bold">문의 수정</h2>
+                <InquiryForm
+                    inquiryToEdit={inquiries.find((inquiry) => inquiry.id === selectedInquiry)}
+                    onFormSubmit={handleInquirySubmit}
+                    onFormCancel={handleFormCancel}
+                />
+            </Container>
+            )}
         </div>
     );
 }
