@@ -12,19 +12,23 @@ const ItemComponent = ({ movies }) => {
 
   return (
     <Container className="contentlist">
-      <p className="contenttitle">추천 콘텐츠</p>
-      <p className="contentex">콘텐츠 추천 기능을 체험해보세요.</p>
       <Container className="movielist">
         {chunkedMovies.map((row, rowIndex) => (
-          <Row key={rowIndex}>
+          <Row key={rowIndex} style={{ marginTop: "40px" }}>
             {row.map((movie, colIndex) => (
               <Col key={colIndex} className="item" style={{ height: "200px", width: "150px" }}>
                 <div className="itemimg" style={{ width: "100%", height: "100%" }}>
-                  <Image src={movie.posterUrl} alt={movie.itemNm} layout="fill" objectFit="cover" />
+                  {/* Image 컴포넌트 사용 */}
+                  <Image
+                    src={movie.posterUrl} // 이미지 URL은 여기에 설정
+                    alt={movie.itemNm}
+                    layout="fill" // layout 속성을 사용하여 이미지 크기 조정 방식 설정
+                    objectFit="cover" // 이미지 크기가 부모 컨테이너에 맞게 조정되도록 설정
+                    priority // priority 속성을 추가하여 이미지가 우선적으로 로딩되도록 설정
+                  />
                 </div>
                 <Container className="itemsummary">
                   <p className="itemtitle">{movie.itemNm}</p>
-                  <p className="itemcontent">{movie.itemDetail}</p>
                 </Container>
               </Col>
             ))}
