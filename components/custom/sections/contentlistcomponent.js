@@ -28,9 +28,9 @@ const ContentList = () => {
   };
 
   return (
-    <Container>
+    <Container style={{ position: 'relative' }}>
       <ItemComponent movies={movies} />
-      <div className="listpagination">
+      <div className="listpagination" style={{ position: 'absolute', bottom: '20px', left: '50%', transform: 'translateX(-50%)'}}>
         <ListPagination />
       </div>
     </Container>

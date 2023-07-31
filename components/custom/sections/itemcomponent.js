@@ -16,9 +16,8 @@ const ItemComponent = ({ movies }) => {
         {chunkedMovies.map((row, rowIndex) => (
           <Row key={rowIndex} style={{ marginTop: "40px" }}>
             {row.map((movie, colIndex) => (
-              <Col key={colIndex} className="item" style={{ height: "200px", width: "150px" }}>
-                <div className="itemimg" style={{ width: "100%", height: "100%" }}>
-                  {/* Image 컴포넌트 사용 */}
+              <Col key={colIndex} className="item" style={{ height: "300px", width: "200px" }}>
+                <div className="itemimg" style={{ width: "100%", height: "80%" }}>s
                   <Image
                     src={movie.posterUrl} // 이미지 URL은 여기에 설정
                     alt={movie.itemNm}
@@ -28,7 +27,7 @@ const ItemComponent = ({ movies }) => {
                   />
                 </div>
                 <Container className="itemsummary">
-                  <p className="itemtitle">{movie.itemNm}</p>
+                <p className="itemtitle" style={{ marginTop: "70px", fontSize: "13px" }}>{movie.itemNm}</p>
                 </Container>
               </Col>
             ))}
