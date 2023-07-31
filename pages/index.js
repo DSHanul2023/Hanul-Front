@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>NextJs UI Kit Lite</title>
+        <title>We:lover</title>
         <meta
           name="description"
           content="NextJs UI kit | Free UI kit built with bootstrap"
