@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Row, Col, Container, Form } from "reactstrap";
 import Image from "next/image";
 import { useRouter } from "next/router";
+const ACCESS_TOKEN = "ACCESS_TOKEN";
 
 const LoginComponent = () => {
   const [email, setEmail] = useState("");
