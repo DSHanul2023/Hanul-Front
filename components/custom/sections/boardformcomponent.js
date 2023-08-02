@@ -17,15 +17,16 @@ const BoardFormComponent = (...args) => {
         const min = String(date.getMinutes()).padStart(2, "0");
         const secs = String(date.getSeconds()).padStart(2, "0");
 
+
         let headers = new Headers({
             "Content-Type": "application/json",
         });
 
-        const accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoeXVuOTE4QGR1a3N1bmcuYWMua3IiLCJpYXQiOjE2OTAzNjgyNDYsImV4cCI6MTY5MDQ1NDY0NiwiaWQiOiIyYzlkZDM1OTg5OTFiMjNiMDE4OTkxY2M3NDk3MDAwMCJ9.zGq28tB3AGeoKicFxQ10121jyJxgF7pf6gY1MIxGWTw";
+        const accessToken = localStorage.getItem("ACCESS_TOKEN");
         if( accessToken && accessToken !== null ) {
             headers.append("Authorization", "Bearer " + accessToken);
-        }
-
+        } 
+        
         setTime(`${hours}:${min}:${secs}`);
         console.log(JSON.stringify({ title: title, contents: contents, date: time, author: author, cat: selected, idx: 1}));
         try {
