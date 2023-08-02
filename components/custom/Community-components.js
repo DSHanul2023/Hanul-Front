@@ -5,15 +5,28 @@ import React, {useEffect, useState} from 'react';
 
 const CommunityComponents = () => {
   const [boardList, setBoardList] = useState([]);
+  const accessToken = localStorage.getItem("ACCESS_TOKEN");
 
   const getBoardList = async () => {
-    const resp = await fetch("http://localhost:8080/board", {
-      method: 'GET'
-    }).json; // 2) 게시글 목록 데이터에 할당  
-    setBoardList(resp); // 3) boardList 변수에 할당
-    console.log(boardList);
-  }
-
+    try {
+        if( accessToken && accessToken !== null ) {
+        const response = await fetch("http://localhost:8080/board", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        }
+        });
+        if (!response.ok) {
+        throw new Error('Failed to fetch boardList');
+        }
+        const data = await response.json(); 
+        setBoardList(data.data);     
+      }} catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
   useEffect(() => {
     getBoardList(); // 1) 게시글 목록 조회 함수 호출
   }, []);
@@ -26,7 +39,7 @@ const CommunityComponents = () => {
               <SideBarComponent />
             </Col>
             <Col>
-              <BoardComponent />
+              <BoardComponent boardList={boardList}/>
             </Col>
           </Row>
         </div>

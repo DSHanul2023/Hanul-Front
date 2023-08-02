@@ -1,8 +1,8 @@
 /* eslint-disable */
 import React from 'react';
 import { Card, Button, CardTitle, CardText, Row, Col, Container} from 'reactstrap';
-
-const BoardCards = () => {
+const BoardCards = (boarditem,key) => {
+    const item = boarditem.boarditem;
     return (
         <div>
             <Container className="board">
@@ -12,17 +12,17 @@ const BoardCards = () => {
                             <Container>
                                 <Row className='card-main'>
                                     <Col md="11">
-                                        <CardTitle>게시물 제목</CardTitle>
-                                        <CardText>내용 미리보기</CardText>
+                                        <CardTitle>{item.title}</CardTitle>
+                                        <CardText>{item.contents}</CardText>
                                     </Col>
                                     <Col className='board-right'>
-                                        <CardText>작성일</CardText>
+                                        <CardText>{item.date}</CardText>
                                     </Col>
                                 </Row>
                                     <hr></hr>
                                 <Row>
                                     <Col md="11">
-                                        <CardText>작성자</CardText>
+                                        <CardText>{item.author}</CardText>
                                     </Col>
                                     <Col className='board-right'>
                                         <CardText>3</CardText>
