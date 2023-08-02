@@ -28,12 +28,12 @@ const BoardFormComponent = (...args) => {
         } 
         
         setTime(`${hours}:${min}:${secs}`);
-        console.log(JSON.stringify({ title: title, contents: contents, date: time, author: author, cat: selected, idx: 1}));
+        console.log(JSON.stringify({ title: title, contents: contents, date: time, author: author, type: selected, idx: 1}));
         try {
             const response = await fetch("http://localhost:8080/board", {
                 method: "POST",
                 headers: headers,
-                body: JSON.stringify({ title: title, contents: contents, date: time, author: author, cat: selected, idx: 1}),
+                body: JSON.stringify({ title: title, contents: contents, date: time, author: author, type: selected, idx: 1}),
             });
             if (response.ok) {
                 const data = await response.json();

@@ -6,6 +6,7 @@ import React, {useEffect, useState} from 'react';
 const CommunityComponents = () => {
   const [boardList, setBoardList] = useState([]);
   const accessToken = localStorage.getItem("ACCESS_TOKEN");
+  const [selectedBoardType, setSelectedBoardType] = useState(1); // 기본값은 "1"로 자유게시판을 나타냅니다.
 
   const getBoardList = async () => {
     try {
@@ -30,16 +31,18 @@ const CommunityComponents = () => {
   useEffect(() => {
     getBoardList(); // 1) 게시글 목록 조회 함수 호출
   }, []);
-
+  const handleSidebarItemClick = (boardType) => {
+    setSelectedBoardType(boardType);
+  };
     return (
       <div>
         <div className='community'>
           <Row>
             <Col md="3">
-              <SideBarComponent />
+              <SideBarComponent onSidebarItemClick={handleSidebarItemClick} selectedBoardType={selectedBoardType}/>
             </Col>
             <Col>
-              <BoardComponent boardList={boardList}/>
+              <BoardComponent boardList={boardList} selectedBoardType={selectedBoardType} />
             </Col>
           </Row>
         </div>
