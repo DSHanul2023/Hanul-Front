@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from 'reactstrap';
-import ItemComponent from './itemcomponent';
+import ItemComponent from './ItemComponent';
 import ListPagination from './ListPaginationComponent';
+import MovieDetailComponent from './movieDetailcomponent';
 
 const ContentList = () => {
   const [movies, setMovies] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedMovie, setSelectedMovie] = useState(null);
   const itemsPerPage = 10;
 
   useEffect(() => {
@@ -29,12 +31,21 @@ const ContentList = () => {
     }
   };
 
+  const handleMovieClick = (movie) => {
+    setSelectedMovie(movie);
+  };
+
   return (
     <Container style={{ position: 'relative' }}>
-      <ItemComponent movies={movies} />
-      <div className="listpagination" style={{ position: 'absolute', bottom: '20px', left: '50%', transform: 'translateX(-50%)' }}>
-        <ListPagination totalPages={totalPages} currentPage={currentPage} onPageChange={fetchMovies} />
+      <ItemComponent movies={movies} onMovieClick={handleMovieClick} />
+      <div className="listpagination" style={{ display: 'flex', justifyContent: 'center', marginTop: '80px' }}>
+        <ListPagination totalPages={totalPages} currentPage={currentPage} onPageChange={setCurrentPage} />
       </div>
+      {selectedMovie && (
+        <div className="movieDetailOverlay">
+          <MovieDetailComponent movie={selectedMovie} />
+        </div>
+      )}
     </Container>
   );
 };
