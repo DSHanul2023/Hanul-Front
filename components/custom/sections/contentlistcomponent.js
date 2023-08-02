@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from 'reactstrap';
 import ItemComponent from './ItemComponent';
-import ListPagination from './ListPaginationComponent';
+import ListPagination from './listpaginationcomponent';
 import MovieDetailComponent from './movieDetailcomponent';
 
 const ContentList = () => {
