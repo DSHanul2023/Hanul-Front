@@ -842,6 +842,10 @@ Inquiry
     align-self: center;
     justify-self: center;
   }
+  .page-item.active .page-link{
+    background-color: $themecolor; 
+    border-color:$themecolor;
+  }
 }
 /*******************
 Content
