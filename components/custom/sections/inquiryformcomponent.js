@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { FormGroup, Label, Input, Button } from 'reactstrap';
 
 const InquiryForm = ({ inquiryToEdit, onFormSubmit, onFormCancel }) => {
+    const accessToken = localStorage.getItem("ACCESS_TOKEN");
+
     const [inquiry, setInquiry] = useState({
         inquiryNm: '',
         inquiryDetail: '',
@@ -28,7 +30,7 @@ const InquiryForm = ({ inquiryToEdit, onFormSubmit, onFormCancel }) => {
                 method,
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoZWxsbzJAd29ybGQuY29tIiwiaWF0IjoxNjkwNzAyMDA2LCJleHAiOjE2OTA3ODg0MDYsImlkIjoiNDAyODQ4ZTg4OWE1YjA4OTAxODlhNWIxMjhkZDAwMDAifQ.f7wYXaD1hqpeIzMLARNyK8f1zoeK2AkjZHM_74ZsMiM' // `Bearer ${token}`
+                    'Authorization': `Bearer ${accessToken}`
                 },
                 body: JSON.stringify(inquiry)
             });
@@ -58,7 +60,7 @@ const InquiryForm = ({ inquiryToEdit, onFormSubmit, onFormCancel }) => {
                 method,
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoZWxsbzJAd29ybGQuY29tIiwiaWF0IjoxNjkwNzAyMDA2LCJleHAiOjE2OTA3ODg0MDYsImlkIjoiNDAyODQ4ZTg4OWE1YjA4OTAxODlhNWIxMjhkZDAwMDAifQ.f7wYXaD1hqpeIzMLARNyK8f1zoeK2AkjZHM_74ZsMiM' // `Bearer ${token}`
+                    'Authorization': `Bearer ${accessToken}`
                 },
                 body: JSON.stringify(inquiryToEdit)
             });
