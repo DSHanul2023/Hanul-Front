@@ -7,7 +7,7 @@ const LoginComponent = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-
+  const ACCESS_TOKEN = "ACCESS_TOKEN";
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -23,6 +23,7 @@ const LoginComponent = () => {
         const token = data.token;
         console.log("Login successful");
         console.log("Token:", token);
+        localStorage.setItem(ACCESS_TOKEN, token);
         router.push("/chat"); // 로그인 후 채팅 페이지로 이동
       } else {
         console.log("Invalid credentials");

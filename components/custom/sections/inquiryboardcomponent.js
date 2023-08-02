@@ -23,13 +23,15 @@ const InquiryBoard = () => {
     const apiUrl = 'http://localhost:8080/api/inquiry';
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 2; // 한 페이지에 보여질 항목 수
+    const accessToken = localStorage.getItem("ACCESS_TOKEN");
     const retrieveInquiryList = async () => {
         try {
+            if( accessToken && accessToken !== null ) {
             const response = await fetch(apiUrl, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoZWxsbzJAd29ybGQuY29tIiwiaWF0IjoxNjkwNzAyMDA2LCJleHAiOjE2OTA3ODg0MDYsImlkIjoiNDAyODQ4ZTg4OWE1YjA4OTAxODlhNWIxMjhkZDAwMDAifQ.f7wYXaD1hqpeIzMLARNyK8f1zoeK2AkjZHM_74ZsMiM' // `Bearer ${token}`
+                'Authorization': `Bearer ${accessToken}`
             }
             });
 
@@ -39,7 +41,7 @@ const InquiryBoard = () => {
 
             const inquiries = await response.json();
             return inquiries.data;
-        } catch (error) {
+        }} catch (error) {
             console.error(error);
             throw error;
         }
@@ -101,7 +103,7 @@ const InquiryBoard = () => {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoZWxsbzJAd29ybGQuY29tIiwiaWF0IjoxNjkwNzAyMDA2LCJleHAiOjE2OTA3ODg0MDYsImlkIjoiNDAyODQ4ZTg4OWE1YjA4OTAxODlhNWIxMjhkZDAwMDAifQ.f7wYXaD1hqpeIzMLARNyK8f1zoeK2AkjZHM_74ZsMiM' // `Bearer ${token}`
+                    'Authorization': `Bearer ${accessToken}`
                 }
             });
 
@@ -127,7 +129,7 @@ const InquiryBoard = () => {
         for (let i = 1; i <= pageCount; i++) {
             paginationItems.push(
             <PaginationItem key={i} active={i === currentPage}>
-                <PaginationLink onClick={() => handlePaginationClick(i)}>
+                <PaginationLink className={i === currentPage ? 'page-active' : ''} onClick={() => handlePaginationClick(i)}>
                     {i}
                 </PaginationLink>
             </PaginationItem>
@@ -183,7 +185,7 @@ const InquiryBoard = () => {
                                     value={searchQuery}
                                     onChange={handleSearchInputChange}
                                 />
-                            <Col md="6"><Button color='themecolor' onClick={handleSearchSubmit}>검색하기</Button></Col> 
+                            <Col md="5"><Button color='themecolor' onClick={handleSearchSubmit}>검색</Button></Col> 
                         </FormGroup>
                     </Col>
                 </Row>
