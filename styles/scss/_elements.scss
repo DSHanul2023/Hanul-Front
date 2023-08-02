@@ -850,50 +850,53 @@ Inquiry
 /*******************
 Content
 *******************/
-.contentlist{
-  .contenttitle{
+.contentlist {
+  .contenttitle {
     font-weight: 400;
     font-size: 20px;
-    margin-top:3%;
-    margin-left:30%;
+    margin-top: 3%;
+    margin-left: 30%;
   }
-  .contentex{
-    margin-left:30%;
+  .contentex {
+    margin-left: 30%;
   }
-  .booklist,.movielist{
+  .booklist,
+  .movielist {
     text-align: center;
   }
-  .listpagination{
+  .listpagination {
     display: flex;
     justify-content: center;
-    
   }
 }
 
-.item{
-    /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
-    margin-top:30px;
-    width: 150px;
-    margin-right:30px;
-    display: inline-block;
-  .itemimg{
+.item {
+  /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+  margin-top: 30px;
+  width: 150px;
+  margin-right: 30px;
+  display: inline-block;
+
+  .itemimg {
     height: 200px;
     width: 150px;
-    background-color: #D9D9D9;
-    content: url(https://marketplace.canva.com/EAD161UHRIg/1/0/1003w/canva-%ED%8C%8C%EB%9E%80%EC%83%89-%EC%82%AC%EC%A7%84-%EA%B3%BC%ED%95%99-%EC%86%8C%EC%84%A4-%EC%B1%85-%ED%91%9C%EC%A7%80-W-oW2VKWuGo.jpg);
+    background-color: #d9d9d9;
   }
-  .itemsummary{
+
+  .itemsummary {
     text-align: left;
-    height:90px;
-    margin-left:10%;
+    height: 90px;
+    margin-left: 10%;
   }
-  .itemtitle{
-    margin-top:20px;
+
+  .itemtitle {
+    margin-top: 20px;
     font-size: 15px;
     font-weight: bold;
   }
-  .itemcontent{
-    font-size:10px;
+
+  .itemcontent {
+    font-size: 10px;
   }
 }
 
