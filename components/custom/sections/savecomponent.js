@@ -21,12 +21,12 @@ const SaveComponent = () => {
         </Row>
       </Container>
       <Container className="save-page-container col-md-8">
-        <Row className="row-cols-4">
-            <Col><Contents/></Col>
-            <Col><Contents/></Col>
-            <Col><Contents/></Col>
-            <Col><Contents/></Col>
-            <Col><Contents/></Col>
+        <Row className="row-cols-1 row-cols-md-2 row-cols-lg-4">
+          <Col><Contents /></Col>
+          <Col><Contents /></Col>
+          <Col><Contents /></Col>
+          <Col><Contents /></Col>
+          <Col><Contents /></Col>
         </Row>
       </Container>
       <Container>
