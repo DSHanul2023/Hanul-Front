@@ -1,17 +1,48 @@
 import SideBarComponent from "./sections/sidebarcomponent";
 import BoardComponent from "./sections/boardcomponent";
 import { Row, Col } from 'reactstrap';
+import React, {useEffect, useState} from 'react';
 
 const CommunityComponents = () => {
+  const [boardList, setBoardList] = useState([]);
+  const accessToken = localStorage.getItem("ACCESS_TOKEN");
+  const [selectedBoardType, setSelectedBoardType] = useState(1); // 기본값은 "1"로 자유게시판을 나타냅니다.
+
+  const getBoardList = async () => {
+    try {
+        if( accessToken && accessToken !== null ) {
+        const response = await fetch("http://localhost:8080/board", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        }
+        });
+        if (!response.ok) {
+        throw new Error('Failed to fetch boardList');
+        }
+        const data = await response.json(); 
+        setBoardList(data.data);     
+      }} catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+  useEffect(() => {
+    getBoardList(); // 1) 게시글 목록 조회 함수 호출
+  }, []);
+  const handleSidebarItemClick = (boardType) => {
+    setSelectedBoardType(boardType);
+  };
     return (
       <div>
         <div className='community'>
           <Row>
             <Col md="3">
-              <SideBarComponent />
+              <SideBarComponent onSidebarItemClick={handleSidebarItemClick} selectedBoardType={selectedBoardType}/>
             </Col>
             <Col>
-              <BoardComponent />
+              <BoardComponent boardList={boardList} selectedBoardType={selectedBoardType} />
             </Col>
           </Row>
         </div>
