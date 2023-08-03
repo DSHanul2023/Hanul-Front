@@ -1,9 +1,28 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Form, FormGroup, Label, Input, Button, Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
+import Image from "next/image";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Button,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalFooter,
+  Card,
+  CardTitle,
+  CardText,
+} from "reactstrap";
 import default_profile from "../../../assets/images/chat/dog.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 const MemberInfoChange = (props) => {
-  const [name, setName] = useState("John Doe");
+  const [name, setName] = useState("Welover");
   const [nameInput, setNameInput] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -30,6 +49,7 @@ const MemberInfoChange = (props) => {
 
   const handleEditName = () => {
     setIsEditingName(true);
+    setNameInput(name); // 이름 입력 필드 초기화
   };
 
   const handleNameChange = (e) => {
@@ -44,6 +64,12 @@ const MemberInfoChange = (props) => {
       setNameChanged(true);
     } else {
       setIsEditingName(false);
+    }
+  };
+
+  const handleNameInputKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleNameUpdate();
     }
   };
 
@@ -85,21 +111,26 @@ const MemberInfoChange = (props) => {
         <Row className="justify-content-center mb-5">
           <Col md="8" lg="6">
             <h1 className="title m-5 text-center">회원정보 변경</h1>
+
             <Form onSubmit={handleSubmit}>
               <FormGroup>
                 <div className="profile-picture-preview mb-5">
                   <div
                     className="profile-picture"
                     style={{
-                      backgroundImage: `url(${profilePicturePreview || default_profile})`,
+                      backgroundImage: `url(${
+                        profilePicturePreview || default_profile
+                      })`,
                     }}
                   />
-                  
+
                   <Button
                     outline
                     color="secondary"
                     className="profile-picture-select-btn"
-                    onClick={() => document.getElementById("profilePicture").click()}
+                    onClick={() =>
+                      document.getElementById("profilePicture").click()
+                    }
                   >
                     사진 선택
                   </Button>
@@ -111,12 +142,56 @@ const MemberInfoChange = (props) => {
                   style={{ display: "none" }}
                 />
               </FormGroup>
-              {/* Rest of the form code */}
-              {/* ... */}
+              <Col>
+                <Row className="justify-content-center">
+                  <Card body className="card-shadow">
+                    <div className="d-flex justify-content-center align-items-center">
+                      <div>
+                        <div className="mb-3">
+                          {isEditingName ? (
+                            <div className="d-flex">
+                              <Input
+                                type="text"
+                                value={nameInput}
+                                onChange={handleNameChange}
+                                onKeyPress={handleNameInputKeyPress}
+                                className="col-8"
+                              />
+                              <Button
+                                color="primary"
+                                onClick={handleNameUpdate}
+                                className="ml-2"
+                              >
+                                수정
+                              </Button>
+                            </div>
+                          ) : (
+                            <div>
+                              <CardTitle className="text-center">
+                                {name}
+                                <span
+                                  className="edit-icon ml-2"
+                                  onClick={handleEditName}
+                                >
+                                  <FontAwesomeIcon icon={faPencilAlt} />
+                                </span>
+                              </CardTitle>
+                            </div>
+                          )}
+                        </div>
+                        <CardText className="text-center">
+                          welover@duksung.ac.kr
+                        </CardText>
+                      </div>
+                    </div>
+                  </Card>
+                </Row>
+              </Col>
+
               <Button
                 type="button"
                 onClick={toggle1.bind(null)}
-                className="btn btn-block waves-effect waves-light btn-outline-primary m-b-30"
+                className="btn btn-block waves-effect waves-light btn-outline-secondary m-b-30"
               >
                 비밀번호 변경
               </Button>
@@ -126,7 +201,9 @@ const MemberInfoChange = (props) => {
                 toggle={toggle1.bind(null)}
                 className={props.className}
               >
-                <ModalHeader toggle={toggle1.bind(null)}>비밀번호 변경</ModalHeader>
+                <ModalHeader toggle={toggle1.bind(null)}>
+                  비밀번호 변경
+                </ModalHeader>
                 <ModalBody>
                   <FormGroup>
                     <Label for="currentPassword">현재 비밀번호</Label>
@@ -138,7 +215,9 @@ const MemberInfoChange = (props) => {
                       required
                     />
                     {!currentPasswordMatch && (
-                      <div className="text-danger">현재 비밀번호가 일치하지 않습니다.</div>
+                      <div className="text-danger">
+                        현재 비밀번호가 일치하지 않습니다.
+                      </div>
                     )}
                   </FormGroup>
                   <FormGroup>
@@ -161,7 +240,9 @@ const MemberInfoChange = (props) => {
                       required
                     />
                     {!passwordMatch && (
-                      <div className="text-danger">비밀번호가 일치하지 않습니다.</div>
+                      <div className="text-danger">
+                        비밀번호가 일치하지 않습니다.
+                      </div>
                     )}
                   </FormGroup>
                 </ModalBody>
@@ -174,11 +255,17 @@ const MemberInfoChange = (props) => {
                   </Button>
                 </ModalFooter>
               </Modal>
-              <Button outline color="secondary" type="submit" className="w-100">
-                변경하기
+              <Button outline color="danger" type="submit" className="w-100">
+                회원탈퇴
               </Button>
-              {nameChanged && <div className="text-success">이름이 변경되었습니다.</div>}
-              {passwordChanged && <div className="text-success">비밀번호가 변경되었습니다.</div>}
+              {/* {nameChanged && (
+                <div className="text-success align-center">
+                  이름이 변경되었습니다.
+                </div>
+              )}
+              {passwordChanged && (
+                <div className="text-success">비밀번호가 변경되었습니다.</div>
+              )} */}
             </Form>
           </Col>
         </Row>

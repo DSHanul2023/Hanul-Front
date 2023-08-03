@@ -33,7 +33,9 @@ const MyPageComponents = () => {
                   <Image
                     src={img2}
                     alt="img"
-                    className="img-circle w-50 h-50"
+                    className="img-circle mr-4"
+                    width={100} 
+                    height={100}
                   />
                 </div>
                 <div className="align-self-center">
@@ -47,32 +49,62 @@ const MyPageComponents = () => {
         <Row className="justify-content-center">
           <Col md="6">
             <div className="mb-3">
-              <Button outline color="secondary" className="w-100" href="/mypost">
+              <Button
+                outline
+                color="secondary"
+                className="w-100"
+                href="/mypost"
+              >
                 작성게시물
               </Button>
             </div>
             <div className="mb-3">
-              <Button outline color="secondary" className="w-100" href="/mycomment">
+              <Button
+                outline
+                color="secondary"
+                className="w-100"
+                href="/mycomment"
+              >
                 작성댓글
               </Button>
             </div>
             <div className="mb-3">
-              <Button outline color="secondary" className="w-100" href="/savepage">
+              <Button
+                outline
+                color="secondary"
+                className="w-100"
+                href="/savepage"
+              >
                 북마크
               </Button>
             </div>
             <div className="mb-3">
-              <Button outline color="secondary" className="w-100" href="/memberinfochange">
+              <Button
+                outline
+                color="secondary"
+                className="w-100"
+                href="/memberinfochange"
+              >
                 회원정보변경
               </Button>
             </div>
             <div className="mb-3">
-              <Button outline color="secondary" className="w-100" href="/onetooneinquiry">
+              <Button
+                outline
+                color="secondary"
+                className="w-100"
+                href="/onetooneinquiry"
+              >
                 1:1 문의하기
               </Button>
             </div>
             <div className="mb-3">
-              <Button href="/#coming" outline color="secondary" className="w-100">
+              <Button
+                href="/#coming"
+                outline
+                color="secondary"
+                className="w-100"
+              >
                 로그아웃
               </Button>
             </div>
