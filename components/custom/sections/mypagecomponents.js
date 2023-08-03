@@ -9,7 +9,7 @@ import {
   Col,
   Container,
 } from "reactstrap";
-import img2 from "../../../assets/images/ui/5.jpg";
+import img2 from "../../../assets/images/chat/dog.png";
 
 const MyPageComponents = () => {
   return (
@@ -33,7 +33,9 @@ const MyPageComponents = () => {
                   <Image
                     src={img2}
                     alt="img"
-                    className="img-circle w-50 h-50"
+                    className="img-circle mr-4"
+                    width={100} 
+                    height={100}
                   />
                 </div>
                 <div className="align-self-center">
@@ -45,41 +47,64 @@ const MyPageComponents = () => {
           </Col>
         </Row>
         <Row className="justify-content-center">
-          <Col md="6" className="d-flex justify-content-between">
-            <div style={{ width: "135px" }}>
-              <Button outline color="secondary" className="w-100">
+          <Col md="6">
+            <div className="mb-3">
+              <Button
+                outline
+                color="secondary"
+                className="w-100"
+                href="/mypost"
+              >
                 작성게시물
               </Button>
             </div>
-            <div style={{ width: "135px" }}>
-              <Button outline color="secondary" className="w-100">
+            <div className="mb-3">
+              <Button
+                outline
+                color="secondary"
+                className="w-100"
+                href="/mycomment"
+              >
                 작성댓글
               </Button>
             </div>
-            <div style={{ width: "135px" }}>
-              <Button outline color="secondary" className="w-100" href="/savepage">
+            <div className="mb-3">
+              <Button
+                outline
+                color="secondary"
+                className="w-100"
+                href="/savepage"
+              >
                 북마크
               </Button>
             </div>
-          </Col>
-        </Row>
-        <Row className="justify-content-center">
-          <Col
-            md="6"
-            className="d-flex justify-content-between flex-column align-items-center"
-          >
-            <div style={{ width: "100%" }}>
-              <Button outline color="secondary" className="w-100 mt-4">
+            <div className="mb-3">
+              <Button
+                outline
+                color="secondary"
+                className="w-100"
+                href="/memberinfochange"
+              >
                 회원정보변경
               </Button>
             </div>
-            <div style={{ width: "100%" }}>
-              <Button outline color="secondary" className="w-100 mt-4">
+            <div className="mb-3">
+              <Button
+                outline
+                color="secondary"
+                className="w-100"
+                href="/onetooneinquiry"
+              >
                 1:1 문의하기
               </Button>
             </div>
-            <div style={{ width: "100%" }}>
-              <Button href="/#coming" outline color="secondary" className="w-100 mt-4">
+            <div className="mb-3">
+              <Button
+                href="/#coming"
+                outline
+                color="secondary"
+                className="w-100"
+              >
                 로그아웃
               </Button>
             </div>
