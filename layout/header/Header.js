@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -13,11 +13,40 @@ import {
   NavLink,
 } from "reactstrap";
 import logo from "../../assets/images/logos/white-text.png";
+// import { access } from "fs";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const toggle = () => setIsOpen(!isOpen);
+  const [logState, setLogState] = useState("");
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("ACCESS_TOKEN");
+    if (!accessToken) {
+      setLogState("LogIn");
+    } else {
+      setLogState("LogOut");
+    }
+  }, []);
+
+  // const handleLogOut = () => {
+  //   router.push("/");
+  //   localStorage.removeItem("ACCESS_TOKEN");
+  //   setLogState("LogIn");
+  // };
+
+  const handleLogIn = () => {
+    if(localStorage.getItem("ACCESS_TOKEN")){
+      router.push("/");
+      localStorage.removeItem("ACCESS_TOKEN");
+      setLogState("LogIn");
+    } else{
+      router.push("/login");
+      setLogState("LogOut");
+    }
+  };
+
   return (
     <div className="topbar" id="top">
       <div className="header6">
@@ -90,11 +119,11 @@ const Header = () => {
               </Nav>
               <div className="act-buttons">
                 <NavLink
-                  href="/login"
-                  className="btn btn-light font-14 text-white"
-                  target="_blank"
+                // href="/login"
+                className="btn btn-light font-14 text-white"
+                onClick={handleLogIn}
                 >
-                  Login
+                  {logState}
                 </NavLink>
               </div>
             </Collapse>
