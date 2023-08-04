@@ -1,4 +1,5 @@
-import React from "react";
+// import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   Card,
@@ -10,8 +11,46 @@ import {
   Container,
 } from "reactstrap";
 import img2 from "../../../assets/images/chat/dog.png";
+import { useRouter } from "next/router";
 
 const MyPageComponents = () => {
+  const router = useRouter();
+  const [member, setMember] = useState(null);
+
+  useEffect(() => {
+    // Check if user is logged in (you can adjust this condition based on your login mechanism)
+    const accessToken = localStorage.getItem("ACCESS_TOKEN");
+    if (!accessToken) {
+      router.push("/login"); // Redirect to the main page if not logged in
+    } else {
+      fetchMemberInfo(accessToken);
+    }
+  }, []);
+
+  const fetchMemberInfo = async (token) => {
+    try {
+      const response = await fetch("http://localhost:8080/members/getMemberInfo", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setMember(data);
+      } else {
+        console.log("Failed to fetch member information");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("ACCESS_TOKEN"); // Clear access token
+    router.push("/"); // Redirect to the main page after logout
+  };
+
   return (
     <div className="my-page-container">
       <div className="spacer" id="card-component">
@@ -34,13 +73,18 @@ const MyPageComponents = () => {
                     src={img2}
                     alt="img"
                     className="img-circle mr-4"
-                    width={100} 
+                    width={100}
                     height={100}
                   />
                 </div>
                 <div className="align-self-center">
-                  <CardTitle>위러버</CardTitle>
-                  <CardText>welover@duksung.ac.kr</CardText>
+                  {/* Display member's name and email */}
+                  {member && (
+                    <>
+                      <CardTitle>{member.name}</CardTitle>
+                      <CardText>{member.email}</CardText>
+                    </>
+                  )}
                 </div>
               </div>
             </Card>
@@ -100,7 +144,7 @@ const MyPageComponents = () => {
             </div>
             <div className="mb-3">
               <Button
-                href="/#coming"
+                onClick={handleLogout}
                 outline
                 color="secondary"
                 className="w-100"

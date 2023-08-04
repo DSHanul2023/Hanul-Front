@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Image from "next/image";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Row,
@@ -21,8 +20,8 @@ import default_profile from "../../../assets/images/chat/dog.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
-const MemberInfoChange = (props) => {
-  const [name, setName] = useState("Welover");
+const MemberInfoChange = () => {
+  const [member, setMember] = useState(null);
   const [nameInput, setNameInput] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -30,42 +29,102 @@ const MemberInfoChange = (props) => {
   const [profilePicture, setProfilePicture] = useState(null);
   const [profilePicturePreview, setProfilePicturePreview] = useState(null);
   const [nameChanged, setNameChanged] = useState(false);
-  const [passwordChanged, setPasswordChanged] = useState(false);
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [currentPasswordMatch, setCurrentPasswordMatch] = useState(true);
   const [isEditingName, setIsEditingName] = useState(false);
   const [modal1, setModal1] = useState(false);
 
-  const handleProfilePictureChange = (e) => {
-    const file = e.target.files[0];
-    setProfilePicture(file);
+  useEffect(() => {
+    // Check if user is logged in (you can adjust this condition based on your login mechanism)
+    const accessToken = localStorage.getItem("ACCESS_TOKEN");
+    if (!accessToken) {
+      router.push("/login"); // Redirect to the main page if not logged in
+    } else {
+      fetchMemberInfo(accessToken);
+    }
+  }, []);
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setProfilePicturePreview(reader.result);
-    };
-    reader.readAsDataURL(file);
+  const fetchMemberInfo = async (token) => {
+    try {
+      const response = await fetch(
+        "http://localhost:8080/members/getMemberInfo",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setMember(data);
+        setNameInput(data.name); // Set initial value for name input
+      } else {
+        console.log("Failed to fetch member information");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const handleProfilePictureChange = (e) => {
+    // Handle profile picture change
   };
 
   const handleEditName = () => {
     setIsEditingName(true);
-    setNameInput(name); // 이름 입력 필드 초기화
   };
 
   const handleNameChange = (e) => {
     setNameInput(e.target.value);
   };
-
-  const handleNameUpdate = () => {
+  
+  const handleNameUpdate = async () => {
     if (nameInput.trim() !== "") {
-      setName(nameInput);
-      setNameInput("");
-      setIsEditingName(false);
-      setNameChanged(true);
+      try {
+        const accessToken = localStorage.getItem("ACCESS_TOKEN");
+        if (!accessToken) {
+          router.push("/login");
+          return;
+        }
+
+        const response = await fetch(
+          "http://localhost:8080/members/updateMemberInfo",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${accessToken}`,
+            },
+            body: JSON.stringify({
+              id: member.id,
+              name: nameInput,
+              password: "",
+              token: accessToken,
+            }),
+          }
+        );
+
+        if (response.ok) {
+          const updatedMember = await response.json();
+          if (updatedMember) {
+            setMember(updatedMember);
+            setIsEditingName(false); // 이름 수정 완료 후 편집 모드 해제
+          } else {
+            // setError("Failed to update member name");
+          }
+        } else {
+          // setError("Failed to update member name");
+        }
+      } catch (error) {
+        console.error("Failed to fetch", error);
+        // setError("An error occurred");
+      }
     } else {
       setIsEditingName(false);
     }
   };
+  
 
   const handleNameInputKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -73,31 +132,37 @@ const MemberInfoChange = (props) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const mockCurrentPassword = "current123";
-    const mockNewPassword = "new123";
-
-    setPasswordMatch(true);
-    setCurrentPasswordMatch(true);
-
-    if (currentPassword !== mockCurrentPassword) {
-      setCurrentPasswordMatch(false);
-      return;
-    }
 
     if (newPassword !== confirmPassword) {
       setPasswordMatch(false);
       return;
     }
 
-    if (name !== "John Doe") {
-      setNameChanged(true);
-    }
+    try {
+      const response = await fetch(
+        "http://localhost:8080/members/updateMemberInfo",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({
+            password: newPassword,
+          }),
+        }
+      );
 
-    if (newPassword !== "") {
-      setPasswordChanged(true);
+      if (response.ok) {
+        setPasswordMatch(true);
+        // Handle password changed successfully
+      } else {
+        console.error("Failed to update member password");
+      }
+    } catch (error) {
+      console.error("Failed to fetch", error);
     }
   };
 
@@ -148,40 +213,52 @@ const MemberInfoChange = (props) => {
                     <div className="d-flex justify-content-center align-items-center">
                       <div>
                         <div className="mb-3">
-                          {isEditingName ? (
-                            <div className="d-flex">
-                              <Input
-                                type="text"
-                                value={nameInput}
-                                onChange={handleNameChange}
-                                onKeyPress={handleNameInputKeyPress}
-                                className="col-8"
-                              />
-                              <Button
-                                color="primary"
-                                onClick={handleNameUpdate}
-                                className="ml-2"
-                              >
-                                수정
-                              </Button>
-                            </div>
+                          {member ? (
+                            <CardTitle className="text-center">
+                              {isEditingName ? (
+                                <div className="d-flex">
+                                  <Input
+                                    type="text"
+                                    value={nameInput}
+                                    onChange={handleNameChange}
+                                    onKeyPress={handleNameInputKeyPress}
+                                    className="col-8"
+                                  />
+                                  <Button
+                                    color="primary"
+                                    onClick={handleNameUpdate}
+                                    className="ml-2"
+                                  >
+                                    수정
+                                  </Button>
+                                </div>
+                              ) : (
+                                <>
+                                  {member.name}
+                                  <span
+                                    className="edit-icon ml-2"
+                                    onClick={handleEditName}
+                                  >
+                                    <FontAwesomeIcon icon={faPencilAlt} />
+                                  </span>
+                                </>
+                              )}
+                            </CardTitle>
                           ) : (
-                            <div>
-                              <CardTitle className="text-center">
-                                {name}
-                                <span
-                                  className="edit-icon ml-2"
-                                  onClick={handleEditName}
-                                >
-                                  <FontAwesomeIcon icon={faPencilAlt} />
-                                </span>
-                              </CardTitle>
-                            </div>
+                            <CardTitle className="text-center">
+                              로딩 중...
+                            </CardTitle>
                           )}
                         </div>
-                        <CardText className="text-center">
-                          welover@duksung.ac.kr
-                        </CardText>
+                        {member ? (
+                          <CardText className="text-center">
+                            {member.email}
+                          </CardText>
+                        ) : (
+                          <CardText className="text-center">
+                            로딩 중...
+                          </CardText>
+                        )}
                       </div>
                     </div>
                   </Card>
@@ -199,7 +276,7 @@ const MemberInfoChange = (props) => {
                 size="md"
                 isOpen={modal1}
                 toggle={toggle1.bind(null)}
-                className={props.className}
+                className="my-modal"
               >
                 <ModalHeader toggle={toggle1.bind(null)}>
                   비밀번호 변경
@@ -247,7 +324,7 @@ const MemberInfoChange = (props) => {
                   </FormGroup>
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="primary" onClick={toggle1.bind(null)}>
+                  <Button color="primary" onClick={handleSubmit}>
                     변경
                   </Button>{" "}
                   <Button color="secondary" onClick={toggle1.bind(null)}>
