@@ -38,12 +38,14 @@ const Header = () => {
 
   const handleLogIn = () => {
     if(localStorage.getItem("ACCESS_TOKEN")){
-      router.push("/");
+      // router.push("/");
+      window.location.href = "/";
       localStorage.removeItem("ACCESS_TOKEN");
-      setLogState("LogIn");
+      // setLogState("LogIn");
     } else{
-      router.push("/login");
-      setLogState("LogOut");
+      window.location.href = "/login";
+      // router.push("/login");
+      // setLogState("LogOut");
     }
   };
 
