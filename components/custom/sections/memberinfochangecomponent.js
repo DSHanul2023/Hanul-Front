@@ -33,6 +33,8 @@ const MemberInfoChange = () => {
   const [currentPasswordMatch, setCurrentPasswordMatch] = useState(true);
   const [isEditingName, setIsEditingName] = useState(false);
   const [modal1, setModal1] = useState(false);
+  const [passwordChanged, setPasswordChanged] = useState(false);
+  const [currentPasswordError, setCurrentPasswordError] = useState(false);
 
   useEffect(() => {
     // Check if user is logged in (you can adjust this condition based on your login mechanism)
@@ -59,6 +61,7 @@ const MemberInfoChange = () => {
         const data = await response.json();
         setMember(data);
         setNameInput(data.name); // Set initial value for name input
+        console.log("current password: " + data.password);
       } else {
         console.log("Failed to fetch member information");
       }
@@ -78,7 +81,7 @@ const MemberInfoChange = () => {
   const handleNameChange = (e) => {
     setNameInput(e.target.value);
   };
-  
+
   const handleNameUpdate = async () => {
     if (nameInput.trim() !== "") {
       try {
@@ -91,10 +94,10 @@ const MemberInfoChange = () => {
         const response = await fetch(
           "http://localhost:8080/members/updateMemberInfo",
           {
-            method: "POST",
+            method: "PUT",
             headers: {
               "Content-Type": "application/json",
-              "Authorization": `Bearer ${accessToken}`,
+              Authorization: `Bearer ${accessToken}`,
             },
             body: JSON.stringify({
               id: member.id,
@@ -124,7 +127,6 @@ const MemberInfoChange = () => {
       setIsEditingName(false);
     }
   };
-  
 
   const handleNameInputKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -141,23 +143,34 @@ const MemberInfoChange = () => {
     }
 
     try {
+      const accessToken = localStorage.getItem("ACCESS_TOKEN");
+      if (!accessToken) {
+        router.push("/login");
+        return;
+      }
+
       const response = await fetch(
-        "http://localhost:8080/members/updateMemberInfo",
+        "http://localhost:8080/members/updatePassword", // Change the URL endpoint
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({
-            password: newPassword,
+            id: member.id, // Pass the user ID
+            password: currentPassword,
+            newPassword: newPassword,
           }),
         }
       );
 
       if (response.ok) {
         setPasswordMatch(true);
-        // Handle password changed successfully
+        setPasswordChanged(true);
+        setCurrentPasswordError(false);
+      } else if (response.status === 500) {
+        setCurrentPasswordError(true); // Set current password error
       } else {
         console.error("Failed to update member password");
       }
@@ -166,8 +179,12 @@ const MemberInfoChange = () => {
     }
   };
 
+  // const toggle1 = () => {
+  //   setModal1(!modal1);
+  // };
   const toggle1 = () => {
     setModal1(!modal1);
+    setPasswordChanged(false); // Reset password changed state when modal is closed
   };
 
   return (
@@ -275,7 +292,7 @@ const MemberInfoChange = () => {
               <Modal
                 size="md"
                 isOpen={modal1}
-                toggle={toggle1.bind(null)}
+                toggle={toggle1}
                 className="my-modal"
               >
                 <ModalHeader toggle={toggle1.bind(null)}>
@@ -291,8 +308,8 @@ const MemberInfoChange = () => {
                       onChange={(e) => setCurrentPassword(e.target.value)}
                       required
                     />
-                    {!currentPasswordMatch && (
-                      <div className="text-danger">
+                    {currentPasswordError && (
+                      <div className="text-danger mt-3">
                         현재 비밀번호가 일치하지 않습니다.
                       </div>
                     )}
@@ -322,6 +339,11 @@ const MemberInfoChange = () => {
                       </div>
                     )}
                   </FormGroup>
+                  {passwordChanged && (
+                    <div className="text-success mt-3">
+                      비밀번호가 변경되었습니다.
+                    </div>
+                  )}
                 </ModalBody>
                 <ModalFooter>
                   <Button color="primary" onClick={handleSubmit}>
