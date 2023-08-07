@@ -35,12 +35,15 @@ const MemberInfoChange = () => {
   const [modal1, setModal1] = useState(false);
   const [passwordChanged, setPasswordChanged] = useState(false);
   const [currentPasswordError, setCurrentPasswordError] = useState(false);
+  const [modal2, setModal2] = useState(false);
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
 
   useEffect(() => {
     // Check if user is logged in (you can adjust this condition based on your login mechanism)
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
     if (!accessToken) {
-      router.push("/login"); // Redirect to the main page if not logged in
+      // router.push("/login"); // Redirect to the main page if not logged in
+      window.location.href = "/login";
     } else {
       fetchMemberInfo(accessToken);
     }
@@ -179,12 +182,54 @@ const MemberInfoChange = () => {
     }
   };
 
+  const handleDeleteMember = async () => {
+    try {
+      const accessToken = localStorage.getItem("ACCESS_TOKEN");
+      if (!accessToken) {
+        router.push("/login");
+        return;
+      }
+
+      const response = await fetch("http://localhost:8080/members/deleteMember", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          id: member.id,
+        }),
+      });
+
+      if (response.ok) {
+        setDeleteSuccess(true);
+        localStorage.removeItem("ACCESS_TOKEN");
+      window.location.href = "/"; // 맨 첫 화면으로 이동
+        toggle2();
+      } else if (response.status === 404) {
+        console.error("Member not found");
+      } else {
+        console.error("Failed to delete member");
+      }
+    } catch (error) {
+      console.error("Failed to fetch", error);
+    }
+  };
+
   // const toggle1 = () => {
   //   setModal1(!modal1);
   // };
   const toggle1 = () => {
     setModal1(!modal1);
     setPasswordChanged(false); // Reset password changed state when modal is closed
+  };
+
+  const toggle2 = () => {
+    setModal2(!modal2);
+    if (deleteSuccess) {
+      localStorage.removeItem("ACCESS_TOKEN");
+      window.location.href = "/"; // 맨 첫 화면으로 이동
+    }
   };
 
   return (
@@ -354,9 +399,36 @@ const MemberInfoChange = () => {
                   </Button>
                 </ModalFooter>
               </Modal>
-              <Button outline color="danger" type="submit" className="w-100">
+              {/* <Button outline color="danger" type="submit" className="w-100">
                 회원탈퇴
-              </Button>
+              </Button> */}
+              <Button
+              outline
+              color="danger"
+              onClick={toggle2.bind(null)}
+              className="btn btn-block waves-effect waves-light btn-outline-danger m-b-30"
+            >
+              회원탈퇴
+            </Button>
+              <Modal
+              size="md"
+              isOpen={modal2}
+              toggle={toggle2}
+              className="my-modal"
+            >
+              <ModalHeader toggle={toggle2.bind(null)}>회원탈퇴</ModalHeader>
+              <ModalBody>
+                정말 삭제하시겠습니까?
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" onClick={handleDeleteMember}>
+                  탈퇴
+                </Button>{" "}
+                <Button color="secondary" onClick={toggle2.bind(null)}>
+                  취소
+                </Button>
+              </ModalFooter>
+            </Modal>
               {/* {nameChanged && (
                 <div className="text-success align-center">
                   이름이 변경되었습니다.
