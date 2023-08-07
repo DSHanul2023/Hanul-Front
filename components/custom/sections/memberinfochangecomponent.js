@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import {
   Container,
   Row,
@@ -16,7 +17,7 @@ import {
   CardTitle,
   CardText,
 } from "reactstrap";
-import default_profile from "../../../assets/images/chat/dog.png";
+import default_profile from "../../../public/default_profile.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
@@ -242,13 +243,10 @@ const MemberInfoChange = () => {
             <Form onSubmit={handleSubmit}>
               <FormGroup>
                 <div className="profile-picture-preview mb-5">
-                  <div
-                    className="profile-picture"
-                    style={{
-                      backgroundImage: `url(${
-                        profilePicturePreview || default_profile
-                      })`,
-                    }}
+                  <Image
+                    src={profilePicturePreview||default_profile}
+                    alt="profile"
+                    className="profile-picture img-circle"
                   />
 
                   <Button
@@ -418,7 +416,7 @@ const MemberInfoChange = () => {
             >
               <ModalHeader toggle={toggle2.bind(null)}>회원탈퇴</ModalHeader>
               <ModalBody>
-                정말 삭제하시겠습니까?
+                정말 탈퇴하시겠습니까?
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" onClick={handleDeleteMember}>

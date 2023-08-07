@@ -132,7 +132,7 @@ const MyPageComponents = () => {
                 회원정보변경
               </Button>
             </div>
-            <div className="mb-3">
+            {/* <div className="mb-3">
               <Button
                 outline
                 color="secondary"
@@ -141,7 +141,7 @@ const MyPageComponents = () => {
               >
                 1:1 문의하기
               </Button>
-            </div>
+            </div> */}
             <div className="mb-3">
               <Button
                 onClick={handleLogout}

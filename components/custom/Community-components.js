@@ -5,17 +5,28 @@ import React, {useEffect, useState} from 'react';
 
 const CommunityComponents = () => {
   const [boardList, setBoardList] = useState([]);
-  const accessToken = localStorage.getItem("ACCESS_TOKEN");
+  // const accessToken = localStorage.getItem("ACCESS_TOKEN");
   const [selectedBoardType, setSelectedBoardType] = useState(1); // 기본값은 "1"로 자유게시판을 나타냅니다.
 
-  const getBoardList = async () => {
+  useEffect(() => {
+    // Check if user is logged in (you can adjust this condition based on your login mechanism)
+    const accessToken = localStorage.getItem("ACCESS_TOKEN");
+    if (!accessToken) {
+      // router.push("/login"); // Redirect to the main page if not logged in
+      window.location.href = "/login";
+    } else {
+      getBoardList(accessToken);
+    }
+  }, []);
+
+  const getBoardList = async (token) => {
     try {
-        if( accessToken && accessToken !== null ) {
+        if( token && token !== null ) {
         const response = await fetch("http://localhost:8080/board", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`
+            'Authorization': `Bearer ${token}`
         }
         });
         if (!response.ok) {
@@ -28,9 +39,9 @@ const CommunityComponents = () => {
         throw error;
     }
 };
-  useEffect(() => {
-    getBoardList(); // 1) 게시글 목록 조회 함수 호출
-  }, []);
+  // useEffect(() => {
+  //   getBoardList(); // 1) 게시글 목록 조회 함수 호출
+  // }, []);
   const handleSidebarItemClick = (boardType) => {
     setSelectedBoardType(boardType);
   };
