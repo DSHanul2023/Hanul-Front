@@ -5,13 +5,12 @@ import React, {useEffect, useState} from 'react';
 
 const CommunityComponents = () => {
   const [boardList, setBoardList] = useState([]);
-  // const accessToken = localStorage.getItem("ACCESS_TOKEN");
   const [selectedBoardType, setSelectedBoardType] = useState(1); // 기본값은 "1"로 자유게시판을 나타냅니다.
 
   useEffect(() => {
-    // Check if user is logged in (you can adjust this condition based on your login mechanism)
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
     if (!accessToken) {
+      setToken(accessToken);
       // router.push("/login"); // Redirect to the main page if not logged in
       window.location.href = "/login";
     } else {
@@ -19,14 +18,15 @@ const CommunityComponents = () => {
     }
   }, []);
 
-  const getBoardList = async (token) => {
+  const getBoardList = async (accessToken) => {
     try {
-        if( token && token !== null ) {
+      console.log(accessToken);
+        if( accessToken && accessToken !== null ) {
         const response = await fetch("http://localhost:8080/board", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${accessToken}`
         }
         });
         if (!response.ok) {
@@ -53,7 +53,7 @@ const CommunityComponents = () => {
               <SideBarComponent onSidebarItemClick={handleSidebarItemClick} selectedBoardType={selectedBoardType}/>
             </Col>
             <Col>
-              <BoardComponent boardList={boardList} selectedBoardType={selectedBoardType} />
+              <BoardComponent boardList={boardList} selectedBoardType={selectedBoardType}/>
             </Col>
           </Row>
         </div>
