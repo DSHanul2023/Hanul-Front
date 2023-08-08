@@ -80,6 +80,30 @@ const BoardInsideComponent = () => {
             console.error("Error:", error);
         }
     };
+
+    const handleDeleteClick = async () => {
+        const accessToken = token;
+        console.log(accessToken);
+        try {
+            const response = await fetch(`http://localhost:8080/board`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`,
+                },
+                body: JSON.stringify({
+                    idx:id
+                }),
+            });
+            if (response.ok) {
+                console.log('Content deleted');
+                router.push('/community');
+            }
+            } catch (error) {
+            console.error('Error:', error);
+            }
+        };
+        
     return (
         <div className='boardCreate'>
             <Container>
@@ -144,8 +168,12 @@ const BoardInsideComponent = () => {
                             </Col>
                         </Row>
                     </Container>
-                </Card>
-                <Button color="themecolor" onClick={handleEditClick} style={{ float: "right" }}>수정</Button>
+                {boardData.canEdit && (
+                <div>
+                <Button color='danger' onClick={handleDeleteClick} style={{ float: 'right' }}>삭제</Button>
+                <Button color="themecolor" onClick={handleEditClick} style={{ float: "right", marginRight: '10px'  }}>수정</Button>
+                </div>
+                )} </Card>
                     </>
                 )}
             </Container>
