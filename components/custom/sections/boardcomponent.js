@@ -3,8 +3,6 @@ import { Row, Col, Container, Button } from 'reactstrap';
 import BoardCards from './boardcardcomponent';
 const BoardComponent = ({ boardList, selectedBoardType }) => {
     const filteredBoardList = boardList.filter((boarditem) => (parseInt(boarditem.type, 10) === selectedBoardType));
-    console.log(filteredBoardList);
-
     return (
         <div>
             {filteredBoardList && filteredBoardList.map((boarditem, index) => (
