@@ -47,7 +47,12 @@ const InquiryBoard = () => {
         }
     };
     useEffect(() => {
-        fetchInquiries();
+        if (!accessToken) {
+            window.location.href = "/login";
+          } else{
+            fetchInquiries();
+          }
+        //   fetchInquiries();
         }, [currentPage]);
 
     const fetchInquiries = async () => {
