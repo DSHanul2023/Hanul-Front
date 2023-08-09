@@ -10,6 +10,7 @@ import {
 import Contents from "../../basic/contents";
 
 const ITEMS_PER_PAGE = 8; // 한 페이지에 보일 아이템 수
+const PAGES_TO_SHOW = 5; // 보여줄 페이지 수
 
 const SaveComponent = () => {
   const [member, setMember] = useState(null);
@@ -69,6 +70,15 @@ const SaveComponent = () => {
     return items.slice(startIndex, endIndex);
   };
 
+  const totalPages = Math.ceil(items.length / ITEMS_PER_PAGE);
+
+  // 현재 페이지 범위를 계산하는 함수
+  const getCurrentPageRange = () => {
+    const startPage = Math.floor((currentPage - 1) / PAGES_TO_SHOW) * PAGES_TO_SHOW + 1;
+    const endPage = Math.min(startPage + PAGES_TO_SHOW - 1, totalPages);
+    return [startPage, endPage];
+  };
+
   return (
     <div className="save-page">
       <Container className="spacer">
@@ -80,38 +90,31 @@ const SaveComponent = () => {
         </Row>
       </Container>
       <Container className="save-page-container">
-        <Contents items={items} /> {/* 아이템 목록을 전달 */}
+        <Contents items={getCurrentPageItems()} /> {/* 아이템 목록을 전달 */}
       </Container>
       <Container>
         <Row className="justify-content-center">
           <Col md="6" className="m-b-30">
             <Pagination aria-label="Page navigation example" className="paging">
-              <PaginationItem>
-                <PaginationLink first href="#" />
+              <PaginationItem disabled={currentPage === 1}>
+                <PaginationLink previous href="#" onClick={() => setCurrentPage(currentPage - 1)} />
               </PaginationItem>
-              <PaginationItem>
-                <PaginationLink previous href="#" />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">1</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">2</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">3</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">4</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">5</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink next href="#" />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink last href="#" />
+              {Array.from({ length: PAGES_TO_SHOW }).map((_, index) => {
+                const [startPage, endPage] = getCurrentPageRange();
+                const pageNumber = startPage + index;
+                if (pageNumber <= endPage) {
+                  return (
+                    <PaginationItem key={index} active={currentPage === pageNumber}>
+                      <PaginationLink href="#" onClick={() => setCurrentPage(pageNumber)}>
+                        {pageNumber}
+                      </PaginationLink>
+                    </PaginationItem>
+                  );
+                }
+                return null;
+              })}
+              <PaginationItem disabled={currentPage === totalPages}>
+                <PaginationLink next href="#" onClick={() => setCurrentPage(currentPage + 1)} />
               </PaginationItem>
             </Pagination>
           </Col>
