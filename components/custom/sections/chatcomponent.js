@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Container, Form, Input, Button, Image } from "reactstrap";
 import Link from "next/link";
 
@@ -6,6 +6,13 @@ const ChatComponent = () => {
   const [inputMessage, setInputMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
   const [showChat, setShowChat] = useState(false);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("ACCESS_TOKEN");
+    if (!accessToken) {
+      window.location.href = "/login";
+    }
+  }, []);
 
   const handleMessageSubmit = (e) => {
     e.preventDefault();
