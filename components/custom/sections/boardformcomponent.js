@@ -1,54 +1,45 @@
 import React, {useState} from 'react';
 import { Row, Col, Container, Button, FormGroup, Input, Label, Form, FormText } from 'reactstrap';
 import { useRouter } from "next/router";
-const ACCESS_TOKEN = "ACCESS_TOKEN";
 
 const BoardFormComponent = (...args) => {
     const router = useRouter();
     const [title, setTitle] = useState("");
     const [contents, setContents] = useState("");
     const [selected, setSelected] = useState(1);
-    const [time, setTime] = useState("00:00:00");
-    const [author, setAuthor] = useState("unknown");
-
+    const [selectedImage, setSelectedImage] = useState(null);
     const handleCreate = async (e) => {
-        const date = new Date();
-        const hours = String(date.getHours()).padStart(2, "0");
-        const min = String(date.getMinutes()).padStart(2, "0");
-        const secs = String(date.getSeconds()).padStart(2, "0");
-
-
         let headers = new Headers({
-            "Content-Type": "application/json",
         });
 
         const accessToken = localStorage.getItem("ACCESS_TOKEN");
         if( accessToken && accessToken !== null ) {
             headers.append("Authorization", "Bearer " + accessToken);
         } 
-        
-        setTime(`${hours}:${min}:${secs}`);
-        console.log(JSON.stringify({ title: title, contents: contents, date: time, author: author, type: selected, idx: 1}));
+        const formData = new FormData();
+        formData.append('image', selectedImage);
+        formData.append('title', title);
+        formData.append('contents', contents);
+        formData.append('type', selected);
         try {
             const response = await fetch("http://localhost:8080/board", {
                 method: "POST",
                 headers: headers,
-                body: JSON.stringify({ title: title, contents: contents, date: time, author: author, type: selected, idx: 1,image: document.getElementById("imgFile").files[0]}),
+                body: formData,
             });
             if (response.ok) {
-                const data = await response.json();
                 console.log("Content upload successful");
-                router.push("/community")
             }
         } catch (error) {
-            console.error("Error:", error);
         }
     };
 
     const handleSelect = (e) => {
         setSelected(e.target.value);
     };
-
+    const handleImageChange = (e) => {
+        setSelectedImage(e.target.files[0]);
+    };
     return(
         <div className='boardCreate'>
             <Container>
@@ -94,13 +85,14 @@ const BoardFormComponent = (...args) => {
                         id="imgFile"
                         name="file"
                         type="file"
+                        onChange={handleImageChange}
                         />
                     </FormGroup>
                 </Form>
                 <div className='create-button'>
                     <Row style={{justifyContent:'right', marginRight:'10px'}}>
                         <Button style={{marginRight:'10px'}} color="themecolor" href="/community" onClick={handleCreate}>글쓰기</Button>
-                        <Button type="submit" className="btn btn-inverse waves-effect waves-light" href="javascript:history.back(-1)">Cancel</Button>
+                        <Button type="submit" className="btn btn-inverse waves-effect waves-light" onClick={() => window.history.back()}>Cancel</Button>
                     </Row>
                 </div>
             </Container>

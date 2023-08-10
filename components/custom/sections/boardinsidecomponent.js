@@ -18,6 +18,8 @@ const BoardInsideComponent = () => {
     const [isCommentEditMode,setIsCommentEditMode]=useState(false);
     const [editingCommentId, setEditingCommentId] = useState(null);
     const [editingCommentText, setEditingCommentText] = useState("");
+    const [imageSrc, setImageSrc] = useState('');
+    const [selectedImage, setSelectedImage] = useState(null);
 
     useEffect(() => {
         const accessToken = localStorage.getItem("ACCESS_TOKEN");
@@ -44,6 +46,8 @@ const BoardInsideComponent = () => {
                 const data = await response.json();
                 setBoardData(data.data[0]);
                 console.log(data);
+                const imageSrcData = `data:image/jpeg;base64,${data.data[0].image}`; // Assuming the image data is in base64 format
+                setImageSrc(imageSrcData);
             }
         } catch (error) {
             console.error("Error:", error);
@@ -62,22 +66,19 @@ const BoardInsideComponent = () => {
 
     const handleUpdateClick = async () => {
         const accessToken = token;
-
-        console.log(accessToken);
+        const formData = new FormData();
+        formData.append('idx',id)
+        formData.append('image', selectedImage); 
+        formData.append('title', title);
+        formData.append('contents', contents);
         try {
             const response = await fetch(`http://localhost:8080/board`, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${accessToken}`,
                 },
-                body: JSON.stringify({
-                    idx:id,
-                    title,
-                    contents,
-                    image:"m"                    
-                    
-                }),            });
+                body: formData,
+            });
             if (response.ok) {
                 console.log("Content update successful");
                 setIsEditMode(false);
@@ -87,7 +88,9 @@ const BoardInsideComponent = () => {
             console.error("Error:", error);
         }
     };
-
+    const handleImageChange = (e) => {
+        setSelectedImage(e.target.files[0]);
+    };
     const handleDeleteClick = async () => {
         const accessToken = token;
         try {
@@ -260,6 +263,17 @@ const BoardInsideComponent = () => {
                                 placeholder="내용을 입력하세요."
                             />
                         </FormGroup>
+                        <FormGroup className="col-md-12">
+                        <Label for="imgFile">
+                        File
+                        </Label>
+                        <Input
+                        id="imgFile"
+                        name="file"
+                        type="file"
+                        onChange={handleImageChange}
+                        />
+                    </FormGroup>
                         <Button color="themecolor" onClick={handleUpdateClick}>수정하기</Button>{' '}
                         <Button color="secondary" onClick={handleCancelClick}>취소</Button>
                     </Form>
@@ -275,17 +289,24 @@ const BoardInsideComponent = () => {
                             </Col>
                         </Row>
                         <hr></hr>
+                        {boardData.canEdit && (
+                        <div>
+                        <Button color='danger' onClick={handleDeleteClick} style={{ float: 'right' }}>삭제</Button>
+                        <Button color="themecolor" onClick={handleEditClick} style={{ float: "right", marginRight: '10px'  }}>수정</Button>
+                        </div>
+                        )} 
                         <Row>
                             <Col md="11">
                                 <CardText>{boardData.contents}</CardText>
                             </Col>
                             <Col className='board-right'>
                             {boardData.image && (
-                                <CardImg src={boardData.image} alt="{boardData.imageTitle}" />
+                                <CardImg src={imageSrc} alt="Uploaded File" />
                             )}
                             </Col>
                         </Row>
                         <hr />
+                        {!isEditMode && (
                         <Row>
                             <Col>
                             <h3>댓글</h3>
@@ -323,31 +344,28 @@ const BoardInsideComponent = () => {
                                 <form onSubmit={handleCommentSubmit}>
                                     {/* 댓글 입력란과 전송 버튼 */}
                                 </form>
+                                <form onSubmit={handleCommentSubmit}>
+                                    <FormGroup>
+                                        <Label htmlFor="comment">댓글 작성</Label>
+                                        <Input
+                                            type="textarea"
+                                            className="form-control"
+                                            id="comment"
+                                            value={newComment}
+                                            onChange={(e) => setNewComment(e.target.value)}
+                                        />
+                                    </FormGroup>
+                                    <Button color="primary" type="submit">댓글 작성</Button>
+                                </form>
                             </Col>
                         </Row>
+                        )}
                     </Container>
-                {boardData.canEdit && (
-                <div>
-                <Button color='danger' onClick={handleDeleteClick} style={{ float: 'right' }}>삭제</Button>
-                <Button color="themecolor" onClick={handleEditClick} style={{ float: "right", marginRight: '10px'  }}>수정</Button>
-                </div>
-                )} </Card>
+                </Card>
                     </>
                 )}
                 
-                <form onSubmit={handleCommentSubmit}>
-                    <FormGroup>
-                        <Label htmlFor="comment">댓글 작성</Label>
-                        <Input
-                            type="textarea"
-                            className="form-control"
-                            id="comment"
-                            value={newComment}
-                            onChange={(e) => setNewComment(e.target.value)}
-                        />
-                    </FormGroup>
-                    <Button color="primary" type="submit">댓글 작성</Button>
-                </form>
+                
             </Container>
         </div>
     );
