@@ -33,11 +33,10 @@ const BoardFormComponent = (...args) => {
             const response = await fetch("http://localhost:8080/board", {
                 method: "POST",
                 headers: headers,
-                body: JSON.stringify({ title: title, contents: contents, date: time, author: author, type: selected, idx: 1}),
+                body: JSON.stringify({ title: title, contents: contents, date: time, author: author, type: selected, idx: 1,image: document.getElementById("imgFile").files[0]}),
             });
             if (response.ok) {
                 const data = await response.json();
-                const token = data.token;
                 console.log("Content upload successful");
                 router.push("/community")
             }
