@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Row, Col, Container, Form, Input, Button, Image } from "reactstrap";
-import Link from "next/link";
+import { Row, Col, Container, Form, Input, Button } from "reactstrap";
+import UserChatComponent from "./UserChatComponent";
+import BotChatComponent from "./BotChatComponent";
 
 const ChatComponent = () => {
   const [inputMessage, setInputMessage] = useState("");
@@ -12,14 +13,20 @@ const ChatComponent = () => {
     if (inputMessage.trim() === "") {
       return;
     }
-    const newMessage = {
+    const newUserMessage = {
       content: inputMessage,
       sender: "user",
     };
-    setChatMessages((prevMessages) => [...prevMessages, newMessage]);
+    setChatMessages((prevMessages) => [...prevMessages, newUserMessage]);
+
+    const newBotMessage = {
+      content: "안녕하세요! 저는 We:Lover에요. 저한테 고민을 얘기해주세요!",
+      sender: "bot",
+    };
+    setChatMessages((prevMessages) => [...prevMessages, newBotMessage]);
+
     setInputMessage("");
     setShowChat(true);
-    // Handle sending the message to Dialogflow or your chatbot backend
   };
 
   return (
@@ -30,7 +37,6 @@ const ChatComponent = () => {
             <Container className="h-100">
               <Row>
                 <Col md="6">
-    
                   <div className="chat-div">
                     안녕하세요! 저는 We:Lover에요. <br />
                     저한테 고민을 얘기해주세요!
@@ -39,59 +45,18 @@ const ChatComponent = () => {
                 </Col>
               </Row>
 
-              <Row className="mt-4">
-                <Col md="6"></Col>
-                <Col md="6">
-                  <div className="user-div">
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                  </div>
-                  <p className="timestamp2">12:07PM | 3월 28일</p>
-                </Col>
-
-              </Row>
-
-              <Row className="mt-4">
-                <Col md="6">
-                  <div className="chat-div">
-                    그런 일이 있으셨군요. 제가 도움이 될 만한 책과 영화를 추천해드릴게요. 
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <Button className="treat-div">
-                    이야기 치료법 보러가기
-                    </Button>
-                  </div>
-                  <p className="timestamp">12:13PM | 3월 28일</p>
-                </Col>
-              </Row>
-
+              {/* 사용자 및 봇 메시지 출력 */}
               {showChat && (
                 <Row className="mt-4">
                   <Col md="6"></Col>
                   <Col md="6">
-                    <div className="test-div">
-                      {chatMessages.map((message, index) => (
-                        <div
-                          key={index}
-                          className={`message ${
-                            message.sender === "user" ? "user-message" : "bot-message"
-                          }`}
-                        >
-                          {message.content}
-                        </div>
-                      ))}
-                      {inputMessage && (
-                        <div className="message user-message">{inputMessage}</div>
-                      )}
-                    </div>
+                    <BotChatComponent messages={chatMessages} />
+                    {inputMessage && <UserChatComponent message={inputMessage} />}
                   </Col>
                 </Row>
               )}
 
+              {/* 메시지 입력 및 전송 버튼 */}
               <Row className="mt-4 justify-content-between">
                 <Col className="col-10">
                   <Form onSubmit={handleMessageSubmit} className="w-100">
@@ -109,9 +74,8 @@ const ChatComponent = () => {
                   <Button
                     type="submit"
                     color="primary"
-                    className="font-14 btn-rounded text-white text-center"
+                    className="font-14 btn-rounded text-white text-center chat-input-btn"
                     onClick={handleMessageSubmit}
-                    style={{ height: "100%" }}
                   >
                     보내기
                   </Button>
