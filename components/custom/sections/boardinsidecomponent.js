@@ -224,7 +224,7 @@ const BoardInsideComponent = () => {
     }
 };
     return (
-        <div className='boardCreate'>
+        <div className='boardCreate mt-5'>
             <Container>
                 {isEditMode ? (
                     <Form style={{marginTop:"20px"}}>
@@ -275,64 +275,78 @@ const BoardInsideComponent = () => {
                         />
                     </FormGroup>
                         <Button color="themecolor" onClick={handleUpdateClick}>수정하기</Button>{' '}
-                        <Button color="secondary" onClick={handleCancelClick}>취소</Button>
+                        <Button color="themecolor" onClick={handleCancelClick}>취소</Button>
                     </Form>
                 ) : (
                     <> <Card>
                     <Container>
                         <Row className='card-main'>
-                            <Col md="11">
-                                <CardTitle tag="h1">{boardData.title}</CardTitle>
+                            <Col md="11" className='mt-5 ml-3'>
+                                <CardTitle tag="h3">{boardData.title}</CardTitle>
                             </Col>
-                            <Col className='board-right' style={{ textAlign: "right" }}>
+                            <Col className='board-right'>
                                 <CardText>{boardData.date}</CardText>
                             </Col>
                         </Row>
                         <hr></hr>
                         {boardData.canEdit && (
-                        <div>
-                        <Button color='danger' onClick={handleDeleteClick} style={{ float: 'right' }}>삭제</Button>
-                        <Button color="themecolor" onClick={handleEditClick} style={{ float: "right", marginRight: '10px'  }}>수정</Button>
-                        </div>
-                        )} 
                         <Row>
+                        <Col className='board-right'>                        
+                        <Button color="themecolor" onClick={handleEditClick}>수정</Button>
+                        <Button color='themecolor' onClick={handleDeleteClick} className='ml-2'>삭제</Button>
+                        </Col></Row>
+                        )} 
+                        <hr></hr>
+                        <Row className='ml-3 mb-5'>
                             <Col md="11">
                                 <CardText>{boardData.contents}</CardText>
                             </Col>
-                            <Col className='board-right'>
+                            <Col className='mt-3'> 
                             {boardData.image && (
                                 <CardImg src={imageSrc} alt="Uploaded File" />
                             )}
                             </Col>
                         </Row>
-                        <hr />
+                    </Container>
+                </Card>
+                <Card>
+                    <Container>
                         {!isEditMode && (
-                        <Row>
+                        <Row className='mt-5 mb-5'>
                             <Col>
-                            <h3>댓글</h3>
+                            <h4>댓글</h4><hr/>
                             {comments ? (
                                 comments.map(comment => (
                                     <div key={comment.id}>
                                         {isCommentEditMode && editingCommentId === comment.id ? (
                                             // 댓글 수정 폼
                                             <div>
-                                                <textarea
+                                                <Input type='textarea'
                                                     value={editingCommentText}
                                                     onChange={handleEditingCommentChange}
                                                 />
-                                                <Button color="success" onClick={() => handleUpdateComment(comment.id)}>수정 완료</Button>
-                                                <Button color="secondary" onClick={handleCancelEdit}>취소</Button>
+                                                <Button style={{ float: 'right' }} color="themecolor" onClick={handleCancelEdit}>취소</Button>
+                                                <Button style={{ float: 'right' }} className="mr-2" color="themecolor" onClick={() => handleUpdateComment(comment.id)}>수정</Button>
                                             </div>
                                         ) : (
                                     // 댓글 내용 보기 모드
-                                    <div>
-                                        <p>{comment.text} 작성자: {comment.author} 작성날짜 {comment.date}</p>
-                                        {comment.canEdit && (
-                                            <>
+                                    <div className='mt-3'>
+                                        <div>
+                                            <p>{comment.text}
+                                                <span style={{ float: 'right' }} className='ml-3'>{comment.date}</span>
+                                                <span style={{ float: 'right' }}>{comment.author}</span>
+                                            </p>
+                                            {comment.canEdit && (
+                                            <div className='board-right'>
                                                 <Button color="link" onClick={() => handleEditComment(comment)}>수정</Button>
                                                 <Button color="link" onClick={() => handleDeleteComment(comment.id)}>삭제</Button>
-                                            </>
+                                            </div>
                                         )}
+                                            <div>
+                                                
+                                            </div>
+                                            
+                                        </div>
                                         <hr />
                                     </div>
                                 )}
@@ -341,12 +355,9 @@ const BoardInsideComponent = () => {
                                 ) : (
                                     <p>No comments available.</p>
                                 )}
-                                <form onSubmit={handleCommentSubmit}>
-                                    {/* 댓글 입력란과 전송 버튼 */}
-                                </form>
-                                <form onSubmit={handleCommentSubmit}>
+                                {!isCommentEditMode &&(
+                                <form onSubmit={handleCommentSubmit} className='mt-5'>
                                     <FormGroup>
-                                        <Label htmlFor="comment">댓글 작성</Label>
                                         <Input
                                             type="textarea"
                                             className="form-control"
@@ -355,8 +366,8 @@ const BoardInsideComponent = () => {
                                             onChange={(e) => setNewComment(e.target.value)}
                                         />
                                     </FormGroup>
-                                    <Button color="primary" type="submit">댓글 작성</Button>
-                                </form>
+                                    <Button color="themecolor" style={{ float: 'right' }} type="submit">댓글 작성</Button>
+                                </form>)}
                             </Col>
                         </Row>
                         )}
