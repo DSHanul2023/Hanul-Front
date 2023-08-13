@@ -22,7 +22,9 @@ const LoginComponent = () => {
       if (response.ok) {
         const data = await response.json();
         const token = data.token;
+        const memberId = data.memberId;
         localStorage.setItem(ACCESS_TOKEN, token);
+        localStorage.setItem("MEMBER_ID", memberId);
         router.push("/chat"); // 로그인 후 채팅 페이지로 이동
       } else {
         console.log("Invalid credentials");
