@@ -14,15 +14,15 @@ const ChatComponent = () => {
     if (inputMessage.trim() === "") {
       return;
     }
-
+  
     const newUserMessage = {
       content: inputMessage,
       sender: "user",
     };
-
+  
     setChatMessages((prevMessages) => [...prevMessages, newUserMessage]);
     setInputMessage("");
-
+  
     try {
       const response = await fetch("http://localhost:8080/chats/chatdialogflow", {
         method: "POST",
@@ -31,10 +31,14 @@ const ChatComponent = () => {
         },
         body: JSON.stringify({ memberId, message: inputMessage }),
       });
-
+    
       if (response.ok) {
         const responseData = await response.json();
-        setChatMessages((prevMessages) => [...prevMessages, responseData]);
+        const botResponse = {
+          sender: "bot",
+          content: responseData.message, // 수정: 응답 메시지의 content 프로퍼티를 사용
+        };
+        setChatMessages((prevMessages) => [...prevMessages, newUserMessage, botResponse]);
         setShowChat(true);
       } else {
         console.log("메시지 전송 실패");
