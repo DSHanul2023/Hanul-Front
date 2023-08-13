@@ -36,9 +36,9 @@ const ChatComponent = () => {
         const responseData = await response.json();
         const botResponse = {
           sender: "bot",
-          content: responseData.message, // 수정: 응답 메시지의 content 프로퍼티를 사용
+          content: responseData.message,
         };
-        setChatMessages((prevMessages) => [...prevMessages, newUserMessage, botResponse]);
+        setChatMessages((prevMessages) => [...prevMessages, botResponse]);
         setShowChat(true);
       } else {
         console.log("메시지 전송 실패");
@@ -69,7 +69,6 @@ const ChatComponent = () => {
                   <Col md="6"></Col>
                   <Col md="6">
                     <BotChatComponent messages={chatMessages} />
-                    {inputMessage && <UserChatComponent message={inputMessage} />}
                   </Col>
                 </Row>
               )}
