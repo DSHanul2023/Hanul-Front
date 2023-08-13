@@ -2,12 +2,13 @@ import React from "react";
 
 const BotChatComponent = ({ messages }) => {
   return (
-    <div className="test-div">
+    <div className="mt-4">
       {messages.map((message, index) => (
-        <div key={index} className="message-container bot-message-container">
-          <div className={`message bot-message`}>
-            {message.content}
-          </div>
+        <div
+          className={`message-container ${message.sender}-message-container`}
+          key={index}
+        >
+          <div className={`message ${message.sender}-message`}>{message.content}</div>
         </div>
       ))}
     </div>

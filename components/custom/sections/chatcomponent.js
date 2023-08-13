@@ -6,27 +6,42 @@ import BotChatComponent from "./BotChatComponent";
 const ChatComponent = () => {
   const [inputMessage, setInputMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
+  const memberId = localStorage.getItem("MEMBER_ID");
   const [showChat, setShowChat] = useState(false);
 
-  const handleMessageSubmit = (e) => {
+  const handleMessageSubmit = async (e) => {
     e.preventDefault();
     if (inputMessage.trim() === "") {
       return;
     }
+
     const newUserMessage = {
       content: inputMessage,
       sender: "user",
     };
+
     setChatMessages((prevMessages) => [...prevMessages, newUserMessage]);
-
-    const newBotMessage = {
-      content: "안녕하세요! 저는 We:Lover에요. 저한테 고민을 얘기해주세요!",
-      sender: "bot",
-    };
-    setChatMessages((prevMessages) => [...prevMessages, newBotMessage]);
-
     setInputMessage("");
-    setShowChat(true);
+
+    try {
+      const response = await fetch("http://localhost:8080/chats/chatdialogflow", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ memberId, message: inputMessage }),
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        setChatMessages((prevMessages) => [...prevMessages, responseData]);
+        setShowChat(true);
+      } else {
+        console.log("메시지 전송 실패");
+      }
+    } catch (error) {
+      console.error("오류:", error);
+    }
   };
 
   return (
@@ -45,7 +60,6 @@ const ChatComponent = () => {
                 </Col>
               </Row>
 
-              {/* 사용자 및 봇 메시지 출력 */}
               {showChat && (
                 <Row className="mt-4">
                   <Col md="6"></Col>
@@ -56,7 +70,6 @@ const ChatComponent = () => {
                 </Row>
               )}
 
-              {/* 메시지 입력 및 전송 버튼 */}
               <Row className="mt-4 justify-content-between">
                 <Col className="col-10">
                   <Form onSubmit={handleMessageSubmit} className="w-100">
