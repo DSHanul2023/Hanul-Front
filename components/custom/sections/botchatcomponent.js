@@ -14,5 +14,4 @@ const BotChatComponent = ({ messages }) => {
     </div>
   );
 };
-
 export default BotChatComponent;
