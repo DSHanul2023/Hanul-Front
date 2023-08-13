@@ -5,7 +5,7 @@ const BotChatComponent = ({ messages }) => {
     <div className="mt-4">
       {messages.map((message, index) => (
         <div
-          className={`message-container ${message.sender}-message-container`}
+          className={`message-container ${message.sender}-message-container bubble`}
           key={index}
         >
           <div className={`message ${message.sender}-message`}>{message.content}</div>
