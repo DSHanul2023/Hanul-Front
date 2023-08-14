@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FormGroup, Label, Input, Button } from 'reactstrap';
 
-const InquiryForm = ({ inquiryToEdit, onFormSubmit, onFormCancel }) => {
+const InquiryForm = ({ onFormSubmit, onFormCancel }) => {
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
 
     const [inquiry, setInquiry] = useState({
@@ -12,8 +12,8 @@ const InquiryForm = ({ inquiryToEdit, onFormSubmit, onFormCancel }) => {
 
     useEffect(() => {
         // inquiryToEdit prop이 변경될 때마다 inquiry 상태 업데이트
-        setInquiry(inquiryToEdit || { inquiryNm: '', inquiryDetail: '', state: false });
-    }, [inquiryToEdit]);
+        setInquiry({ inquiryNm: '', inquiryDetail: '', state: false });
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -24,7 +24,7 @@ const InquiryForm = ({ inquiryToEdit, onFormSubmit, onFormCancel }) => {
         e.preventDefault();
         try {
             const requestUrl = 'http://localhost:8080/api/inquiry';
-            const method = inquiryToEdit ? 'PUT' : 'POST';
+            const method = 'POST';
     
             const response = await fetch(requestUrl, {
                 method,
@@ -51,29 +51,6 @@ const InquiryForm = ({ inquiryToEdit, onFormSubmit, onFormCancel }) => {
         // onFormCancel prop을 호출하여 InquiryBoard로 돌아갑니다.
         onFormCancel();
     };
-    const handleDelete = async () => {
-        try {
-            const requestUrl = 'http://localhost:8080/api/inquiry';
-            const method = 'DELETE';
-    
-            const response = await fetch(requestUrl, {
-                method,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`
-                },
-                body: JSON.stringify(inquiryToEdit)
-            });
-    
-            if (!response.ok) {
-                throw new Error('문의 삭제에 실패했습니다.');
-            }
-            onFormSubmit(null);
-            onFormCancel();  // Pass null to indicate that the inquiry was deleted
-        } catch (error) {
-            console.error(error);
-        }
-    };
     
     return (
         <form onSubmit={handleSubmit}>
@@ -84,7 +61,6 @@ const InquiryForm = ({ inquiryToEdit, onFormSubmit, onFormCancel }) => {
             id="inquiryNm"
             name="inquiryNm" // name 속성 추가
             placeholder="제목을 입력하세요."
-            value={inquiry.inquiryNm}
             onChange={handleChange}
             required
             />
@@ -96,21 +72,16 @@ const InquiryForm = ({ inquiryToEdit, onFormSubmit, onFormCancel }) => {
             id="inquiryDetail"
             name="inquiryDetail" // name 속성 추가
             placeholder="문의 내용을 입력하세요."
-            value={inquiry.inquiryDetail}
             onChange={handleChange}
             required
             />
         </FormGroup>
         <Button color="themecolor" type="submit">
-            {inquiryToEdit ? '문의 수정' : '문의 제출'}
+            문의 제출
         </Button>
         <Button color="secondary" onClick={handleCancel}>
             취소
         </Button>
-        {inquiryToEdit &&(
-        <Button color="danger" onClick={handleDelete}>
-            삭제
-        </Button>)}
         </form>
     );
     };
