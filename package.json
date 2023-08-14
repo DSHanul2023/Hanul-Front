@@ -9,25 +9,34 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@types/node": "20.1.1",
-    "@types/react": "18.2.6",
+    "@ap.cx/react-fullpage": "^0.3.0",
     "@types/react-dom": "18.2.4",
     "autoprefixer": "10.4.14",
-    "bootstrap": "4.6.0",
+    "bootstrap": "^4.6.2",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.1",
-    "next": "13.4.1",
+    "fbjs": "^3.0.5",
+    "fullpage.js": "^4.0.20",
+    "gasp": "^0.0.2",
+    "gsap": "^3.11.5",
+    "next": "^13.4.1",
     "postcss": "8.4.23",
     "prop-types": "15.7.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "reactstrap": "^8.10.0",
+    "react-full-page": "^0.1.12",
+    "react-fullpage": "^0.1.19",
+    "react-icons": "^4.8.0",
+    "react-router-dom": "^6.13.0",
+    "reactstrap": "^8.10.1",
     "sass": "^1.62.1",
-    "tailwindcss": "3.3.2",
-    "typescript": "5.0.4"
+    "tailwindcss": "3.3.2"
   },
   "devDependencies": {
+    "@types/node": "20.1.1",
+    "@types/react": "18.2.6",
     "eslint": "7.32.0",
-    "eslint-config-next": "11.1.2"
+    "eslint-config-next": "11.1.2",
+    "typescript": "5.0.4"
   }
 }

@@ -37,39 +37,64 @@ const Header = () => {
             >
               <Nav navbar className="ml-auto">
                 <NavItem>
-                  <Link href="/">
-                    <a
-                      className={
-                        router.pathname == "/"
-                          ? "text-white nav-link"
-                          : "nav-link"
-                      }
-                    >
-                      Custom Components
-                    </a>
+                  <Link
+                    href="/chat"
+                    className={
+                      router.pathname == "/chat"
+                        ? "text-white nav-link"
+                        : "nav-link"
+                    }
+                  >
+                    Chatbot
                   </Link>
                 </NavItem>
+              
                 <NavItem>
-                  <Link href="/basic">
-                    <a
-                      className={
-                        router.pathname == "/basic"
-                          ? "text-white nav-link"
-                          : "nav-link"
-                      }
-                    >
-                      Basic-Components
-                    </a>
+                  <Link
+                    href="/community"
+                    className={
+                      router.pathname == "/community"
+                        ? "text-white nav-link"
+                        : "nav-link"
+                    }
+                  >
+                    Community
+                  </Link>
+                </NavItem>
+
+                <NavItem>
+                  <Link
+                    href="/inquiry"
+                    className={
+                      router.pathname == "/inquiry"
+                        ? "text-white nav-link"
+                        : "nav-link"
+                    }
+                  >
+                    Inquiry
+                  </Link>
+                </NavItem>
+
+                <NavItem>
+                  <Link
+                    href="/mypage"
+                    className={
+                      router.pathname == "/mypage"
+                        ? "text-white nav-link"
+                        : "nav-link"
+                    }
+                  >
+                    MyPage
                   </Link>
                 </NavItem>
               </Nav>
               <div className="act-buttons">
                 <NavLink
-                  href="https://wrappixel.com/templates/nextkit-nextjs-free-uikit"
-                  className="btn btn-light font-14"
+                  href="/login"
+                  className="btn btn-light font-14 text-white"
                   target="_blank"
                 >
-                  Download Free
+                  Login
                 </NavLink>
               </div>
             </Collapse>

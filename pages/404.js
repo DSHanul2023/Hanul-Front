@@ -21,7 +21,7 @@ const ErrorPage = () => {
               The page you are looking for is not available
               <br /> please go back to homepage
             </h4>
-            <Link href="/">
+            <Link href="/" legacyBehavior>
               <Button className="btn btn-md m-t-30 btn-info-gradiant font-14">
                 Back to Homepage
               </Button>
