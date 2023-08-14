@@ -1,36 +1,28 @@
 import React from "react";
-import Link from "next/link";
 import { Container, Row, Col } from "reactstrap";
 import Image from "next/image";
-import bannerimg from "../../assets/images/landingpage/banner-img.png";
+import bannerimg from "../../assets/images/landingpage/chatting.jpg";
+/**
+ * Main Page 1 
+ */
 
 const Banner2 = () => {
   return (
     <div className="static-slider-head banner2">
       <Container>
         <Row className="">
-          <Col lg="6" md="6" className="align-self-center">
-            <h1 className="title">
-              Build stunning websites with NextJs UI Kit
+          <Col lg="6" md="6">
+            <h1 className="m-t-40 title font-bold">
+            we:lover
             </h1>
             <h4 className="subtitle font-light">
-              Free Reactstrap UI Kit with Lots of
-              <br /> Ready to Use Sections
+            we:lover는 상담 기반으로 이야기 치료법을 제공합니다
             </h4>
-            <a
-              href="https://wrappixel.com/templates/nextkit-nextjs-free-uikit"
-              className="btn btn-danger m-r-20 btn-md m-t-30 "
-            >
-              Download Free
-            </a>
-            <Link href="/#coming">
-              <a className="btn btn-md m-t-30  btn-outline-light ">
-                Upgrade To Pro
-              </a>
-            </Link>
           </Col>
           <Col lg="6" md="6">
-            <Image src={bannerimg} alt="hero banner" />
+          <Image src={bannerimg} alt="hero banner" className="m-t-40 ml-4" 
+          style={{ width: '100%', height: 'auto' }} />
+
           </Col>
         </Row>
       </Container>
