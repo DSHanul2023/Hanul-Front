@@ -13,18 +13,17 @@ import {
     PaginationLink
 } from 'reactstrap';
 import InquiryForm from './inquiryformcomponent';
-
+import { useRouter } from 'next/router';
 const InquiryBoard = () => {
     const [inquiries, setInquiries] = useState([]);
     const [showCreateForm, setShowCreateForm] = useState(false);
-    const [showEditForm, setShowEditForm] = useState(false);
-    const [selectedInquiry, setSelectedInquiry] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const apiUrl = 'http://localhost:8080/api/inquiry';
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 2; // 한 페이지에 보여질 항목 수
-    const accessToken = localStorage.getItem("ACCESS_TOKEN");
-    const retrieveInquiryList = async () => {
+    const router = useRouter();
+    const [token, setToken] = useState([]);
+    const retrieveInquiryList = async (accessToken) => {
         try {
             if( accessToken && accessToken !== null ) {
             const response = await fetch(apiUrl, {
@@ -47,17 +46,14 @@ const InquiryBoard = () => {
         }
     };
     useEffect(() => {
-        if (!accessToken) {
-            window.location.href = "/login";
-          } else{
-            fetchInquiries();
-          }
-        //   fetchInquiries();
+        const accessToken = localStorage.getItem("ACCESS_TOKEN");
+        setToken(accessToken);
+        fetchInquiries(accessToken);
         }, [currentPage]);
 
-    const fetchInquiries = async () => {
+    const fetchInquiries = async (accessToken) => {
         try {
-                const data = await retrieveInquiryList(); // api/inquiry.js의 retrieveInquiryList 함수 호출
+                const data = await retrieveInquiryList(accessToken); // api/inquiry.js의 retrieveInquiryList 함수 호출
                 setInquiries(data);
             } 
         catch (error) {
@@ -66,27 +62,18 @@ const InquiryBoard = () => {
     };   
     const toggleCreateForm = () => {
         setShowCreateForm(!showCreateForm);
-        setSelectedInquiry(null);
     };
     
-    const toggleEditForm = (inquiryId) => {
-        setShowEditForm(!showEditForm);
-        setSelectedInquiry(inquiryId);
-    };
     const handleInquiryItemClick = (inquiryId) => {
-        setSelectedInquiry(inquiryId);
-        toggleEditForm(inquiryId);
+        router.push(`/inquiry/${inquiryId}`);
     };
     const handleInquirySubmit = async (formData) => {
         try {
             if (formData === null) {
-                // Handle deletion case
-                fetchInquiries(); // Fetch updated inquiry list after deletion
+                fetchInquiries(token); 
             } else {
-                // Handle creation/update case
                 setShowCreateForm(false);
-                setShowEditForm(false);
-                fetchInquiries();
+                fetchInquiries(token);
             }
         } catch (error) {
             console.error(error);
@@ -94,9 +81,7 @@ const InquiryBoard = () => {
     };
         
     const handleFormCancel = () => {
-        // 사용자가 폼 제출을 취소하면 폼을 숨깁니다.
         setShowCreateForm(false);
-        setShowEditForm(false);
     };
     const handleSearchInputChange = (event) => {
         setSearchQuery(event.target.value);
@@ -127,9 +112,8 @@ const InquiryBoard = () => {
     };
     
     const renderPagination = () => {
-        const pageCount = Math.ceil(inquiries.length / itemsPerPage);
+        const pageCount = Math.ceil((inquiries && inquiries.length) / itemsPerPage);
         if (pageCount <= 1) return null;
-    
         const paginationItems = [];
         for (let i = 1; i <= pageCount; i++) {
             paginationItems.push(
@@ -156,7 +140,7 @@ const InquiryBoard = () => {
         // 현재 페이지에 해당하는 데이터만 추출
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
-        const inquiriesToShow = inquiries.slice(startIndex, endIndex);
+        const inquiriesToShow = inquiries.reverse().slice(startIndex, endIndex);
         return (
             inquiriesToShow.map((inquiry, index) => (
                 <tr key={index} onClick={() => handleInquiryItemClick(inquiry.id)}>
@@ -170,7 +154,7 @@ const InquiryBoard = () => {
     };
     return (
         <div className='inquiry'>
-            {!showCreateForm && !showEditForm && (
+            {!showCreateForm && (
             <Container>
                 <Row>
                     <Col md="6">
@@ -225,16 +209,6 @@ const InquiryBoard = () => {
                     <h2 className="font-bold">문의하기</h2>
                     <InquiryForm onFormSubmit={handleInquirySubmit} onFormCancel={handleFormCancel} />
                 </Container>
-            )}
-            {showEditForm && (
-            <Container>
-                <h2 className="font-bold">문의 수정</h2>
-                <InquiryForm
-                    inquiryToEdit={inquiries.find((inquiry) => inquiry.id === selectedInquiry)}
-                    onFormSubmit={handleInquirySubmit}
-                    onFormCancel={handleFormCancel}
-                />
-            </Container>
             )}
         </div>
     );

@@ -1,14 +1,14 @@
 import Head from "next/head";
-import LoginComponent from "../components/custom/sections/logincomponent";
+import MovieDetailComponent from "../components/custom/sections/movieDetailcomponent";
 
-export default function Login() {
+export default function moviedetail() {
     return (
       <div>
         <Head>
           <title>We:lover - Login</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <LoginComponent />
+        <MovieDetailComponent />
       </div>
     );
   }

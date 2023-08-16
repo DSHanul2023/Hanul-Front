@@ -769,6 +769,76 @@ Responsive
   }
 }
 
+/* 채팅 스타일 통일  */
+.message-container {
+  display: flex;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.message {
+  border-radius: 16px;
+  padding: 10px;
+  font-size: 14px;
+  box-shadow: -58px 0 30px 0 rgba(0, 0, 0, 0.05);
+  word-wrap: break-word;
+  max-width: 70%;
+}
+
+/* User message styles */
+.user-message-container {
+  justify-content: flex-end;
+}
+
+.user-message {
+  background-color: #FFFFFF;
+  color: #000;
+}
+
+/* Bot message styles */
+.bot-message {
+  background-color: #FFEAC8;
+  color: #B95C37;
+}
+
+/* Timestamp styles */
+.timestamp {
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: right;
+  color: #000;
+}
+
+.timestamp2 {
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: left;
+  color: #000;
+}
+
+/* Bubble styles */
+.bubble {
+  position: relative;
+}
+
+.bubble:before {
+  content: "";
+  position: absolute;
+  border-style: solid;
+  border-width: 10px;
+}
+
+.user-message.bubble:before {
+  top: 0;
+  right: -8px;
+  border-color: transparent transparent transparent #FFFFFF;
+}
+
+.bot-message.bubble:before {
+  top: 0;
+  left: -8px;
+  border-color: transparent #FFEAC8 transparent transparent;
+}
 
 
 /*******************
@@ -815,7 +885,6 @@ Community
 .board-right {
   text-align: right;
 }
-
 
 /*******************
 Inquiry
