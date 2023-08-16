@@ -74,6 +74,8 @@ const InquiryInsideComponent = () => {
 
             const responseData = await response.json();
             setInquiry(responseData.data[0]);
+            handleFetchInquirydData(token); 
+
             setIsEditMode(false);
         } catch (error) {
             console.error(error);
