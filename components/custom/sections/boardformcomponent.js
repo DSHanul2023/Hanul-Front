@@ -31,15 +31,18 @@ const BoardFormComponent = (...args) => {
                 console.log("Content upload successful");
             }
         } catch (error) {
+          
         }
     };
 
     const handleSelect = (e) => {
         setSelected(e.target.value);
     };
+
     const handleImageChange = (e) => {
         setSelectedImage(e.target.files[0]);
     };
+
     return(
         <div className='boardCreate'>
             <Container>
