@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Row, Col, Container, Form } from "reactstrap";
+import Image from "next/image";
 import { useRouter } from "next/router";
+const ACCESS_TOKEN = "ACCESS_TOKEN";
 
 const LoginComponent = () => {
   const [email, setEmail] = useState("");
@@ -18,14 +20,14 @@ const LoginComponent = () => {
         },
         body: JSON.stringify({ email, password }),
       });
-
       if (response.ok) {
         const data = await response.json();
         const token = data.token;
-        const memberId = data.memberId;
+        console.log("Login successful");
+        console.log("Token:", token);
         localStorage.setItem(ACCESS_TOKEN, token);
-        localStorage.setItem("MEMBER_ID", memberId);
-        router.push("/chat"); // 로그인 후 채팅 페이지로 이동
+        // router.push("/chat"); // 로그인 후 채팅 페이지로 이동
+        window.location.href = "/chat";
       } else {
         console.log("Invalid credentials");
       }
