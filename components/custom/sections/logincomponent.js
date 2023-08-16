@@ -9,6 +9,7 @@ const LoginComponent = () => {
   const [password, setPassword] = useState("");
   const router = useRouter();
   const ACCESS_TOKEN = "ACCESS_TOKEN";
+  const MEMBER_ID = "MEMBER_ID";
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -23,9 +24,11 @@ const LoginComponent = () => {
       if (response.ok) {
         const data = await response.json();
         const token = data.token;
+        const memberId = data.id;
         console.log("Login successful");
         console.log("Token:", token);
         localStorage.setItem(ACCESS_TOKEN, token);
+        localStorage.setItem(MEMBER_ID, memberId);
         // router.push("/chat"); // 로그인 후 채팅 페이지로 이동
         window.location.href = "/chat";
       } else {

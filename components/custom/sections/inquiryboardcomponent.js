@@ -23,6 +23,7 @@ const InquiryBoard = () => {
     const itemsPerPage = 2; // 한 페이지에 보여질 항목 수
     const router = useRouter();
     const [token, setToken] = useState([]);
+
     const retrieveInquiryList = async (accessToken) => {
         try {
             if( accessToken && accessToken !== null ) {
@@ -47,8 +48,13 @@ const InquiryBoard = () => {
     };
     useEffect(() => {
         const accessToken = localStorage.getItem("ACCESS_TOKEN");
-        setToken(accessToken);
-        fetchInquiries(accessToken);
+        if (!accessToken) {
+            router.push("/login");
+          }
+        else{
+            setToken(accessToken);
+            fetchInquiries(accessToken);
+        }
         }, [currentPage]);
 
     const fetchInquiries = async (accessToken) => {
