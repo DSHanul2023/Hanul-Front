@@ -41,6 +41,7 @@ const Header = () => {
       // router.push("/");
       window.location.href = "/";
       localStorage.removeItem("ACCESS_TOKEN");
+      localStorage.removeItem("MEMBER_ID");
       // setLogState("LogIn");
     } else{
       window.location.href = "/login";
