@@ -114,7 +114,6 @@ const InquiryBoard = () => {
     const renderPagination = () => {
         const pageCount = Math.ceil((inquiries && inquiries.length) / itemsPerPage);
         if (pageCount <= 1) return null;
-
         const paginationItems = [];
         for (let i = 1; i <= pageCount; i++) {
             paginationItems.push(
