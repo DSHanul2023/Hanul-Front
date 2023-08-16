@@ -88,6 +88,7 @@ const BoardInsideComponent = () => {
             console.error("Error:", error);
         }
     };
+
     const handleImageChange = (e) => {
         setSelectedImage(e.target.files[0]);
     };
@@ -112,7 +113,6 @@ const BoardInsideComponent = () => {
             console.error('Error:', error);
             }
         };
-
 
     //댓글기능
     const fetchComments = async (accessToken) => {
@@ -375,8 +375,6 @@ const BoardInsideComponent = () => {
                 </Card>
                     </>
                 )}
-                
-                
             </Container>
         </div>
     );
