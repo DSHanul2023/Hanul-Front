@@ -1,15 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Container, Form, Input, Button } from "reactstrap";
 import UserChatComponent from "./UserChatComponent";
 import BotChatComponent from "./BotChatComponent";
+import { useRouter } from "next/router";
 
 const ChatComponent = () => {
+  const router = useRouter();
   const [inputMessage, setInputMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
-  const memberId = localStorage.getItem("MEMBER_ID");
   const [showChat, setShowChat] = useState(false);
 
+  useEffect(() => {
+    const accessToken = localStorage.getItem("ACCESS_TOKEN");
+    if (!accessToken) {
+      router.push("/login");
+    }
+  }, []);
+
   const handleMessageSubmit = async (e) => {
+    const memberId = localStorage.getItem("MEMBER_ID");
+
     e.preventDefault();
     if (inputMessage.trim() === "") {
       return;
