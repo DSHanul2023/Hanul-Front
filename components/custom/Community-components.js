@@ -10,7 +10,6 @@ const CommunityComponents = () => {
   useEffect(() => {
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
     if (!accessToken) {
-      setToken(accessToken);
       // router.push("/login"); // Redirect to the main page if not logged in
       window.location.href = "/login";
     } else {
