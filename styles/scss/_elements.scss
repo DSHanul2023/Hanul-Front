@@ -874,36 +874,6 @@ Community
     margin-top: 10px;
   }
 }
-.togglebtn,.togglebtn:hover,.togglebtn:focus,.togglebtn:active,.btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active, .show > .btn-secondary.dropdown-toggle,.btn-secondary:not(:disabled):not(.disabled):active:focus, .btn-secondary:not(:disabled):not(.disabled).active:focus, .show > .btn-secondary.dropdown-toggle:focus{
-  background: none;
-  border: none;
-  box-shadow: none;
-}
-.dropdown-menu{
-  border:none;
-}
-.dropdown-item {
-  padding:0px;
-  background:none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  .btn-secondary ,.btn-secondary:hover{
-    color:black;
-    background:none;
-    border:none;
-  }
-}
-.editbtn{
-  button{
-      background: none;
-      font-size:13px;
-      border:none;
-      color:black;
-  }
-  button:hover{
-    background-color: $themecolor;
-    color: white;
-  }
-}
 .togglebox{
   background: none;
   border: none;
@@ -914,27 +884,7 @@ Community
   right: 3%;
   bottom: 3%;
 }
-#editbtndiv{
-  .btn-secondary{
-    font-size: 2px;
-    background:none;
-    border:none;
-    color:black;
-    padding: 10px;
-  } 
-  svg{
-    width:13px;
-  }
-}
-.commentsubmitbtn{
-  float: right;
-  background-color:#C7C7C7;
-  border:none;
-  color:white;
-}
-.commentsubmitbtn:hover{
-  background-color: $themecolor;
-}
+
 .board-right {
   text-align: right;
 }
@@ -942,6 +892,104 @@ Community
   border-color:#C7C7C7;
   box-shadow:0 0 0 0.1rem #c7c7c721;
 }
+asg{
+  font-size: 2px;
+}
+.boardCreate{
+  .communitybtn,.communitybtn:hover,.communitybtn:active{
+    background:none;
+    border:none;
+    font-weight:bold;
+    color:$themecolor;
+    margin-left: 30px;
+  }
+  .togglebtn,.togglebtn:hover,.togglebtn:focus,.togglebtn:active,.btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active, .show > .btn-secondary.dropdown-toggle,.btn-secondary:not(:disabled):not(.disabled):active:focus, .btn-secondary:not(:disabled):not(.disabled).active:focus, .show > .btn-secondary.dropdown-toggle:focus{
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
+  .dropdown-menu{
+    border:none;
+  }
+  .dropdown-item {
+    padding:0px;
+    padding-top:5px;
+    padding-bottom:5px;
+    background:none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    .btn-secondary ,.btn-secondary:hover{
+      color:black;
+      background:none;
+      border:none;
+    }
+  }
+  .dropdown-item:active{
+    background-color: $themecolor;
+    color:white;
+  }
+  .editbtndiv1{
+    button{
+        background: none;
+        font-size:13px;
+        border:none;
+        color:black;
+    }
+    button:hover{
+      background-color: $themecolor;
+      color: white;
+    }
+  }
+  #editbtndiv{
+    .btn-secondary{
+      font-size: 2px;
+      background:none;
+      border:none;
+      color:black;
+      padding: 10px;
+    } 
+    svg{
+      width:13px;
+    }
+  }
+  .commentsubmitbtn{
+    float: right;
+    background-color:#C7C7C7;
+    border:none;
+    color:white;
+  }
+  .commentsubmitbtn:hover{
+    background-color: $themecolor;
+  }
+  Input{
+    font-size:14px;
+  }
+  .editbtn{
+    background:none;
+    border:none;
+    color:black;
+    font-size: 14px;
+    float:right;
+  }
+  .editbtn:hover{
+    background:$themecolor;
+    color:white;
+  }
+}
+.create-button{
+  float:right;
+  Button,.submitbtn{
+    background:white;
+    border:none;
+    color:black;
+    font-size: 15px;
+    margin-left: 7px;
+  }
+  Button:hover,.submitbtn:hover{
+    background:$themecolor;
+    border:none;
+  }
+}
+
 /*******************
 Inquiry
 *******************/
