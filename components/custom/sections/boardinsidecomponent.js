@@ -227,15 +227,20 @@ const BoardInsideComponent = () => {
     } catch (error) {
         console.error('Error:', error);
     }
-};
+    };
     const handleKebabClick = () => {
         setShowButtons(!showButtons);
     };
+    const handleBackClick = () =>{
+        router.push('/community');
+    };
     return (
-        <div className='boardCreate mt-5'>
-            <Container>
+        <div className='boardCreate mt-3'>
+            <Button onClick={handleBackClick} className='communitybtn'>&lt; Community</Button>
+            <Container className='mt-2'>
                 {isEditMode ? (
-                    <Form style={{marginTop:"20px"}}>
+                    <Card style={{padding:'30px',fontSize:'14px'}}>
+                    <Form>
                         <FormGroup>
                             <Label for="catSelect">
                                 게시판
@@ -282,9 +287,10 @@ const BoardInsideComponent = () => {
                         onChange={handleImageChange}
                         />
                     </FormGroup>
-                        <Button color="themecolor" onClick={handleUpdateClick}>수정하기</Button>{' '}
-                        <Button color="themecolor" onClick={handleCancelClick}>취소</Button>
+                        <Button className="editbtn" onClick={handleCancelClick}>취소</Button>
+                        <Button className="editbtn" onClick={handleUpdateClick}>수정하기</Button>                        
                     </Form>
+                    </Card>
                 ) : (
                     <> <Card>
                     <Container style={{ padding: '30px',fontSize:'14px' }}>
@@ -318,10 +324,10 @@ const BoardInsideComponent = () => {
                         <Row style={{ marginTop: '27px'}}>
                             <Col md="12">
                                 {/* 제목 */}
-                                <span className="title" style={{fontSize:'28px',fontWeight:'bold'}}>{boardData.title}</span>
+                                <span className="title" style={{fontSize:'25px',fontWeight:'bold'}}>{boardData.title}</span>
                             </Col>
                         </Row>
-                        <Row style={{marginTop:'25px',fontSize:'18px' }}>
+                        <Row style={{marginTop:'25px',fontSize:'17px' }}>
                             <Col md="12">
                                 {/* 내용 */}
                                 <p className="content">{boardData.contents}</p>
@@ -331,8 +337,6 @@ const BoardInsideComponent = () => {
                                 )}
                             </Col>
                         </Row>
-
-
                     </Container>
                 </Card>
                 <Card>
@@ -365,7 +369,7 @@ const BoardInsideComponent = () => {
                                                     value={editingCommentText}
                                                     onChange={handleEditingCommentChange}
                                                 />
-                                                <div className='editbtn mt-1 mb-5'>
+                                                <div className='editbtndiv1 mt-1 mb-5'>
                                                     <Button style={{ float: 'right' }} onClick={handleCancelEdit}>취소</Button>
                                                     <Button style={{ float: 'right' }} className="mr-2" onClick={() => handleUpdateComment(comment.id)}>수정</Button>
                                                 </div>
