@@ -874,18 +874,74 @@ Community
     margin-top: 10px;
   }
 }
-
+.togglebtn,.togglebtn:hover,.togglebtn:focus,.togglebtn:active,.btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active, .show > .btn-secondary.dropdown-toggle,.btn-secondary:not(:disabled):not(.disabled):active:focus, .btn-secondary:not(:disabled):not(.disabled).active:focus, .show > .btn-secondary.dropdown-toggle:focus{
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+.dropdown-menu{
+  border:none;
+}
+.dropdown-item {
+  padding:0px;
+  background:none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  .btn-secondary ,.btn-secondary:hover{
+    color:black;
+    background:none;
+    border:none;
+  }
+}
+.editbtn{
+  button{
+      background: none;
+      font-size:13px;
+      border:none;
+      color:black;
+  }
+  button:hover{
+    background-color: $themecolor;
+    color: white;
+  }
+}
+.togglebox{
+  background: none;
+  border: none;
+  box-shadow: none;
+}
 .board-button {
   position: fixed;
   right: 3%;
   bottom: 3%;
 }
-
-
+#editbtndiv{
+  .btn-secondary{
+    font-size: 2px;
+    background:none;
+    border:none;
+    color:black;
+    padding: 10px;
+  } 
+  svg{
+    width:13px;
+  }
+}
+.commentsubmitbtn{
+  float: right;
+  background-color:#C7C7C7;
+  border:none;
+  color:white;
+}
+.commentsubmitbtn:hover{
+  background-color: $themecolor;
+}
 .board-right {
   text-align: right;
 }
-
+.form-control:focus{
+  border-color:#C7C7C7;
+  box-shadow:0 0 0 0.1rem #c7c7c721;
+}
 /*******************
 Inquiry
 *******************/
