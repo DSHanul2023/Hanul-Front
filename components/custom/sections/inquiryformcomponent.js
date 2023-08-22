@@ -53,35 +53,35 @@ const InquiryForm = ({ onFormSubmit, onFormCancel }) => {
     };
     
     return (
-        <form onSubmit={handleSubmit}>
-        <FormGroup>
-            <Label for="inquiryNm">제목</Label>
-            <Input
-            type="text"
-            id="inquiryNm"
-            name="inquiryNm" // name 속성 추가
-            placeholder="제목을 입력하세요."
-            onChange={handleChange}
-            required
-            />
-        </FormGroup>
-        <FormGroup>
-            <Label for="inquiryDetail">내용</Label>
-            <Input
-            type="textarea"
-            id="inquiryDetail"
-            name="inquiryDetail" // name 속성 추가
-            placeholder="문의 내용을 입력하세요."
-            onChange={handleChange}
-            required
-            />
-        </FormGroup>
-        <Button color="themecolor" type="submit">
-            문의 제출
-        </Button>
-        <Button color="secondary" onClick={handleCancel}>
-            취소
-        </Button>
+        <form onSubmit={handleSubmit} className="mt-3 mb-5">
+            <FormGroup>
+                <Label for="inquiryNm">제목</Label>
+                <Input
+                    type="text"
+                    id="inquiryNm"
+                    name="inquiryNm"
+                    placeholder="제목을 입력하세요."
+                    onChange={handleChange}
+                    required
+                />
+            </FormGroup>
+            <FormGroup>
+                <Label for="inquiryDetail">내용</Label>
+                <Input
+                    type="textarea"
+                    id="inquiryDetail"
+                    name="inquiryDetail"
+                    placeholder="문의 내용을 입력하세요."
+                    onChange={handleChange}
+                    required
+                />
+            </FormGroup>
+            <Button className='formbtn' onClick={handleCancel}>
+                취소
+            </Button>
+            <Button className='formbtn' type="submit">
+                문의 제출
+            </Button>
         </form>
     );
     };

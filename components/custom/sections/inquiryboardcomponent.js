@@ -10,7 +10,7 @@ import {
     Table,
     Pagination,
     PaginationItem,
-    PaginationLink
+    PaginationLink,Card
 } from 'reactstrap';
 import InquiryForm from './inquiryformcomponent';
 import { useRouter } from 'next/router';
@@ -50,7 +50,7 @@ const InquiryBoard = () => {
         const accessToken = localStorage.getItem("ACCESS_TOKEN");
         if (!accessToken) {
             router.push("/login");
-          }
+        }
         else{
             setToken(accessToken);
             fetchInquiries(accessToken);
@@ -153,34 +153,35 @@ const InquiryBoard = () => {
                     <td>{startIndex + index + 1}</td>
                     <td>{inquiry.inquiryNm}</td>
                     <td>{inquiry.createdAt}</td>
-                    <td>{inquiry.state}</td>
+                    <td>{inquiry.state ? "답변완료" : "처리중"}</td>
                 </tr>
             ))
         );
     };
     return (
         <div className='inquiry'>
+            <Card style={{padding:'30px'}}>
             {!showCreateForm && (
             <Container>
                 <Row>
                     <Col md="6">
-                        <h2 className="font-bold">문의 게시판</h2>
+                        <h3 className="font-bold mt-2">문의 게시판</h3>
                     </Col>
                     <Col md="2">
-                        <Button color='themecolor' onClick={toggleCreateForm}>문의하기</Button>
+                        <Button onClick={toggleCreateForm}>문의하기</Button>
                     </Col>
                     <Col md="4">
                         <FormGroup className='btn-group-board'>
                             <Label htmlFor="name"></Label>
                                 <Input
                                     type="text"
-                                    className="form-control"
+                                    className="form-control mt-1"
                                     id="name"
                                     placeholder="검색어를 입력하세요."
                                     value={searchQuery}
                                     onChange={handleSearchInputChange}
                                 />
-                            <Col md="5"><Button color='themecolor' onClick={handleSearchSubmit}>검색</Button></Col> 
+                            <Col md="5"><Button onClick={handleSearchSubmit}>검색</Button></Col> 
                         </FormGroup>
                     </Col>
                 </Row>
@@ -215,7 +216,7 @@ const InquiryBoard = () => {
                     <h2 className="font-bold">문의하기</h2>
                     <InquiryForm onFormSubmit={handleInquirySubmit} onFormCancel={handleFormCancel} />
                 </Container>
-            )}
+            )}</Card>
         </div>
     );
 }

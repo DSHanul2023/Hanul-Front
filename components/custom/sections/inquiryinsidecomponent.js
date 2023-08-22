@@ -112,9 +112,9 @@ const InquiryInsideComponent = () => {
     const handleBackClick = () =>{
         router.push('/inquiry');
     };
-    return (<>
-        <Button color="themecolor" onClick={handleBackClick}>&lt; Inquiry</Button> {/* '<' 버튼 추가 */}
-        <Card>
+    return (<div className='inquiryinside mt-3'>
+        <Button onClick={handleBackClick} className='inquirybtn mb-2'>&lt; Inquiry</Button> {/* '<' 버튼 추가 */}
+        <Card className='inquirycard'>
             <Container>
                 {isEditMode ? (
                     <Form style={{ marginTop: "20px" }}>
@@ -141,13 +141,13 @@ const InquiryInsideComponent = () => {
                                 placeholder="내용을 입력하세요."
                             />
                         </FormGroup>
-                        <Button color="themecolor" onClick={handleUpdateClick}>수정하기</Button>{' '}
-                        <Button color="themecolor" onClick={handleCancelClick}>취소</Button>
+                        <Button className='formbtn' onClick={handleCancelClick}>취소</Button>
+                        <Button className='formbtn' onClick={handleUpdateClick}>수정하기</Button>{' '}
                     </Form>
                 ) : (
                     <>
-                        <Row className='card-main'>
-                            <Col md="11" className='mt-5 ml-3'>
+                        <Row className='card-main mt-5'>
+                            <Col md="9" className='ml-3'>
                                 <CardTitle tag="h4">{inquiry.inquiryNm}</CardTitle>
                             </Col>
                             <Col className='board-right'>
@@ -155,21 +155,21 @@ const InquiryInsideComponent = () => {
                             </Col>
                         </Row><hr/>
                         <Row className='ml-3 mb-5'>
-                            <Col md="11">
+                            <Col md="11 mb-5 mt-1">
                                 <CardText>{inquiry.inquiryDetail}</CardText>
                             </Col>
                         </Row><hr/>
                         <Row>
-                            <Col className='board-right mb-5'>
-                                <Button color="themecolor" onClick={handleEditClick}>수정</Button>
-                                <Button color='themecolor' onClick={handleDeleteClick} className='ml-2'>삭제</Button>
+                            <Col className='mb-5'>
+                            <Button className='formbtn' onClick={handleDeleteClick}>삭제</Button>
+                            <Button className='formbtn' onClick={handleEditClick}>수정</Button>
                             </Col>
                         </Row>
                     </>
                 )}
             </Container>
-            
         </Card>
+        {!isEditMode && (
         <Card>
             <Container>
                 <Row className='mt-5 mb-5'>
@@ -186,8 +186,8 @@ const InquiryInsideComponent = () => {
                     </Col>
                 </Row>
             </Container>
-        </Card>
-    </>
+        </Card>)}
+    </div>
     );
 }
 

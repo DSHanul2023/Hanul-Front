@@ -960,7 +960,7 @@ asg{
   .commentsubmitbtn:hover{
     background-color: $themecolor;
   }
-  Input{
+  Input,#catSelect,.form-control{
     font-size:14px;
   }
   .editbtn{
@@ -997,6 +997,7 @@ Inquiry
   padding: 20px;
   justify-items: center;
   align-items: center;
+  font-size:14px;
 
   .btn-group-board{
     display: inline-flex;
@@ -1016,8 +1017,69 @@ Inquiry
     justify-self: center;
   }
   .page-item.active .page-link{
-    background-color: $themecolor; 
-    border-color:$themecolor;
+    background-color:white; 
+    border-color:white;
+    color:$themecolor;
+    box-shadow: 0px;
+  }
+  Input{
+    font-size:14px;
+  }
+  #inquiryDetail{
+    height: 300px;
+    font-size:14px;
+  }
+  .formbtn{
+    background:white;
+    border:none;
+    color:black;
+    font-size: 15px;
+    margin-left: 7px;
+    float:right;
+  }
+  .formbtn:hover{
+    background:$themecolor;
+    border:none;
+  }
+  Button{
+    background:white;
+    border:none;
+    color:black;
+    font-size: 15px;
+    margin-left: 7px;
+    float:right;
+  }
+  Button:hover,Button:active,Button:focus{
+    background:$themecolor;
+    border:none;
+  }
+}
+.inquiryinside{
+  font-size: 14px;
+  .inquirybtn,.inquirybtn:hover,.inquirybtn:active,.inquirybtn:focus{
+    background:none;
+    border:none;
+    color:$themecolor;
+    margin-left: 30px;
+  }
+  .inquirycard{
+    padding:30px;
+  }
+  .formbtn{
+    background:white;
+    border:none;
+    color:black;
+    font-size: 15px;
+    margin-left: 7px;
+    float:right;
+  }
+  .formbtn:hover{
+    background:$themecolor;
+    border:none;
+  }
+  Input{
+    font-size:14px;
+    margin-top:5px;
   }
 }
 /*******************
