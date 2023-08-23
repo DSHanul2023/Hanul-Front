@@ -113,7 +113,7 @@ const InquiryInsideComponent = () => {
         router.push('/inquiry');
     };
     return (<div className='inquiryinside mt-3'>
-        <Button onClick={handleBackClick} className='inquirybtn mb-2'>&lt; Inquiry</Button> {/* '<' 버튼 추가 */}
+        <Button onClick={handleBackClick} className='inquirybtn mb-2'>&lt; Inquiry</Button>
         <Card className='inquirycard'>
             <Container>
                 {isEditMode ? (
@@ -174,7 +174,8 @@ const InquiryInsideComponent = () => {
             <Container>
                 <Row className='mt-5 mb-5'>
                     <Col>
-                    <h4>답변</h4><hr/>
+                    <h5>답변</h5><hr/>
+                    {inquiry.answer ?(
                         <div className='mt-3'>
                             <div>
                                 <p>{inquiry.answer}
@@ -183,6 +184,9 @@ const InquiryInsideComponent = () => {
                                 </p> 
                             </div>
                         </div>
+                    ):(
+                        <span>문의 처리중입니다.</span>
+                    )}
                     </Col>
                 </Row>
             </Container>
