@@ -72,7 +72,7 @@ const BoardInsideComponent = () => {
     const handleUpdateClick = async () => {
         const accessToken = token;
         const formData = new FormData();
-        formData.append('idx',id)
+        formData.append('idx', id);
         formData.append('image', selectedImage); 
         formData.append('title', title);
         formData.append('contents', contents);
@@ -95,7 +95,7 @@ const BoardInsideComponent = () => {
     };
 
     const handleImageChange = (e) => {
-        setSelectedImage(e.target.files[0]);
+        setSelectedImage(e.target.files[0]);   
     };
     const handleDeleteClick = async () => {
         const accessToken = token;
@@ -309,12 +309,15 @@ const BoardInsideComponent = () => {
                                         <FontAwesomeIcon icon={faEllipsisV} className="kebab-icon mr-2 mt-1" style={{ color: '#EFA374' }}/>
                                     </DropdownToggle>
                                     <DropdownMenu>
-                                        <DropdownItem><Button onClick={handleEditClick} block size="sm">
+                                        <DropdownItem>
+                                            <div onClick={handleEditClick} className="dropdown-action">
                                             수정
-                                            </Button></DropdownItem>
-                                        <DropdownItem><Button onClick={handleDeleteClick} block size="sm">
-                                            삭제
-                                            </Button></DropdownItem>
+                                            </div></DropdownItem>
+                                        <DropdownItem>
+                                            <div onClick={handleDeleteClick} className="dropdown-action">
+                                                삭제
+                                            </div>
+                                        </DropdownItem>
                                     </DropdownMenu>
                                     </Dropdown>
                                 </div>
