@@ -60,7 +60,7 @@ const InquiryBoard = () => {
     const fetchInquiries = async (accessToken) => {
         try {
                 const data = await retrieveInquiryList(accessToken); // api/inquiry.js의 retrieveInquiryList 함수 호출
-                setInquiries(data);
+                setInquiries(data.reverse());
             } 
         catch (error) {
             console.error(error);
@@ -95,11 +95,11 @@ const InquiryBoard = () => {
 
     const handleSearchSubmit = async () => {
         try {
-            const response = await fetch(`${apiUrl}/${searchQuery}`, {
+            const response = await fetch(`${apiUrl}/search/${searchQuery}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`
+                    'Authorization': `Bearer ${token}`
                 }
             });
 
@@ -108,7 +108,7 @@ const InquiryBoard = () => {
             }
 
             const inquiries = await response.json();
-            setInquiries(inquiries.data);
+            setInquiries(inquiries.data.reverse());
         } catch (error) {
             console.error(error);
         }
@@ -146,7 +146,7 @@ const InquiryBoard = () => {
         // 현재 페이지에 해당하는 데이터만 추출
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
-        const inquiriesToShow = inquiries.reverse().slice(startIndex, endIndex);
+        const inquiriesToShow = inquiries.slice(startIndex, endIndex);
         return (
             inquiriesToShow.map((inquiry, index) => (
                 <tr key={index} onClick={() => handleInquiryItemClick(inquiry.id)}>
