@@ -1027,6 +1027,9 @@ Inquiry
     color:$themecolor;
     box-shadow: 0px;
   }
+  .page-link:focus{
+    box-shadow:none;
+  }
   Input{
     font-size:14px;
   }
@@ -1055,6 +1058,7 @@ Inquiry
   }
   Button:hover,Button:active,Button:focus{
     background:$themecolor;
+    color:white;
     border:none;
   }
 }
