@@ -4,7 +4,7 @@ import BoardCards from './boardcardcomponent';
 const BoardComponent = ({ boardList, selectedBoardType }) => {
     const filteredBoardList = boardList.filter((boarditem) => (parseInt(boarditem.type, 10) === selectedBoardType));
     return (
-        <div>
+        <div className='mt-5'>
             {filteredBoardList && filteredBoardList.map((boarditem, index) => (
             <BoardCards boarditem={boarditem} key={index} />
             ))}
