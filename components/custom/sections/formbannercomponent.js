@@ -6,36 +6,15 @@ import siginupimage from "../../../assets/images/form-banners/banner1/siginupima
 import { useRouter } from "next/router";
 
 const FormBannerComponent = () => {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:8080/members/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, email, password }),
-      });
-      if (response.ok) {
-        console.log("Member registered successfully");
-        router.push("/login"); // 회원가입 후 로그인 페이지로 이동
-      } else {
-        console.log("Failed to register member");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
+  const ACCESS_TOKEN = "ACCESS_TOKEN";
+  const MEMBER_ID = "MEMBER_ID";
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("/members/login", {
+      const response = await fetch("http://localhost:8080/members/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -45,17 +24,27 @@ const FormBannerComponent = () => {
       if (response.ok) {
         const data = await response.json();
         const token = data.token;
+        const memberId = data.id;
         console.log("Login successful");
         console.log("Token:", token);
-        router.push("/chat"); // 로그인 후 채팅 페이지로 이동
+        localStorage.setItem(ACCESS_TOKEN, token);
+        localStorage.setItem(MEMBER_ID, memberId);
+        // router.push("/chat"); // 로그인 후 채팅 페이지로 이동
+        window.location.href = "/chat";
       } else {
         console.log("Invalid credentials");
+        alert("아이디 또는 비밀번호를 잘못 입력했습니다. \n입력하신 내용을 다시 확인해주세요.");
       }
     } catch (error) {
       console.error("Error:", error);
     }
   };
-
+  const joinHandleClick = () => {
+    router.push("/join");
+  }
+  const surveyHandleClick = () => {
+    router.push("/survey");
+  }
   return (
     <div>
       <div className="bg-light">
@@ -67,20 +56,9 @@ const FormBannerComponent = () => {
                   <h2 className="title font-bold">
                     고민 상담 AI 챗봇 기반 이야기 치료법 제공 서비스
                   </h2>
-                  <p className="m-t-15 m-b-30">
-                    회원가입 후 서비스를 이용해 보세요
-                  </p>
-                  <Form className="m-t-40" onSubmit={handleRegister}>
-                    <div>
-                      <input
-                        type="text"
-                        name="name"
-                        placeholder="Name"
-                        className="font-14"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                      />
-                    </div>
+                  
+                  <Form className="m-t-40" onSubmit={handleLogin}>
+                    
                     <div className="m-t-10">
                       <input
                         type="text"
@@ -102,15 +80,17 @@ const FormBannerComponent = () => {
                       />
                       <input
                         type="submit"
-                        value="Enter"
+                        value="Login"
                         className="font-14 btn-rounded text-white text-center ml-2"
                       />
                     </div>
                   </Form>
-                  <button className="m-t-10 font-14 text-white text-center">
+                  <button className="m-t-10 font-14 text-white text-center" onClick={surveyHandleClick}>
                     이야기 치료법 체험해보기
                   </button>
-
+                  <p className="m-t-15 m-b-30" onClick={joinHandleClick} style={{textDecoration:'underline'}}>
+                    회원가입 후 서비스를 이용해 보세요
+                  </p>
                 </Col>
                 <Col lg="5" md="5" className="align-self-center ml-auto">
                   <Image
