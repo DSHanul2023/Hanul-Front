@@ -17,12 +17,14 @@ import {
   CardTitle,
   CardText,
 } from "reactstrap";
+import { useRouter } from "next/router";
 import default_profile from "../../../public/profile/default_profile.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 // const default_profile = "default_profile.png";
 
 const MemberInfoChange = () => {
+  const router = useRouter();
   const [member, setMember] = useState(null);
   const [nameInput, setNameInput] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
@@ -47,10 +49,9 @@ const MemberInfoChange = () => {
       window.location.href = "/login";
     } else {
       fetchMemberInfo(accessToken);
-      console.log("profilePicturName: " + profilePictureName);
-      console.log("imagePreview: " + imagePreview);
+      console.log("Updated profilePictureName:", profilePictureName);
     }
-  }, []);
+  }, [profilePictureName]);
 
   const fetchMemberInfo = async (token) => {
     try {
@@ -67,9 +68,10 @@ const MemberInfoChange = () => {
         const data = await response.json();
         setMember(data);
         setNameInput(data.name); // Set initial value for name input
-        setProfilePictureName(data.profilePictureName);
         setImagePreview(`/profile/${data.profilePictureName}`);
-        console.log("current password: " + data.password);
+        setProfilePictureName(profilePictureName);
+        // console.log("current password: " + data.password);
+        console.log("profilePicturName: " + profilePictureName);
       } else {
         console.log("Failed to fetch member information");
       }
@@ -260,6 +262,8 @@ const MemberInfoChange = () => {
           fetchMemberInfo(accessToken);
           setProfilePictureName(member.profilePictureName);
           setImagePreview(`/profile/${member.profilePictureName}`); // Update image preview with the uploaded image
+          // router.push('/memberinfochangecomponent');
+          window.location.href('/memberinfochangecomponent');
         } else {
           console.error("Failed to upload profile picture");
         }
@@ -298,7 +302,8 @@ const MemberInfoChange = () => {
               <FormGroup>
                 <div className="profile-picture-preview mb-5">
                   <Image
-                    src={profilePictureName ? imagePreview : default_profile}
+                    // src={profilePictureName ? imagePreview : default_profile}
+                    src={imagePreview || default_profile}
                     alt="profile"
                     className="profile-picture img-circle"
                     width={200}
@@ -321,7 +326,7 @@ const MemberInfoChange = () => {
                   id="profilePicture"
                   accept="image/*"
                   onChange={handleChangeFile}
-                  multiple="multiple"
+                  // multiple="multiple"
                   // ref={fileInput}
                   style={{ display: "none" }}
                 />
