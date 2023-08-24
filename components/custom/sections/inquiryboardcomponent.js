@@ -10,7 +10,7 @@ import {
     Table,
     Pagination,
     PaginationItem,
-    PaginationLink
+    PaginationLink,Card
 } from 'reactstrap';
 import InquiryForm from './inquiryformcomponent';
 import { useRouter } from 'next/router';
@@ -50,7 +50,7 @@ const InquiryBoard = () => {
         const accessToken = localStorage.getItem("ACCESS_TOKEN");
         if (!accessToken) {
             router.push("/login");
-          }
+        }
         else{
             setToken(accessToken);
             fetchInquiries(accessToken);
@@ -60,7 +60,7 @@ const InquiryBoard = () => {
     const fetchInquiries = async (accessToken) => {
         try {
                 const data = await retrieveInquiryList(accessToken); // api/inquiry.js의 retrieveInquiryList 함수 호출
-                setInquiries(data);
+                setInquiries(data.reverse());
             } 
         catch (error) {
             console.error(error);
@@ -95,11 +95,11 @@ const InquiryBoard = () => {
 
     const handleSearchSubmit = async () => {
         try {
-            const response = await fetch(`${apiUrl}/${searchQuery}`, {
+            const response = await fetch(`${apiUrl}/search/${searchQuery}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`
+                    'Authorization': `Bearer ${token}`
                 }
             });
 
@@ -108,7 +108,7 @@ const InquiryBoard = () => {
             }
 
             const inquiries = await response.json();
-            setInquiries(inquiries.data);
+            setInquiries(inquiries.data.reverse());
         } catch (error) {
             console.error(error);
         }
@@ -146,41 +146,42 @@ const InquiryBoard = () => {
         // 현재 페이지에 해당하는 데이터만 추출
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
-        const inquiriesToShow = inquiries.reverse().slice(startIndex, endIndex);
+        const inquiriesToShow = inquiries.slice(startIndex, endIndex);
         return (
             inquiriesToShow.map((inquiry, index) => (
                 <tr key={index} onClick={() => handleInquiryItemClick(inquiry.id)}>
                     <td>{startIndex + index + 1}</td>
                     <td>{inquiry.inquiryNm}</td>
                     <td>{inquiry.createdAt}</td>
-                    <td>{inquiry.state}</td>
+                    <td>{inquiry.state ? "답변완료" : "처리중"}</td>
                 </tr>
             ))
         );
     };
     return (
         <div className='inquiry'>
+            <Card style={{padding:'30px'}}>
             {!showCreateForm && (
             <Container>
                 <Row>
                     <Col md="6">
-                        <h2 className="font-bold">문의 게시판</h2>
+                        <h3 className="font-bold mt-2">문의 게시판</h3>
                     </Col>
                     <Col md="2">
-                        <Button color='themecolor' onClick={toggleCreateForm}>문의하기</Button>
+                        <Button onClick={toggleCreateForm}>문의하기</Button>
                     </Col>
                     <Col md="4">
                         <FormGroup className='btn-group-board'>
                             <Label htmlFor="name"></Label>
                                 <Input
                                     type="text"
-                                    className="form-control"
+                                    className="form-control mt-1"
                                     id="name"
                                     placeholder="검색어를 입력하세요."
                                     value={searchQuery}
                                     onChange={handleSearchInputChange}
                                 />
-                            <Col md="5"><Button color='themecolor' onClick={handleSearchSubmit}>검색</Button></Col> 
+                            <Col md="5"><Button onClick={handleSearchSubmit}>검색</Button></Col> 
                         </FormGroup>
                     </Col>
                 </Row>
@@ -215,7 +216,7 @@ const InquiryBoard = () => {
                     <h2 className="font-bold">문의하기</h2>
                     <InquiryForm onFormSubmit={handleInquirySubmit} onFormCancel={handleFormCancel} />
                 </Container>
-            )}
+            )}</Card>
         </div>
     );
 }
