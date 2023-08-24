@@ -30,6 +30,9 @@ const JoinComponent = () => {
     const loginHandleClick = () => {
         router.push("/login");
     }
+    const surveyHandleClick = () => {
+        router.push("/survey");
+    }
     return (
         <div>
         <div className="bg-light">
@@ -78,7 +81,7 @@ const JoinComponent = () => {
                         />
                         </div>
                     </Form>
-                    <button className="m-t-10 font-14 text-white text-center">
+                    <button className="m-t-10 font-14 text-white text-center" onClick={surveyHandleClick}>
                         이야기 치료법 체험해보기
                     </button>
                     <p className="m-t-15 m-b-30" onClick={loginHandleClick} style={{textDecoration:'underline'}}>
