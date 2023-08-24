@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Button, Row, Col, Container, FormGroup, Label, Input, Card, CardTitle, CardText, Form } from 'reactstrap';
 import { useRouter } from "next/router";
 
-const InquiryInsideComponent = () => {
+const InquiryInsideComponent = (props) => {
     const [token, setToken] = useState([]);
     const [inquiry, setInquiry] = useState({});
     const router = useRouter();
-    const { query } = router;
-    const { id } = query;
+    const id = props.id;
     const [isEditMode, setIsEditMode] = useState(false);
     const [inquiryNm, setInquiryNm] = useState("");
     const [inquiryDetail, setInquiryDetail] = useState("");

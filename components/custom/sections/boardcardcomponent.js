@@ -17,7 +17,7 @@ const BoardCards = (boarditem, key) => {
                             <Card body className="card-shadow card">
                                 <Container>
                                     <Row className='card-main'>
-                                        <Col md="11">
+                                        <Col md="10">
                                             <CardTitle>{item.title}</CardTitle>
                                         </Col>
                                         <Col className='board-right'>
