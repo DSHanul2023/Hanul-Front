@@ -1,35 +1,111 @@
-import React from 'react';
-import {  Button, Form,FormGroup,Input} from 'reactstrap';
+import React, { useState } from 'react';
+import { Button, Form, FormGroup, Input, Row, Col } from 'reactstrap';
+
+const emotions = ['분노', '걱정', '불안', '우울', '공포', '슬픔', '기쁨', '설렘'];
+const genres = ['드라마', '로맨스', '가족', '액션', '범죄', '음악', '코미디', '판타지', '모험', '애니메이션'];
 
 const Question = () => {
-    const onCheckboxBtnClick = (e) =>  {
-        if(e.target.style.backgroundColor==="rgb(185, 92, 55)"){
-            e.target.style.backgroundColor="white";
-            e.target.style.color="#EFA374";
+    const [selectedItems, setSelectedItems] = useState([]);
+    const [selectedType, setSelectedType] = useState('오늘의 기분은 어떤가요?'); // 기본값: '기분'
+
+    const handleSelectChange = (e) => {
+        setSelectedType(e.target.value);
+        setSelectedItems([]); // 선택한 항목 초기화
+    };
+
+    const onCheckboxBtnClick = (item) =>  {
+        setSelectedItems(prevItems => {
+            if (prevItems.includes(item)) {
+                return prevItems.filter(prevItem => prevItem !== item);
+            } else if (prevItems.length < 3) {
+                return [...prevItems, item];
+            }
+            return prevItems;
+        });
+    }
+
+    const handleRecommendClick = () => {
+        if (selectedItems.length === 0) {
+            alert("아무 항목도 선택되지 않았습니다. 최소 하나의 항목을 선택해주세요.");
+            return;
         }
-        else{
-            e.target.style.backgroundColor="#B95C37";
-            e.target.style.color="white";
+        // 선택한 아이템들을 활용하여 추천 로직 수행
+        console.log('선택한 아이템들:', selectedItems);
+        
+        const selectedCategory = selectedType === '오늘의 기분은 어떤가요?' ? '기분' : '장르';
+
+        const requestData = {
+            category: selectedCategory,
+            selectedItems: selectedItems
+        };
+
+        // 서버로 POST 요청 보내기
+        fetch('http://localhost:8080/survey', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+        .then(response => response.json()) 
+        .then(data => {
+            console.log('서버 응답:', data);
+            // 여기에서 서버의 응답을 처리할 수 있습니다.
+        })
+        .catch(error => {
+            console.error('에러 발생:', error);
+        });
+    }
+
+    const itemsToDisplay = selectedType === '오늘의 기분은 어떤가요?' ? emotions : genres;
+
+    const renderButtons = () => {
+        const rows = [];
+        for (let i = 0; i < itemsToDisplay.length; i += 3) {
+            const rowItems = itemsToDisplay.slice(i, i + 3);
+            rows.push(
+                <div key={i} style={{ display: 'flex' }}>
+                    {rowItems.map((item, index) => (
+                        <Col key={index}>
+                            <Button
+                                onClick={() => onCheckboxBtnClick(item)}
+                                style={{
+                                    backgroundColor: selectedItems.includes(item) ? '#EFA374' : 'white',
+                                    color: selectedItems.includes(item) ? 'white' : '#EFA374',
+                                    marginBottom: '10px',
+                                    borderColor:'#EFA374'
+                                
+                                }}
+                            >
+                                {item}
+                            </Button>
+                        </Col>
+                    ))}
+                </div>
+            );
         }
-    }  
+        return rows;
+    };
+
     return (
         <Form className="surveyform">
             <FormGroup>
-                <Input type="select" name="select" className="selectquestion">
-                    <option>기분</option>
-                    <option>고민</option>
+                <Input type="select" name="select" className="selectquestion" onChange={handleSelectChange}>
+                    <option value="오늘의 기분은 어떤가요?">기분</option>
+                    <option value="선호하는 영화의 장르는 무엇인가요?">장르</option>
                 </Input>
             </FormGroup>
             <div className="questionpart">
-                Q. <span className="question">오늘의 기분은 어떤가요?</span>
+                Q. <span className="question">{selectedType}</span>
             </div>
             <div className="checkanswer">
-                <Button onClick={onCheckboxBtnClick}>우울하다</Button>
-                <Button onClick={onCheckboxBtnClick}>기쁘다</Button>
+                <div className="checkdiv">
+                    {renderButtons()}
+                </div>
             </div>
-            <Button className="commendbtn">콘텐츠 추천받기</Button>
+            <Button className="commendbtn" onClick={handleRecommendClick}>콘텐츠 추천받기</Button>
         </Form>
-);
+    );
 }
 
 export default Question;
