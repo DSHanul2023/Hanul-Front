@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Button, FormGroup, Input, Label, Form, CardImg } from 'reactstrap';
+import { Container, Button, FormGroup, Input, Label, Form, CardImg,Dropdown,DropdownToggle,DropdownMenu,DropdownItem } from 'reactstrap';
 import { useRouter } from "next/router";
-import { Card, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { Card, CardTitle, CardText, Row, Col,ButtonGroup } from 'reactstrap';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 const BoardInsideComponent = () => {
     const router = useRouter();
@@ -20,6 +24,7 @@ const BoardInsideComponent = () => {
     const [editingCommentText, setEditingCommentText] = useState("");
     const [imageSrc, setImageSrc] = useState('');
     const [selectedImage, setSelectedImage] = useState(null);
+    const [showButtons, setShowButtons] = useState(false);
 
     useEffect(() => {
         const accessToken = localStorage.getItem("ACCESS_TOKEN");
@@ -67,7 +72,7 @@ const BoardInsideComponent = () => {
     const handleUpdateClick = async () => {
         const accessToken = token;
         const formData = new FormData();
-        formData.append('idx',id)
+        formData.append('idx', id);
         formData.append('image', selectedImage); 
         formData.append('title', title);
         formData.append('contents', contents);
@@ -90,7 +95,7 @@ const BoardInsideComponent = () => {
     };
 
     const handleImageChange = (e) => {
-        setSelectedImage(e.target.files[0]);
+        setSelectedImage(e.target.files[0]);   
     };
     const handleDeleteClick = async () => {
         const accessToken = token;
@@ -222,12 +227,20 @@ const BoardInsideComponent = () => {
     } catch (error) {
         console.error('Error:', error);
     }
-};
+    };
+    const handleKebabClick = () => {
+        setShowButtons(!showButtons);
+    };
+    const handleBackClick = () =>{
+        router.push('/community');
+    };
     return (
-        <div className='boardCreate mt-5'>
-            <Container>
+        <div className='boardCreate mt-3'>
+            <Button onClick={handleBackClick} className='communitybtn'>&lt; Community</Button>
+            <Container className='mt-2'>
                 {isEditMode ? (
-                    <Form style={{marginTop:"20px"}}>
+                    <Card style={{padding:'30px',fontSize:'14px'}}>
+                    <Form>
                         <FormGroup>
                             <Label for="catSelect">
                                 게시판
@@ -274,79 +287,126 @@ const BoardInsideComponent = () => {
                         onChange={handleImageChange}
                         />
                     </FormGroup>
-                        <Button color="themecolor" onClick={handleUpdateClick}>수정하기</Button>{' '}
-                        <Button color="themecolor" onClick={handleCancelClick}>취소</Button>
+                        <Button className="editbtn" onClick={handleCancelClick}>취소</Button>
+                        <Button className="editbtn" onClick={handleUpdateClick}>수정하기</Button>                        
                     </Form>
+                    </Card>
                 ) : (
                     <> <Card>
-                    <Container>
-                        <Row className='card-main'>
-                            <Col md="11" className='mt-5 ml-3'>
-                                <CardTitle tag="h3">{boardData.title}</CardTitle>
-                            </Col>
-                            <Col className='board-right'>
-                                <CardText>{boardData.date}</CardText>
+                    <Container style={{ padding: '30px',fontSize:'14px' }}>
+                    <Row className='card-main' >
+                        <Col md="12" className="d-flex justify-content-between align-items-center">
+                            {/* 사용자 이름 및 날짜 */}
+                            <div className="user-info">
+                            <span className="user-name">{boardData.author} ·</span>
+                            <span className="date ml-2">{boardData.date}</span>
+                            </div>
+                            {/* 수정 및 삭제 버튼 */}
+                            {boardData.canEdit && (
+                                <div className="mr-3">
+                                    <Dropdown direction="left" isOpen={showButtons} toggle={handleKebabClick} size="sm" className='togglebox'>
+                                    <DropdownToggle caret className='togglebtn'>
+                                        <FontAwesomeIcon icon={faEllipsisV} className="kebab-icon mr-2 mt-1" style={{ color: '#EFA374' }}/>
+                                    </DropdownToggle>
+                                    <DropdownMenu>
+                                        <DropdownItem>
+                                            <div onClick={handleEditClick} className="dropdown-action">
+                                            수정
+                                            </div></DropdownItem>
+                                        <DropdownItem>
+                                            <div onClick={handleDeleteClick} className="dropdown-action">
+                                                삭제
+                                            </div>
+                                        </DropdownItem>
+                                    </DropdownMenu>
+                                    </Dropdown>
+                                </div>
+                            )}                            
+                        </Col>
+                        </Row>
+                        <Row style={{ marginTop: '27px'}}>
+                            <Col md="12">
+                                {/* 제목 */}
+                                <span className="title" style={{fontSize:'25px',fontWeight:'bold'}}>{boardData.title}</span>
                             </Col>
                         </Row>
-                        <hr></hr>
-                        {boardData.canEdit && (
-                        <Row>
-                        <Col className='board-right'>                        
-                        <Button color="themecolor" onClick={handleEditClick}>수정</Button>
-                        <Button color='themecolor' onClick={handleDeleteClick} className='ml-2'>삭제</Button>
-                        </Col></Row>
-                        )} 
-                        <hr></hr>
-                        <Row className='ml-3 mb-5'>
-                            <Col md="11">
-                                <CardText>{boardData.contents}</CardText>
-                            </Col>
-                            <Col className='mt-3'> 
-                            {boardData.image && (
-                                <CardImg src={imageSrc} alt="Uploaded File" />
-                            )}
+                        <Row style={{marginTop:'25px',fontSize:'17px' }}>
+                            <Col md="12">
+                                {/* 내용 */}
+                                <p className="content">{boardData.contents}</p>
+                                {/* 이미지 */}
+                                {boardData.image && (
+                                    <CardImg src={boardData.image} alt="Uploaded File" />
+                                )}
                             </Col>
                         </Row>
                     </Container>
                 </Card>
                 <Card>
-                    <Container>
+                    <Container style={{padding:'30px',paddingTop:'20px',paddingBottom:'50px',marginTop:'16px'}}>
                         {!isEditMode && (
-                        <Row className='mt-5 mb-5'>
+                        <Row>
                             <Col>
-                            <h4>댓글</h4><hr/>
+                            <span style={{fontSize:'18px'}}>Comments</span><hr/>
                             {comments ? (
                                 comments.map(comment => (
                                     <div key={comment.id}>
                                         {isCommentEditMode && editingCommentId === comment.id ? (
                                             // 댓글 수정 폼
-                                            <div>
+                                            <>
+                                                <div className='d-flex align-items-center justify-content-start'>
+                                                {/* 사용자 사진 */}
+                                                <div className='user-profile-picture' style={{ width: '48px' }}>
+                                                    {/* 이미지 엘리먼트 추가 */}
+                                                    {/* <img src={comment.authorProfilePicture} alt="User Profile" /> */}
+                                                </div>
+
+                                                {/* 사용자 이름과 날짜 */}
+                                                <div style={{ fontSize: '14px'}}>
+                                                    <div><span className='user-name'>{comment.author}</span></div>
+                                                    <div><span className='date'>{comment.date}</span></div>
+                                                </div>
+                                                </div>
+                                                <div style={{marginLeft:'32px',marginTop:'5px'}}>
                                                 <Input type='textarea'
                                                     value={editingCommentText}
                                                     onChange={handleEditingCommentChange}
                                                 />
-                                                <Button style={{ float: 'right' }} color="themecolor" onClick={handleCancelEdit}>취소</Button>
-                                                <Button style={{ float: 'right' }} className="mr-2" color="themecolor" onClick={() => handleUpdateComment(comment.id)}>수정</Button>
-                                            </div>
+                                                <div className='editbtndiv1 mt-1 mb-5'>
+                                                    <Button style={{ float: 'right' }} onClick={handleCancelEdit}>취소</Button>
+                                                    <Button style={{ float: 'right' }} className="mr-2" onClick={() => handleUpdateComment(comment.id)}>수정</Button>
+                                                </div>
+                                                </div>
+                                                <hr />
+                                            </>
                                         ) : (
                                     // 댓글 내용 보기 모드
                                     <div className='mt-3'>
-                                        <div>
-                                            <p>{comment.text}
-                                                <span style={{ float: 'right' }} className='ml-3'>{comment.date}</span>
-                                                <span style={{ float: 'right' }}>{comment.author}</span>
-                                            </p>
+                                        <div className='d-flex align-items-center justify-content-between'>
+                                            <div className='d-flex align-items-center justify-content-between'>
+                                                {/* 사용자 사진 */}
+                                                <div className='user-profile-picture' style={{ width: '48px' }}>
+                                                {/* 이미지 엘리먼트 추가
+                                                <img src={comment.authorProfilePicture} alt="User Profile" /> */}
+                                                </div>
+
+                                                {/* 사용자 이름과 날짜 */}
+                                                <div style={{ fontSize: '14px'}}>
+                                                <div><span className='user-name'>{comment.author}</span></div>
+                                                <div><span className='date'>{comment.date}</span></div>
+                                                </div>
+                                            </div>
+
+                                            {/* 수정 및 삭제 버튼 */}
                                             {comment.canEdit && (
-                                            <div className='board-right'>
-                                                <Button color="link" onClick={() => handleEditComment(comment)}>수정</Button>
-                                                <Button color="link" onClick={() => handleDeleteComment(comment.id)}>삭제</Button>
+                                            <div className='board-right mr-3' id='editbtndiv'>
+                                                <Button onClick={() => handleEditComment(comment)}><FontAwesomeIcon icon={faPencil} /></Button>
+                                                <Button onClick={() => handleDeleteComment(comment.id)}><FontAwesomeIcon icon={faTrashCan} /></Button>
                                             </div>
-                                        )}
-                                            <div>
-                                                
-                                            </div>
-                                            
+                                            )}
                                         </div>
+                                        {/* 댓글 내용 */}
+                                        <div style={{ paddingLeft: '48px', marginTop: '16px', fontSize: '16px' }}>{comment.text}</div>
                                         <hr />
                                     </div>
                                 )}
@@ -357,7 +417,7 @@ const BoardInsideComponent = () => {
                                 )}
                                 {!isCommentEditMode &&(
                                 <form onSubmit={handleCommentSubmit} className='mt-5'>
-                                    <FormGroup>
+                                    <FormGroup className='form-group'>
                                         <Input
                                             type="textarea"
                                             className="form-control"
@@ -366,7 +426,7 @@ const BoardInsideComponent = () => {
                                             onChange={(e) => setNewComment(e.target.value)}
                                         />
                                     </FormGroup>
-                                    <Button color="themecolor" style={{ float: 'right' }} type="submit">댓글 작성</Button>
+                                    <Button className="commentsubmitbtn" type="submit">댓글 작성</Button>
                                 </form>)}
                             </Col>
                         </Row>
