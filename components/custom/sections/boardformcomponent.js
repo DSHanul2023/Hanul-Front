@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Row, Col, Container, Button, FormGroup, Input, Label, Form, FormText } from 'reactstrap';
+import { Row, Col, Container, Button, FormGroup, Input, Label, Form,Card } from 'reactstrap';
 import { useRouter } from "next/router";
 
 const BoardFormComponent = (...args) => {
@@ -31,7 +31,7 @@ const BoardFormComponent = (...args) => {
                 console.log("Content upload successful");
             }
         } catch (error) {
-          
+        
         }
     };
 
@@ -46,7 +46,8 @@ const BoardFormComponent = (...args) => {
     return(
         <div className='boardCreate'>
             <Container>
-                <Form style={{marginTop:"20px"}} className="row">
+                <Card className='mt-3 mb-5'>
+                <Form style={{padding:'30px',fontSize:'14px'}}>
                     <FormGroup className="col-md-12">
                         <Label for="catSelect">
                             게시판
@@ -92,13 +93,13 @@ const BoardFormComponent = (...args) => {
                         />
                     </FormGroup>
                 </Form>
-                <div className='create-button'>
-                    <Row style={{justifyContent:'right', marginRight:'10px'}}>
-                        <Button style={{marginRight:'10px'}} color="themecolor" href="/community" onClick={handleCreate}>글쓰기</Button>
+                <div>
+                    <Row className='create-button mr-5 mb-3'>
+                        <Button className='submitbtn' href="/community" onClick={handleCreate}>글쓰기</Button>
                         <Button type="submit" className="btn btn-inverse waves-effect waves-light" onClick={() => window.history.back()}>Cancel</Button>
                     </Row>
                 </div>
-            </Container>
+                </Card></Container>
         </div>
         
     );
