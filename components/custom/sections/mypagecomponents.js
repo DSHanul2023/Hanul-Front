@@ -10,12 +10,13 @@ import {
   Col,
   Container,
 } from "reactstrap";
-import img2 from "../../../assets/images/chat/dog.png";
+import default_profile from "../../../public/profile/default_profile.png";
 import { useRouter } from "next/router";
 
 const MyPageComponents = () => {
   const router = useRouter();
   const [member, setMember] = useState(null);
+  const [profilePictureName, setProfilePictureName] = useState("");
 
   useEffect(() => {
     // Check if user is logged in (you can adjust this condition based on your login mechanism)
@@ -38,6 +39,7 @@ const MyPageComponents = () => {
       if (response.ok) {
         const data = await response.json();
         setMember(data);
+        setProfilePictureName(data.profilePictureName);
       } else {
         console.log("Failed to fetch member information");
       }
@@ -70,7 +72,7 @@ const MyPageComponents = () => {
               <div className="d-flex">
                 <div className="align-self-center">
                   <Image
-                    src={img2}
+                    src={profilePictureName ? `/profile/${member.profilePictureName}` : default_profile}
                     alt="img"
                     className="img-circle mr-4"
                     width={100}
