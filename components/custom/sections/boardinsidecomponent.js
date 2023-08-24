@@ -6,11 +6,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
 
-const BoardInsideComponent = () => {
+const BoardInsideComponent = (props) => {
+    
     const router = useRouter();
-    const { query } = router;
-    const { id } = query;
+    const id = props.id;
     const [token,setToken] = useState([]);
     const [boardData, setBoardData] = useState({});
     const [isEditMode, setIsEditMode] = useState(false);
@@ -51,8 +52,6 @@ const BoardInsideComponent = () => {
                 const data = await response.json();
                 setBoardData(data.data[0]);
                 console.log(data);
-                const imageSrcData = `data:image/jpeg;base64,${data.data[0].image}`; // Assuming the image data is in base64 format
-                setImageSrc(imageSrcData);
             }
         } catch (error) {
             console.error("Error:", error);
@@ -336,7 +335,11 @@ const BoardInsideComponent = () => {
                                 <p className="content">{boardData.contents}</p>
                                 {/* 이미지 */}
                                 {boardData.image && (
-                                    <CardImg src={boardData.image} alt="Uploaded File" />
+                                    <CardImg
+                                    src={`/boardImg/${boardData.image}`}
+                                    alt="img"
+                                    className="mr-4"
+                                    />
                                 )}
                             </Col>
                         </Row>
