@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import {
   Container,
@@ -17,9 +17,10 @@ import {
   CardTitle,
   CardText,
 } from "reactstrap";
-import default_profile from "../../../public/default_profile.png";
+import default_profile from "../../../public/profile/default_profile.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+// const default_profile = "default_profile.png";
 
 const MemberInfoChange = () => {
   const [member, setMember] = useState(null);
@@ -27,17 +28,16 @@ const MemberInfoChange = () => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [profilePicture, setProfilePicture] = useState(null);
-  const [profilePicturePreview, setProfilePicturePreview] = useState(null);
-  const [nameChanged, setNameChanged] = useState(false);
   const [passwordMatch, setPasswordMatch] = useState(true);
-  const [currentPasswordMatch, setCurrentPasswordMatch] = useState(true);
   const [isEditingName, setIsEditingName] = useState(false);
   const [modal1, setModal1] = useState(false);
   const [passwordChanged, setPasswordChanged] = useState(false);
   const [currentPasswordError, setCurrentPasswordError] = useState(false);
   const [modal2, setModal2] = useState(false);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [profilePictureName, setProfilePictureName] = useState("");
 
   useEffect(() => {
     // Check if user is logged in (you can adjust this condition based on your login mechanism)
@@ -47,6 +47,8 @@ const MemberInfoChange = () => {
       window.location.href = "/login";
     } else {
       fetchMemberInfo(accessToken);
+      console.log("profilePicturName: " + profilePictureName);
+      console.log("imagePreview: " + imagePreview);
     }
   }, []);
 
@@ -65,6 +67,8 @@ const MemberInfoChange = () => {
         const data = await response.json();
         setMember(data);
         setNameInput(data.name); // Set initial value for name input
+        setProfilePictureName(data.profilePictureName);
+        setImagePreview(`/profile/${data.profilePictureName}`);
         console.log("current password: " + data.password);
       } else {
         console.log("Failed to fetch member information");
@@ -72,10 +76,6 @@ const MemberInfoChange = () => {
     } catch (error) {
       console.error("Error:", error);
     }
-  };
-
-  const handleProfilePictureChange = (e) => {
-    // Handle profile picture change
   };
 
   const handleEditName = () => {
@@ -217,6 +217,60 @@ const MemberInfoChange = () => {
     }
   };
 
+  const handleChangeFile = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
+
+    // Update image preview when a file is selected
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleUpload = async () => {
+    if (selectedFile) {
+      try {
+        const formData = new FormData();
+        formData.append("file", selectedFile);
+        console.log("formData: " + formData);
+
+        const accessToken = localStorage.getItem("ACCESS_TOKEN");
+        if (!accessToken) {
+          router.push("/login");
+          return;
+        }
+
+        const response = await fetch(
+          `http://localhost:8080/members/uploadProfilePicture/${member.id}`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+            body: formData,
+          }
+        );
+
+        if (response.ok) {
+          // const data = await response.json();
+          fetchMemberInfo(accessToken);
+          setProfilePictureName(member.profilePictureName);
+          setImagePreview(`/profile/${member.profilePictureName}`); // Update image preview with the uploaded image
+        } else {
+          console.error("Failed to upload profile picture");
+        }
+      } catch (error) {
+        console.error("Failed to fetch", error);
+      }
+    }
+  };
+
+
+
   // const toggle1 = () => {
   //   setModal1(!modal1);
   // };
@@ -244,9 +298,11 @@ const MemberInfoChange = () => {
               <FormGroup>
                 <div className="profile-picture-preview mb-5">
                   <Image
-                    src={profilePicturePreview||default_profile}
+                    src={profilePictureName ? imagePreview : default_profile}
                     alt="profile"
                     className="profile-picture img-circle"
+                    width={200}
+                    height={200}
                   />
 
                   <Button
@@ -263,9 +319,20 @@ const MemberInfoChange = () => {
                 <Input
                   type="file"
                   id="profilePicture"
-                  onChange={handleProfilePictureChange}
+                  accept="image/*"
+                  onChange={handleChangeFile}
+                  multiple="multiple"
+                  // ref={fileInput}
                   style={{ display: "none" }}
                 />
+                <Button
+                  outline
+                  color="primary"
+                  onClick={handleUpload} // 업로드 버튼 클릭 이벤트
+                  className="profile-picture-upload-btn"
+                >
+                  업로드
+                </Button>
               </FormGroup>
               <Col>
                 <Row className="justify-content-center">
