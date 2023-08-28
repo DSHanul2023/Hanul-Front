@@ -52,7 +52,6 @@ const Question = () => {
             .then(response => response.json())
             .then(data => {
                 console.log('서버 응답:', data);
-                // 여기에서 서버의 응답을 처리할 수 있습니다.
             })
             .catch(error => {
                 console.error('에러 발생:', error);
@@ -61,6 +60,7 @@ const Question = () => {
             console.error('JSON 변환 에러:', error);
         }
     };
+
 
     const itemsToDisplay = selectedType === '오늘의 기분은 어떤가요?' ? emotions : genres;
 
