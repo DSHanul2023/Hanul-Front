@@ -29,33 +29,38 @@ const Question = () => {
             alert("아무 항목도 선택되지 않았습니다. 최소 하나의 항목을 선택해주세요.");
             return;
         }
-        // 선택한 아이템들을 활용하여 추천 로직 수행
-        console.log('선택한 아이템들:', selectedItems);
-        
+    
         const selectedCategory = selectedType === '오늘의 기분은 어떤가요?' ? '기분' : '장르';
-
+    
         const requestData = {
-            category: selectedCategory,
-            selectedItems: selectedItems
+            selectedItems: selectedItems,
+            category: selectedCategory, // 선택한 카테고리 정보 추가
+            emotions: selectedCategory === '기분' ? selectedItems : [],
+            genres: selectedCategory === '장르' ? selectedItems : [],
         };
+    
+        try {
+            fetch('http://localhost:8080/survey', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestData),
+                mode: 'cors',
+                credentials: 'include'
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('서버 응답:', data);
+            })
+            .catch(error => {
+                console.error('에러 발생:', error);
+            });
+        } catch (error) {
+            console.error('JSON 변환 에러:', error);
+        }
+    };
 
-        // 서버로 POST 요청 보내기
-        fetch('http://localhost:8080/survey', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestData)
-        })
-        .then(response => response.json()) 
-        .then(data => {
-            console.log('서버 응답:', data);
-            // 여기에서 서버의 응답을 처리할 수 있습니다.
-        })
-        .catch(error => {
-            console.error('에러 발생:', error);
-        });
-    }
 
     const itemsToDisplay = selectedType === '오늘의 기분은 어떤가요?' ? emotions : genres;
 
