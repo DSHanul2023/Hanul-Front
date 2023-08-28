@@ -33,8 +33,10 @@ const Question = () => {
         const selectedCategory = selectedType === '오늘의 기분은 어떤가요?' ? '기분' : '장르';
     
         const requestData = {
-            category: selectedCategory,
-            selectedItems: selectedItems
+            selectedItems: selectedItems,
+            category: selectedCategory, // 선택한 카테고리 정보 추가
+            emotions: selectedCategory === '기분' ? selectedItems : [],
+            genres: selectedCategory === '장르' ? selectedItems : [],
         };
     
         try {
@@ -58,7 +60,7 @@ const Question = () => {
         } catch (error) {
             console.error('JSON 변환 에러:', error);
         }
-    }
+    };
 
     const itemsToDisplay = selectedType === '오늘의 기분은 어떤가요?' ? emotions : genres;
 
