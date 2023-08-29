@@ -339,6 +339,7 @@ const BoardInsideComponent = (props) => {
                                     src={`/boardImg/${boardData.image}`}
                                     alt="img"
                                     className="mr-4"
+                                    style={{maxHeight: '500px', width: 'auto'}}
                                     />
                                 )}
                             </Col>
@@ -366,11 +367,10 @@ const BoardInsideComponent = (props) => {
 
                                                 {/* 사용자 이름과 날짜 */}
                                                 <div style={{ fontSize: '14px'}}>
-                                                    <div><span className='user-name'>{comment.author}</span></div>
-                                                    <div><span className='date'>{comment.date}</span></div>
+                                                    <div><span className='user-name'>{comment.author}</span><span className='date ml-3'>{comment.date}</span></div>
                                                 </div>
                                                 </div>
-                                                <div style={{marginLeft:'32px',marginTop:'5px'}}>
+                                                <div style={{marginLeft:'32px',marginTop:'10px'}}>
                                                 <Input type='textarea'
                                                     value={editingCommentText}
                                                     onChange={handleEditingCommentChange}
@@ -392,14 +392,11 @@ const BoardInsideComponent = (props) => {
                                                 {/* 이미지 엘리먼트 추가
                                                 <img src={comment.authorProfilePicture} alt="User Profile" /> */}
                                                 </div>
-
                                                 {/* 사용자 이름과 날짜 */}
                                                 <div style={{ fontSize: '14px'}}>
-                                                <div><span className='user-name'>{comment.author}</span></div>
-                                                <div><span className='date'>{comment.date}</span></div>
+                                                <div><span className='user-name'>{comment.author}</span><span className='date ml-3'>{comment.date}</span></div>
                                                 </div>
                                             </div>
-
                                             {/* 수정 및 삭제 버튼 */}
                                             {comment.canEdit && (
                                             <div className='board-right mr-3' id='editbtndiv'>
@@ -409,7 +406,7 @@ const BoardInsideComponent = (props) => {
                                             )}
                                         </div>
                                         {/* 댓글 내용 */}
-                                        <div style={{ paddingLeft: '48px', marginTop: '16px', fontSize: '16px' }}>{comment.text}</div>
+                                        <div style={{ paddingLeft: '48px', marginTop: '5px', fontSize: '16px' }}>{comment.text}</div>
                                         <hr />
                                     </div>
                                 )}
