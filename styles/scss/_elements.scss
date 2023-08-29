@@ -848,8 +848,8 @@ Community
   display: flex;
   flex-direction: row;
   height: 100vh;
-  border-right: 1px solid;
   border-color: $muted;
+  font-size:15px;
   .title {
     padding: 20px;
   }
@@ -861,17 +861,31 @@ Community
 }
 
 .board {
-  margin-top: 20px;
   width: 90%;
   grid-template-rows: 100%;
+  padding:7px;
+  padding-top:32px;
+  padding-bottom:18px;
   .card {
-    width: 100%
+    margin-bottom:0px;
+    border-radius: 0px;
+    border:0px;
+    box-shadow: 0px;
+    padding:7px;
+    padding-top:32px;
+    padding-bottom:18px;
   }
   .card-raw {
     width: 100vh;
   }
   .card-main {
     margin-top: 10px;
+  }
+  .card-text{
+    font-size:13px;
+  }
+  .card-title{
+    font-size:22px;
   }
 }
 .togglebox{
@@ -884,7 +898,24 @@ Community
   right: 3%;
   bottom: 3%;
 }
-
+.list_data,.txt_id,.list_datac{
+  font-size:13px;
+  margin-bottom:0px;
+  color:#909090;
+}
+.list_datac{
+  color:#000;
+}
+.wrap_data{
+  width:160px;
+  float:left;
+}
+.inner_desc_tit{
+  font-size:22px;
+}
+.info_g{
+  margin-top:25px;
+}
 .board-right {
   text-align: right;
 }
@@ -1208,7 +1239,7 @@ Survey
   }
   .questionpart{
     width:53%;
-    min-width: 500px;
+    min-width: 600px;
     margin-left:24%;
     height: 100px;
     background: #F7F1ED;
@@ -1228,7 +1259,7 @@ Survey
   .checkanswer{
     background-color: white;
     width:53%;
-    min-width: 500px;
+    min-width: 600px;
     margin-left:24%;    
     height: 350px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

@@ -6,17 +6,21 @@ const SideBarComponent = ({ onSidebarItemClick,selectedBoardType }) => {
         onSidebarItemClick(boardType);
     };    
     return (
-        <div>
-            <div className="sidebar">
+        <div className="sidebar mt-5 mr-5">
             <Container>
-                <Row>
-                <Col>
-                    <h2 className="title font-bold">커뮤니티</h2>
-                </Col>
-                </Row>
                 <div className="tab-row">
                 <div className="col">
                     <div className="list-group" id="list-tab" role="tablist">
+                    <a
+                        className={`list-group-item list-group-item-action ${selectedBoardType === 5 ? 'active' : ''}`}
+                        id="list"
+                        data-bs-toggle="list"
+                        role="tab"
+                        aria-controls="list"
+                        onClick={() => handleItemClick(5)}
+                    >
+                        전체
+                    </a>
                     <a
                         className={`list-group-item list-group-item-action ${selectedBoardType === 1 ? 'active' : ''}`}
                         id="list-home-list"
@@ -65,7 +69,6 @@ const SideBarComponent = ({ onSidebarItemClick,selectedBoardType }) => {
                 </div>
                 </div>
             </Container>
-            </div>
         </div>
         );
     }
