@@ -1,36 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import default_profile from "../../../public/profile/default_profile.png";
 import { Button } from "reactstrap";
+import default_profile from "../../../public/profile/default_profile.png";
+
 const BotChatComponent = ({ messages }) => {
-  const [profilePictureName, setProfilePictureName] = useState("");
-  const [timestamps, setTimestamps] = useState([]);
-
-  const fetchMemberInfo = async (token) => {
-    // ... 이전 fetchMemberInfo의 코드 ...
-  };
-
-  useEffect(() => {
-    const accessToken = localStorage.getItem("ACCESS_TOKEN");
-    if (!accessToken) {
-      router.push("/login");
-    } else {
-      fetchMemberInfo(accessToken);
-    }
-  }, []);
-
-  useEffect(() => {
-    setTimestamps(messages.map(() => getCurrentTime()));
-  }, [messages]);
-
-  const getCurrentTime = () => {
-    const now = new Date();
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-    const ampm = hours >= 12 ? "PM" : "AM";
-    const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
-    return `${formattedHours}:${minutes < 10 ? "0" : ""}${minutes}${ampm}`;
-  };
   const formatTime = (timeString) => {
     const date = new Date(timeString);
     const hours = date.getHours();

@@ -769,7 +769,7 @@ Responsive
     text-align: center;
   }
   .recommendBtn Button{
-    width:250px;
+    width:100%;
     font-size: 15px;
     height:50px;
     background-color: $themecolor;
@@ -996,6 +996,18 @@ asg{
     svg{
       height:15px;
     }
+  }
+  #comment{
+    border:none;
+    border-bottom: 1px solid #ccc;
+    height: 40px;
+    width: 800px;
+    padding-bottom: 8px;
+    padding-left: 3px;
+    overflow: hidden;
+  }
+  #comment:focus{
+    box-shadow: none;
   }
   .commentsubmitbtn{
     float: right;
