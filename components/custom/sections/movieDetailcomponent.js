@@ -5,28 +5,16 @@ import { useRouter } from 'next/router';
 
 const MovieDetailComponent = () => {
   const router = useRouter();
-  const { movieId } = router.query;
-  const [movie, setMovie] = useState(null);
+  const { state } = router.query;
+  const [movie, setMovie] = useState(state?.movie || null);
 
   useEffect(() => {
-    if (movieId) {
-      fetch(`/items/${movieId}`)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(data => {
-          setMovie(data);
-        })
-        .catch(error => {
-          console.error('Error while fetching data:', error);
-        });
+    if (!movie && state) {
+      setMovie(state.movie); // Set the movie from the state
     }
-  }, [movieId]);
+  }, [state, movie]);
 
-  if (!movie) {
+  if (!state || !state.movie) {
     return <p>Loading...</p>;
   }
 
