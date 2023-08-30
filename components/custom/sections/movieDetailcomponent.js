@@ -36,18 +36,18 @@ const MovieDetailComponent = ({ movieId }) => {
   }
 
   return (
-    <Container className="moviedetail">
-      <Row>
-        <Col xs={12} md={6} className="poster">
+    <Container className="moviedetail" style={{ marginTop: "20px" }}>
+      <Row className="justify-content-center ml-4 mr-4"> {/* 중앙 정렬 및 좌우 여백 */}
+        <Col xs={12} md={3} className="poster">
           <Image
             src={movie.posterUrl}
             alt={movie.itemNm}
             layout="responsive"
-            width={300}
-            height={450}
+            width={150}   // 이미지 너비 조정
+            height={225}  // 이미지 높이 조정
           />
         </Col>
-        <Col xs={12} md={6} className="info">
+        <Col xs={12} md={9} className="info">
           <h2>{movie.itemNm}</h2>
           <p>{movie.itemDetail}</p>
         </Col>
