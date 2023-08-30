@@ -1,8 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
-const MovieDetailComponent = ({ movie }) => {
+const MovieDetailComponent = () => {
+  const router = useRouter();
+  const { movieId } = router.query;
+  const [movie, setMovie] = useState(null);
+
+  useEffect(() => {
+    if (movieId) {
+      fetch(`/items/${movieId}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          setMovie(data);
+        })
+        .catch(error => {
+          console.error('Error while fetching data:', error);
+        });
+    }
+  }, [movieId]);
+
+  if (!movie) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <Container className="moviedetail">
       <Row>
