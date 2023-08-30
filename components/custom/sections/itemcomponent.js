@@ -21,7 +21,7 @@ const ItemComponent = ({ movies }) => {
                 className="item"
                 style={{ height: '300px', width: '200px', cursor: 'pointer' }}>
                 <Link href={`/items/${movie.id}`} passHref>
-                  <a>
+                  <div>
                     <div className="itemimg" style={{ width: "100%", height: "80%" }}>
                       <Image
                         src={movie.posterUrl}
@@ -32,7 +32,7 @@ const ItemComponent = ({ movies }) => {
                     <Container className="itemsummary">
                       <p className="itemtitle" style={{ marginTop: "70px", fontSize: "13px" }}>{movie.itemNm}</p>
                     </Container>
-                  </a>
+                  </div>
                 </Link>
               </Col>
             ))}
