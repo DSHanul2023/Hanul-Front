@@ -686,6 +686,7 @@ Responsive
 
   button {
     width: 70%;
+    min-width: 105px;
     border-radius: 16px;
     padding: 0 30px;
     cursor: pointer;
@@ -702,19 +703,19 @@ Responsive
   }
   
   .chat-div {
-    color: #000; /* Set text color to black */
+    color: #B95C37; /* Set text color to black */
     border-radius: 16px;
     text-indent: 0; /* Remove indentation */
     padding: 10px; /* Add padding to all sides */
-    font-weight: 300;
+    font-size: 15px;
     box-shadow: -58px 0 30px 0 rgba(0, 0, 0, 0.05);
     text-overflow: ellipsis;
     flex-grow: 1;
-    width: 100%;
-    min-width: 0;
-    background-color: #D9D9D9; /* Set background color to white */
+    width: 250px;
+    min-width: 250px;
+    max-width:250px;
+    background-color: #FFEAC8; /* Set background color to white */
   }
-  
   .user-div {
     color: #000; /* Set text color to black */
     border-radius: 16px;
@@ -757,7 +758,7 @@ Responsive
   }
   .timestamp{
     color: #000;
-    font-size: 14px;
+    font-size: 13px;
     margin-top: 5px;
     text-align: right;
   }
@@ -765,10 +766,16 @@ Responsive
     color: #000;
     font-size: 14px;
     margin-top: 5px;
-    text-align: left;
+    text-align: center;
+  }
+  .recommendBtn Button{
+    width:250px;
+    font-size: 15px;
+    height:50px;
+    background-color: $themecolor;
+    color:#F9F4E8;
   }
 }
-
 /* 채팅 스타일 통일  */
 .message-container {
   display: flex;
@@ -779,10 +786,10 @@ Responsive
 .message {
   border-radius: 16px;
   padding: 10px;
-  font-size: 14px;
+  font-size: 15px;
   box-shadow: -58px 0 30px 0 rgba(0, 0, 0, 0.05);
   word-wrap: break-word;
-  max-width: 70%;
+  max-width: 45%;
 }
 
 /* User message styles */
