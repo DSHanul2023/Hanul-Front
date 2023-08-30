@@ -6,9 +6,12 @@ import { useRouter } from 'next/router';
 const ItemComponent = ({ movies }) => {
   const router = useRouter();
 
-const handleMovieClick = (movie) => {
-  router.push(`/items/${movie.id}`);
-};
+  const handleMovieClick = (movie) => {
+    router.push({
+      pathname: `/items/${movie.id}`,
+      state: { movie },
+    });
+  };
   
   const chunkedMovies = [];
   const itemsPerRow = 5;
@@ -26,7 +29,7 @@ const handleMovieClick = (movie) => {
                 key={colIndex}
                 className="item"
                 style={{ height: '300px', width: '200px', cursor: 'pointer' }}
-                onClick={() => handleMovieClick(movie)}> {/* 'onMovieClick' 대신 'handleMovieClick' 사용 */}
+                onClick={() => handleMovieClick(movie)}>
                 <div className="itemimg" style={{ width: "100%", height: "80%" }}>
                   <Image
                     src={movie.posterUrl}
