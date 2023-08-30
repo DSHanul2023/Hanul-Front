@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import default_profile from "../../../public/profile/default_profile.png";
 import Image from "next/image";
 
 const BoardInsideComponent = (props) => {
@@ -26,6 +27,26 @@ const BoardInsideComponent = (props) => {
     const [imageSrc, setImageSrc] = useState('');
     const [selectedImage, setSelectedImage] = useState(null);
     const [showButtons, setShowButtons] = useState(false);
+    const [profilePictureName, setProfilePictureName] = useState("");
+    const [isInputFocused,setIsInputFocused] = useState(false);
+    const fetchMemberInfo = async (token) => {
+        try {
+            const response = await fetch("http://localhost:8080/members/getMemberInfo", {
+                method: "GET",
+                headers: {
+                Authorization: `Bearer ${token}`,
+                },
+            });
+            if (response.ok) {
+                const data = await response.json();
+                setProfilePictureName(data.profilePictureName);
+            } else {
+                console.log("Failed to fetch member information");
+            }
+            } catch (error) {
+            console.error("Error:", error);
+            }
+        };
 
     useEffect(() => {
         const accessToken = localStorage.getItem("ACCESS_TOKEN");
@@ -35,6 +56,7 @@ const BoardInsideComponent = (props) => {
             console.log(accessToken);
             handleFetchBoardData(accessToken);
             setToken(accessToken);
+            fetchMemberInfo(accessToken);
         }
         fetchComments(accessToken);
     }, []);
@@ -238,7 +260,7 @@ const BoardInsideComponent = (props) => {
             <Button onClick={handleBackClick} className='communitybtn'>&lt; Community</Button>
             <Container className='mt-2'>
                 {isEditMode ? (
-                    <Card style={{padding:'30px',fontSize:'14px'}}>
+                    <Card style={{padding:'30px',fontSize:'14px',minWidth:'1024px'}}>
                     <Form>
                         <FormGroup>
                             <Label for="catSelect">
@@ -291,7 +313,7 @@ const BoardInsideComponent = (props) => {
                     </Form>
                     </Card>
                 ) : (
-                    <> <Card>
+                    <> <Card style={{minWidth:'1024px'}}>
                     <Container style={{ padding: '30px',fontSize:'14px' }}>
                     <Row className='card-main' >
                         <Col md="12" className="d-flex justify-content-between align-items-center">
@@ -346,68 +368,109 @@ const BoardInsideComponent = (props) => {
                         </Row>
                     </Container>
                 </Card>
-                <Card>
-                    <Container style={{padding:'30px',paddingTop:'20px',paddingBottom:'50px',marginTop:'16px'}}>
+                <Card style={{minWidth:'1024px'}}>
+                    <Container style={{padding:'30px',paddingTop:'20px',paddingBottom:'20px',marginTop:'16px'}}>
                         {!isEditMode && (
                         <Row>
                             <Col>
-                            <span style={{fontSize:'18px'}}>Comments</span><hr/>
+                            <span style={{fontSize:'18px'}}>Comments</span>
+                            <form onSubmit={handleCommentSubmit} style={{paddingTop:'30px'}}>
+                                <FormGroup className='form-group d-flex flex-row' style={{marginBottom:'30px'}}>
+                                <Image
+                                    src={profilePictureName ? `/profile/${profilePictureName}` : default_profile}
+                                    alt="img"
+                                    className="img-circle mr-3"
+                                    width={40}
+                                    height={40}
+                                />
+                                <Input
+                                    type="textarea"
+                                    className="form-control flex-grow-1 mr-3"
+                                    id="comment"
+                                    value={newComment}
+                                    onChange={(e) => setNewComment(e.target.value)}
+                                    onFocus={() => setIsInputFocused(true)}
+                                    onBlur={() => setIsInputFocused(false)}
+                                />
+                                {isInputFocused && (
+                                    <Button className="commentsubmitbtn" type="submit" style={{ fontSize: '13px' }}>
+                                    댓글 작성
+                                    </Button>
+                                )}
+                                </FormGroup>
+                            </form>
+                            
                             {comments ? (
                                 comments.map(comment => (
                                     <div key={comment.id}>
                                         {isCommentEditMode && editingCommentId === comment.id ? (
                                             // 댓글 수정 폼
                                             <>
-                                                <div className='d-flex align-items-center justify-content-start'>
-                                                {/* 사용자 사진 */}
-                                                <div className='user-profile-picture' style={{ width: '48px' }}>
-                                                    {/* 이미지 엘리먼트 추가 */}
-                                                    {/* <img src={comment.authorProfilePicture} alt="User Profile" /> */}
+                                            <div className='d-flex flex-row mt-3'>
+                                                <div style={{marginRight:'16px',marginBottom:'30px',marginTop:'10px'}}>
+                                                    <Image
+                                                        src={profilePictureName ? `/profile/${profilePictureName}` : default_profile}
+                                                        alt="img"
+                                                        className="img-circle"
+                                                        width={40}
+                                                        height={40}
+                                                        />      
                                                 </div>
-
-                                                {/* 사용자 이름과 날짜 */}
-                                                <div style={{ fontSize: '14px'}}>
-                                                    <div><span className='user-name'>{comment.author}</span><span className='date ml-3'>{comment.date}</span></div>
-                                                </div>
-                                                </div>
-                                                <div style={{marginLeft:'32px',marginTop:'10px'}}>
-                                                <Input type='textarea'
+                                                <div className="flex-grow-1">
+                                                    <div style={{fontSize:'12px',color:'#909090'}}><span className='user-name'>{comment.author}</span><span className='date ml-3'>{comment.date}</span></div>
+                                                    <div style={{fontSize:'14px'}}><Input
+                                                    type="textarea"
+                                                    className="form-control flex-grow-1"
+                                                    id="comment"
                                                     value={editingCommentText}
                                                     onChange={handleEditingCommentChange}
-                                                />
-                                                <div className='editbtndiv1 mt-1 mb-5'>
-                                                    <Button style={{ float: 'right' }} onClick={handleCancelEdit}>취소</Button>
-                                                    <Button style={{ float: 'right' }} className="mr-2" onClick={() => handleUpdateComment(comment.id)}>수정</Button>
+                                                /></div>
                                                 </div>
+                                                <div>
+                                                    <div className='editbtndiv1 mt-3'>
+                                                        
+                                                    <Button className="mr-2" onClick={() => handleUpdateComment(comment.id)}>수정</Button>
+                                                    <Button onClick={handleCancelEdit}>취소</Button>
                                                 </div>
-                                                <hr />
+                                                    </div>
+                                            </div>
+                                                
                                             </>
                                         ) : (
-                                    // 댓글 내용 보기 모드
-                                    <div className='mt-3'>
-                                        <div className='d-flex align-items-center justify-content-between'>
-                                            <div className='d-flex align-items-center justify-content-between'>
-                                                {/* 사용자 사진 */}
-                                                <div className='user-profile-picture' style={{ width: '48px' }}>
-                                                {/* 이미지 엘리먼트 추가
-                                                <img src={comment.authorProfilePicture} alt="User Profile" /> */}
-                                                </div>
-                                                {/* 사용자 이름과 날짜 */}
-                                                <div style={{ fontSize: '14px'}}>
-                                                <div><span className='user-name'>{comment.author}</span><span className='date ml-3'>{comment.date}</span></div>
-                                                </div>
-                                            </div>
-                                            {/* 수정 및 삭제 버튼 */}
-                                            {comment.canEdit && (
-                                            <div className='board-right mr-3' id='editbtndiv'>
-                                                <Button onClick={() => handleEditComment(comment)}><FontAwesomeIcon icon={faPencil} /></Button>
-                                                <Button onClick={() => handleDeleteComment(comment.id)}><FontAwesomeIcon icon={faTrashCan} /></Button>
-                                            </div>
-                                            )}
+                                    <div className='d-flex flex-row'>
+                                        <div style={{marginRight:'16px',marginBottom:'30px'}}>
+                                            <Image
+                                                src={profilePictureName ? `/profile/${profilePictureName}` : default_profile}
+                                                alt="img"
+                                                className="img-circle"
+                                                width={40}
+                                                height={40}
+                                                />      
                                         </div>
-                                        {/* 댓글 내용 */}
-                                        <div style={{ paddingLeft: '48px', marginTop: '5px', fontSize: '16px' }}>{comment.text}</div>
-                                        <hr />
+                                        <div className="flex-grow-1">
+                                            <div style={{fontSize:'12px',marginBottom:'5px',color:'#909090'}}><span className='user-name'>{comment.author}</span><span className='date ml-3'>{comment.date}</span></div>
+                                            <div style={{fontSize:'14px'}}>{comment.text}</div>
+                                        </div>
+                                        <div>{comment.canEdit && (
+                                            <div className='board-right mr-3' id='editbtndiv'>
+                                    <Dropdown direction="left" isOpen={showButtons} toggle={handleKebabClick} size="sm" className='togglebox'>
+                                    <DropdownToggle caret className='togglebtn'>
+                                        <FontAwesomeIcon icon={faEllipsisV} className="kebab-icon mr-2 mt-1" style={{ color: '#EFA374' }}/>
+                                    </DropdownToggle>
+                                    <DropdownMenu>
+                                        <DropdownItem>
+                                            <div onClick={() => handleEditComment(comment)} className="dropdown-action">
+                                            수정
+                                            </div></DropdownItem>
+                                        <DropdownItem>
+                                            <div onClick={() => handleDeleteComment(comment.id)} className="dropdown-action">
+                                                삭제
+                                            </div>
+                                        </DropdownItem>
+                                    </DropdownMenu>
+                                    </Dropdown>                                                
+                                            </div>
+                                            )}</div>
                                     </div>
                                 )}
                             </div>
@@ -415,19 +478,7 @@ const BoardInsideComponent = (props) => {
                                 ) : (
                                     <p>No comments available.</p>
                                 )}
-                                {!isCommentEditMode &&(
-                                <form onSubmit={handleCommentSubmit} className='mt-5'>
-                                    <FormGroup className='form-group'>
-                                        <Input
-                                            type="textarea"
-                                            className="form-control"
-                                            id="comment"
-                                            value={newComment}
-                                            onChange={(e) => setNewComment(e.target.value)}
-                                        />
-                                    </FormGroup>
-                                    <Button className="commentsubmitbtn" type="submit">댓글 작성</Button>
-                                </form>)}
+                                
                             </Col>
                         </Row>
                         )}
