@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, FormGroup, Input, Row, Col } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 const emotions = ['분노', '걱정', '불안', '우울', '공포', '슬픔', '기쁨', '설렘'];
 const genres = ['드라마', '로맨스', '가족', '액션', '범죄', '음악', '코미디', '판타지', '모험', '애니메이션'];
@@ -7,7 +8,7 @@ const genres = ['드라마', '로맨스', '가족', '액션', '범죄', '음악'
 const Question = () => {
     const [selectedItems, setSelectedItems] = useState([]);
     const [selectedType, setSelectedType] = useState('오늘의 기분은 어떤가요?'); // 기본값: '기분'
-
+    
     const handleSelectChange = (e) => {
         setSelectedType(e.target.value);
         setSelectedItems([]); // 선택한 항목 초기화
@@ -24,7 +25,7 @@ const Question = () => {
         });
     }
 
-    const handleRecommendClick = () => {
+    const handleRecommendClick = async () => {
         if (selectedItems.length === 0) {
             alert("아무 항목도 선택되지 않았습니다. 최소 하나의 항목을 선택해주세요.");
             return;
@@ -52,6 +53,9 @@ const Question = () => {
             .then(response => response.json())
             .then(data => {
                 console.log('서버 응답:', data);
+
+                // "콘텐츠 추천받기" 버튼을 누르면 MinichatContentList 페이지로 이동
+                history.push('/minichatcontentlist'); // history 사용하지 않음
             })
             .catch(error => {
                 console.error('에러 발생:', error);
@@ -60,7 +64,6 @@ const Question = () => {
             console.error('JSON 변환 에러:', error);
         }
     };
-
 
     const itemsToDisplay = selectedType === '오늘의 기분은 어떤가요?' ? emotions : genres;
 
