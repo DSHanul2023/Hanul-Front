@@ -3,18 +3,33 @@ import { Container, Row, Col } from 'reactstrap';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-const MovieDetailComponent = () => {
+const MovieDetailComponent = ({ movieId }) => {
   const router = useRouter();
-  const { state } = router.query;
-  const [movie, setMovie] = useState(state?.movie || null);
+  const [movie, setMovie] = useState(null);
 
   useEffect(() => {
-    if (!movie && state) {
-      setMovie(state.movie); // Set the movie from the state
+    if (!movieId) {
+      return; // movieId가 없으면 아무 작업도 수행하지 않음
     }
-  }, [state, movie]);
 
-  if (!state || !state.movie) {
+    // 여기서 실제로 API 요청 등을 통해 영화 데이터를 가져와서 setMovie로 설정해야 합니다.
+    // 아래는 예시로서 fetch를 사용해서 데이터를 가져온다고 가정합니다.
+    fetch(`/items/${movieId}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setMovie(data);
+      })
+      .catch(error => {
+        console.error('Error while fetching data:', error);
+      });
+  }, [movieId]);
+
+  if (!movie) {
     return <p>Loading...</p>;
   }
 
