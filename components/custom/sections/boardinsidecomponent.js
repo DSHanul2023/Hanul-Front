@@ -26,9 +26,8 @@ const BoardInsideComponent = (props) => {
     const [editingCommentText, setEditingCommentText] = useState("");
     const [imageSrc, setImageSrc] = useState('');
     const [selectedImage, setSelectedImage] = useState(null);
-    const [showButtons, setShowButtons] = useState(false);
+    const [showButtons, setShowButtons] = useState(Array(comments.length).fill(false));
     const [profilePictureName, setProfilePictureName] = useState("");
-    const [isInputFocused,setIsInputFocused] = useState(false);
     const fetchMemberInfo = async (token) => {
         try {
             const response = await fetch("http://localhost:8080/members/getMemberInfo", {
@@ -249,8 +248,10 @@ const BoardInsideComponent = (props) => {
         console.error('Error:', error);
     }
     };
-    const handleKebabClick = () => {
-        setShowButtons(!showButtons);
+    const handleKebabClick = (index) => {
+        const newShowButtons = [...showButtons];
+        newShowButtons[index] = !newShowButtons[index];
+        setShowButtons(newShowButtons);
     };
     const handleBackClick = () =>{
         router.push('/community');
@@ -325,18 +326,18 @@ const BoardInsideComponent = (props) => {
                             {/* 수정 및 삭제 버튼 */}
                             {boardData.canEdit && (
                                 <div className="mr-3">
-                                    <Dropdown direction="left" isOpen={showButtons} toggle={handleKebabClick} size="sm" className='togglebox'>
+                                    <Dropdown direction="right" isOpen={showButtons[10000]} toggle={() => handleKebabClick(10000)} size="sm" className='togglebox'>
                                     <DropdownToggle caret className='togglebtn'>
                                         <FontAwesomeIcon icon={faEllipsisV} className="kebab-icon mr-2 mt-1" style={{ color: '#EFA374' }}/>
                                     </DropdownToggle>
                                     <DropdownMenu>
                                         <DropdownItem>
                                             <div onClick={handleEditClick} className="dropdown-action">
-                                            수정
+                                            <FontAwesomeIcon icon={faPencil} className="kebab-icon mr-2 mt-1" /> 수정
                                             </div></DropdownItem>
                                         <DropdownItem>
                                             <div onClick={handleDeleteClick} className="dropdown-action">
-                                                삭제
+                                            <FontAwesomeIcon icon={faTrashCan} className="kebab-icon mr-2 mt-1" /> 삭제
                                             </div>
                                         </DropdownItem>
                                     </DropdownMenu>
@@ -389,19 +390,15 @@ const BoardInsideComponent = (props) => {
                                     id="comment"
                                     value={newComment}
                                     onChange={(e) => setNewComment(e.target.value)}
-                                    onFocus={() => setIsInputFocused(true)}
-                                    onBlur={() => setIsInputFocused(false)}
                                 />
-                                {isInputFocused && (
                                     <Button className="commentsubmitbtn" type="submit" style={{ fontSize: '13px' }}>
                                     댓글 작성
                                     </Button>
-                                )}
                                 </FormGroup>
                             </form>
                             
                             {comments ? (
-                                comments.map(comment => (
+                                comments.map((comment,index) => (
                                     <div key={comment.id}>
                                         {isCommentEditMode && editingCommentId === comment.id ? (
                                             // 댓글 수정 폼
@@ -453,18 +450,18 @@ const BoardInsideComponent = (props) => {
                                         </div>
                                         <div>{comment.canEdit && (
                                             <div className='board-right mr-3' id='editbtndiv'>
-                                    <Dropdown direction="left" isOpen={showButtons} toggle={handleKebabClick} size="sm" className='togglebox'>
+                                    <Dropdown direction="right" isOpen={showButtons[index]} toggle={() => handleKebabClick(index)} size="sm" className='togglebox'>
                                     <DropdownToggle caret className='togglebtn'>
                                         <FontAwesomeIcon icon={faEllipsisV} className="kebab-icon mr-2 mt-1" style={{ color: '#EFA374' }}/>
                                     </DropdownToggle>
                                     <DropdownMenu>
                                         <DropdownItem>
                                             <div onClick={() => handleEditComment(comment)} className="dropdown-action">
-                                            수정
+                                            <FontAwesomeIcon icon={faPencil} className="icon mr-2 mt-1" /> 수정
                                             </div></DropdownItem>
                                         <DropdownItem>
                                             <div onClick={() => handleDeleteComment(comment.id)} className="dropdown-action">
-                                                삭제
+                                            <FontAwesomeIcon icon={faTrashCan} className="icon mr-2 mt-1" /> 삭제
                                             </div>
                                         </DropdownItem>
                                     </DropdownMenu>

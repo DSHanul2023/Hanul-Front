@@ -47,7 +47,7 @@ const CommunityComponents = () => {
     return (
       <div className='community d-flex justify-content-center'>
       <Row>
-        <Col md="1.5">
+        <Col style={{maxWidth:'280px'}}>
           <SideBarComponent onSidebarItemClick={handleSidebarItemClick} selectedBoardType={selectedBoardType}/>
         </Col>
         <Col >
