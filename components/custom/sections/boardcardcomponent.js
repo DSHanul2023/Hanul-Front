@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { Card, CardTitle, CardText, Row, Col, Container } from 'reactstrap';
 
-const BoardCards = ({boarditem,key,type}) => {
+const BoardCards = ({boarditem,type,key2}) => {
     const router = useRouter();
     const handleClick = () => {
         router.push(`/board/${item.idx}`);
@@ -19,7 +19,7 @@ const BoardCards = ({boarditem,key,type}) => {
                             <dl className="list_data mb-3">
                             
                             <dd className="txt_cate txt_cate_type1">
-                                {type === 5 ?(<span className="inner_data">
+                                {!['A1','A2','A3','A4'].includes(type) ? (<span className="inner_data">
                                     {item.type === '1' ? '자유' :
                                     item.type === '2' ? '취미' :
                                     item.type === '3' ? '동네' :

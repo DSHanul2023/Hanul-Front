@@ -949,6 +949,9 @@ asg{
       height:20px;
     }
   }
+  .togglebtn::after{
+    display: none;
+  }
   .dropdown-menu{
     border:none;
     min-width: 0rem;
@@ -959,19 +962,15 @@ asg{
     padding-top:5px;
     padding-bottom:5px;
     background:none;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     .dropdown-action{
       font-size:12px;
       padding:5px;
       padding-left:20px;
-      padding-right:20px;      
+      padding-right:20px;   
     }
   }
-  .dropdown-item:active{
-    background-color: $themecolor;
-    button:active{
-      color:white;
-    }
+  .dropdown-item:active,.dropdown-item:hover{
+    background-color: #F9F4E8;
   }
   .editbtndiv1{
     button{
@@ -996,6 +995,9 @@ asg{
     svg{
       height:15px;
     }
+    .icon{
+      height: 12px;
+    }   
   }
   #comment{
     border:none;
@@ -1069,20 +1071,6 @@ Inquiry
     border-radius: 20px;
   }
   
-  .page {
-    margin-top: 10px;
-    align-self: center;
-    justify-self: center;
-  }
-  .page-item.active .page-link{
-    background-color:white; 
-    border-color:white;
-    color:$themecolor;
-    box-shadow: 0px;
-  }
-  .page-link:focus{
-    box-shadow:none;
-  }
   Input{
     font-size:14px;
   }
@@ -1150,6 +1138,25 @@ Inquiry
     margin-top:5px;
   }
 }
+.page {
+  margin-top: 10px;
+  align-self: center;
+  justify-self: center;
+}
+.page-item.active .page-link{
+  background-color:$themecolor; 
+  border:1px solid #dee2e6;
+  color:white;
+  box-shadow: 0px;
+}
+.page-link:hover{
+  background-color: $themecolor;
+  color:white;
+}
+.page-link:focus{
+  box-shadow:none;
+}
+
 /*******************
 Content
 *******************/

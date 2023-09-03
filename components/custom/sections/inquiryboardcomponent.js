@@ -131,7 +131,7 @@ const InquiryBoard = () => {
             );
         }
         return (
-        <Pagination>
+        <Pagination style={{display:'flex',justifyContent:'center'}}>
             <PaginationItem>
                 <PaginationLink previous onClick={() => handlePaginationClick(currentPage - 1)} />
             </PaginationItem>
