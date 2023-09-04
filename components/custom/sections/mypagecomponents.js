@@ -92,12 +92,11 @@ const MyPageComponents = () => {
             </Card>
           </Col>
         </Row>
-        <Row className="justify-content-center">
+        <Row className="justify-content-center buttons">
           <Col md="6">
             <div className="mb-3">
               <Button
                 outline
-                color="secondary"
                 className="w-100"
                 href="/mypost"
               >
@@ -107,7 +106,6 @@ const MyPageComponents = () => {
             <div className="mb-3">
               <Button
                 outline
-                color="secondary"
                 className="w-100"
                 href="/mycomment"
               >
@@ -117,7 +115,6 @@ const MyPageComponents = () => {
             <div className="mb-3">
               <Button
                 outline
-                color="secondary"
                 className="w-100"
                 href="/savepage"
               >
@@ -127,28 +124,16 @@ const MyPageComponents = () => {
             <div className="mb-3">
               <Button
                 outline
-                color="secondary"
                 className="w-100"
                 href="/memberinfochange"
               >
                 회원정보변경
               </Button>
             </div>
-            {/* <div className="mb-3">
-              <Button
-                outline
-                color="secondary"
-                className="w-100"
-                href="/onetooneinquiry"
-              >
-                1:1 문의하기
-              </Button>
-            </div> */}
             <div className="mb-3">
               <Button
                 onClick={handleLogout}
                 outline
-                color="secondary"
                 className="w-100"
               >
                 로그아웃

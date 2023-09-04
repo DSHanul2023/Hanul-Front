@@ -292,7 +292,7 @@ const MemberInfoChange = () => {
   };
 
   return (
-    <div className="member-info-change">
+    <div className="text-center">
       <Container>
         <Row className="justify-content-center mb-5">
           <Col md="8" lg="6">
@@ -300,7 +300,7 @@ const MemberInfoChange = () => {
 
             <Form onSubmit={handleSubmit}>
               <FormGroup>
-                <div className="profile-picture-preview mb-5">
+                <div className="profile-picture-preview">
                   <Image
                     // src={profilePictureName ? imagePreview : default_profile}
                     src={imagePreview || default_profile}
@@ -332,11 +332,11 @@ const MemberInfoChange = () => {
                 />
                 <Button
                   outline
-                  color="primary"
+                  color="secondary"
                   onClick={handleUpload} // 업로드 버튼 클릭 이벤트
-                  className="profile-picture-upload-btn"
+                  className="profile-picture-upload-btn mb-4"
                 >
-                  업로드
+                  프로필 사진 변경
                 </Button>
               </FormGroup>
               <Col>
