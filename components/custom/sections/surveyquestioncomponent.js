@@ -35,7 +35,7 @@ const Question = () => {
     
         const requestData = {
             selectedItems: selectedItems,
-            category: selectedCategory, // 선택한 카테고리 정보 추가
+            category: selectedCategory,
             emotions: selectedCategory === '기분' ? selectedItems : [],
             genres: selectedCategory === '장르' ? selectedItems : [],
         };
@@ -52,10 +52,9 @@ const Question = () => {
             })
             .then(response => response.json())
             .then(data => {
+                let responseMessage = `${selectedCategory} : ${selectedItems.toString()} 에 대한 추천 결과입니다.`;
+                data.response = responseMessage;
                 console.log('서버 응답:', data);
-
-                // "콘텐츠 추천받기" 버튼을 누르면 MinichatContentList 페이지로 이동
-                history.push('/minichatcontentlist'); // history 사용하지 않음
             })
             .catch(error => {
                 console.error('에러 발생:', error);
@@ -64,7 +63,7 @@ const Question = () => {
             console.error('JSON 변환 에러:', error);
         }
     };
-
+    
     const itemsToDisplay = selectedType === '오늘의 기분은 어떤가요?' ? emotions : genres;
 
     const renderButtons = () => {
