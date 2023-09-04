@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, FormGroup, Input, Row, Col } from 'reactstrap';
+import { useRouter } from 'next/router'; // next/router를 import
 import MinichatContentList from './minichatcontentlistcomponent';
 
 const emotions = ['분노', '걱정', '불안', '우울', '공포', '슬픔', '기쁨', '설렘'];
@@ -9,6 +10,7 @@ const Question = () => {
     const [selectedItems, setSelectedItems] = useState([]);
     const [selectedType, setSelectedType] = useState('오늘의 기분은 어떤가요?');
     const [recommendedMovies, setRecommendedMovies] = useState([]);
+    const router = useRouter(); 
 
     const handleSelectChange = (e) => {
         setSelectedType(e.target.value);
@@ -58,6 +60,12 @@ const Question = () => {
                 console.log('서버 응답:', data);
 
                 setRecommendedMovies(data.recommended_movies);
+
+                // 페이지 이동 및 추천된 영화 목록 전달
+                router.push({
+                    pathname: '/minichatcontentlist',
+                    query: { recommendedMovies: JSON.stringify(data.recommended_movies) },
+                });
             })
             .catch(error => {
                 console.error('에러 발생:', error);
@@ -116,7 +124,6 @@ const Question = () => {
                 </div>
                 <Button className="commendbtn" onClick={handleRecommendClick}>콘텐츠 추천받기</Button>
             </Form>
-            <MinichatContentList recommendedMovies={recommendedMovies} />
         </div>
     );
 }
