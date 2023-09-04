@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form, FormGroup, Input, Row, Col } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+
 
 const emotions = ['분노', '걱정', '불안', '우울', '공포', '슬픔', '기쁨', '설렘'];
 const genres = ['드라마', '로맨스', '가족', '액션', '범죄', '음악', '코미디', '판타지', '모험', '애니메이션'];
