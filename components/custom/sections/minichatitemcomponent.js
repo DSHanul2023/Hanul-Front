@@ -6,7 +6,7 @@ import Link from 'next/link';
 const MinichatItemComponent = ({ recommendedMovies }) => {
   return (
     <Container className="contentlist">
-      {recommendedMovies.map((movie, index) => (
+      {recommendedMovies && recommendedMovies.map((movie, index) => (
         <div key={index}>
           <Row style={{ marginTop: '40px' }}>
             <Col
