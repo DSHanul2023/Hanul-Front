@@ -32,7 +32,7 @@ const ContentList = () => {
   };
 
   const handleMovieClick = (movie) => {
-    setSelectedMovie(movie);
+    router.push(`/moviedetail/${movie.id}`);
   };
 
   return (
@@ -41,11 +41,6 @@ const ContentList = () => {
       <div className="listpagination" style={{ display: 'flex', justifyContent: 'center', marginTop: '80px' }}>
         <ListPagination totalPages={totalPages} currentPage={currentPage} onPageChange={setCurrentPage} />
       </div>
-      {selectedMovie && (
-        <div className="movieDetailOverlay">
-          <MovieDetailComponent movie={selectedMovie} />
-        </div>
-      )}
     </Container>
   );
 };
