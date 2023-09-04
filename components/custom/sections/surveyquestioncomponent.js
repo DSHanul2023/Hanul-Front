@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { Button, Form, FormGroup, Input, Row, Col } from 'reactstrap';
+import MinichatContentList from './minichatcontentlistcomponent';
 
 const emotions = ['분노', '걱정', '불안', '우울', '공포', '슬픔', '기쁨', '설렘'];
 const genres = ['드라마', '로맨스', '가족', '액션', '범죄', '음악', '코미디', '판타지', '모험', '애니메이션'];
 
 const Question = () => {
     const [selectedItems, setSelectedItems] = useState([]);
-    const [selectedType, setSelectedType] = useState('오늘의 기분은 어떤가요?'); // 기본값: '기분'
-    
+    const [selectedType, setSelectedType] = useState('오늘의 기분은 어떤가요?');
+    const [recommendedMovies, setRecommendedMovies] = useState([]);
+
     const handleSelectChange = (e) => {
         setSelectedType(e.target.value);
-        setSelectedItems([]); // 선택한 항목 초기화
+        setSelectedItems([]);
     };
 
     const onCheckboxBtnClick = (item) =>  {
@@ -55,8 +57,7 @@ const Question = () => {
                 data.response = responseMessage;
                 console.log('서버 응답:', data);
 
-                // 페이지 이동
-                window.location.href = '/minichatcontentlist';
+                setRecommendedMovies(data.recommended_movies);
             })
             .catch(error => {
                 console.error('에러 발생:', error);
@@ -97,23 +98,26 @@ const Question = () => {
     };
 
     return (
-        <Form className="surveyform">
-            <FormGroup>
-                <Input type="select" name="select" className="selectquestion" onChange={handleSelectChange}>
-                    <option value="오늘의 기분은 어떤가요?">기분</option>
-                    <option value="선호하는 영화의 장르는 무엇인가요?">장르</option>
-                </Input>
-            </FormGroup>
-            <div className="questionpart">
-                Q. <span className="question">{selectedType}</span>
-            </div>
-            <div className="checkanswer">
-                <div className="checkdiv">
-                    {renderButtons()}
+        <div>
+            <Form className="surveyform">
+                <FormGroup>
+                    <Input type="select" name="select" className="selectquestion" onChange={handleSelectChange}>
+                        <option value="오늘의 기분은 어떤가요?">기분</option>
+                        <option value="선호하는 영화의 장르는 무엇인가요?">장르</option>
+                    </Input>
+                </FormGroup>
+                <div className="questionpart">
+                    Q. <span className="question">{selectedType}</span>
                 </div>
-            </div>
-            <Button className="commendbtn" onClick={handleRecommendClick}>콘텐츠 추천받기</Button>
-        </Form>
+                <div className="checkanswer">
+                    <div className="checkdiv">
+                        {renderButtons()}
+                    </div>
+                </div>
+                <Button className="commendbtn" onClick={handleRecommendClick}>콘텐츠 추천받기</Button>
+            </Form>
+            <MinichatContentList recommendedMovies={recommendedMovies} />
+        </div>
     );
 }
 
