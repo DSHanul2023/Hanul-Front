@@ -1,42 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'reactstrap';
-import Image from 'next/image';
-import Link from 'next/link';
+import MinichatPagination from './minichatpagination';
+import MinichatItemComponent from './minichatitemcomponent';
 
 const MinichatContentList = ({ recommendedMovies }) => {
-  // 5개씩 영화 데이터를 묶어 배열 생성
-  const chunkedMovies = [];
-  for (let i = 0; i < recommendedMovies.length; i += 5) {
-    chunkedMovies.push(recommendedMovies.slice(i, i + 5));
-  }
+  const itemsPerPage = 5; // 한 페이지에 표시할 아이템 수
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentItems, setCurrentItems] = useState([]);
+  const totalPages = Math.ceil(recommendedMovies.length / itemsPerPage);
+
+  // 페이지 변경 시 해당 페이지의 아이템을 추출
+  useEffect(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const itemsToDisplay = recommendedMovies.slice(startIndex, endIndex);
+    setCurrentItems(itemsToDisplay);
+  }, [recommendedMovies, currentPage]);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <Container style={{ position: 'relative' }}>
-      {chunkedMovies.map((moviesRow, rowIndex) => (
-        <Row key={rowIndex}>
-          {moviesRow.map((movie, colIndex) => (
-            <Col key={colIndex} xs={12} md={2} className="item">
-              <Link href={`/items/${movie.movieId}`} passHref>
-                <div style={{ cursor: 'pointer' }}>
-                  <div className="itemimg" style={{ width: '100%', height: '80%' }}>
-                    <Image
-                      src={movie.posterUrl}
-                      alt={movie.itemNm}
-                      layout="fill"
-                      objectFit="cover"
-                    />
-                  </div>
-                  <Container className="itemsummary">
-                    <p className="itemtitle" style={{ marginTop: '70px', fontSize: '13px' }}>
-                      {movie.itemNm}
-                    </p>
-                  </Container>
-                </div>
-              </Link>
-            </Col>
-          ))}
-        </Row>
-      ))}
+      <Row>
+        {currentItems.map((movie, index) => (
+          <MinichatItemComponent key={index} movie={movie} />
+        ))}
+      </Row>
+      <div className="listpagination" style={{ display: 'flex', justifyContent: 'center', marginTop: '30px', marginBottom: '30px' }}>
+        <MinichatPagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />
+      </div>
     </Container>
   );
 };
