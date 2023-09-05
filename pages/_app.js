@@ -6,7 +6,7 @@ import Loading from './loading';
 import { useEffect, useState } from 'react';
 import CustomComponents from '../components/custom/Custom-components';
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, router }) {
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -19,12 +19,18 @@ function MyApp({ Component, pageProps }) {
     return () => clearTimeout(timer);
   }, []);
 
+  const isRootPath = router.pathname === '/';
+
   return (
     <div>
         {isLoading ? <div id="main-wrapper"><Loading /></div> : <div id="main-wrapper">
       <Header />
       <div className="page-wrapper">
-        <div className="container-fluid"><Component {...pageProps} /></div>
+        <div className="container-fluid">{isRootPath ? (
+                <CustomComponents />
+              ) : (
+                <Component {...pageProps} />
+              )}</div>
       </div>
       <Footer />
     </div>}
