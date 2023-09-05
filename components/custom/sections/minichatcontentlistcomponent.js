@@ -4,7 +4,7 @@ import MinichatPagination from './minichatpagination';
 import MinichatItemComponent from './minichatitemcomponent';
 
 const MinichatContentList = ({ recommendedMovies }) => {
-  const itemsPerPage = 10; // 한 페이지에 표시할 아이템 수
+  const itemsPerPage = 5; // 한 페이지에 표시할 아이템 수
   const [currentPage, setCurrentPage] = useState(1);
   const [currentItems, setCurrentItems] = useState([]);
   const totalPages = Math.ceil(recommendedMovies.length / itemsPerPage);
@@ -28,7 +28,7 @@ const MinichatContentList = ({ recommendedMovies }) => {
           <MinichatItemComponent key={index} movie={movie} />
         ))}
       </Row>
-      <div className="listpagination" style={{ display: 'flex', justifyContent: 'center', marginTop: '80px' }}>
+      <div className="listpagination" style={{ display: 'flex', justifyContent: 'center', marginTop: '30px', marginBottom: '30px' }}>
         <MinichatPagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />
       </div>
     </Container>
