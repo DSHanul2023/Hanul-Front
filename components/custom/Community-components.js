@@ -5,7 +5,7 @@ import React, {useEffect, useState} from 'react';
 
 const CommunityComponents = () => {
   const [boardList, setBoardList] = useState([]);
-  const [selectedBoardType, setSelectedBoardType] = useState(1); // 기본값은 "1"로 자유게시판을 나타냅니다.
+  const [selectedBoardType, setSelectedBoardType] = useState(5); // 기본값은 "1"로 자유게시판을 나타냅니다.
 
   useEffect(() => {
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
@@ -45,18 +45,17 @@ const CommunityComponents = () => {
     setSelectedBoardType(boardType);
   };
     return (
-      <div>
-        <div className='community'>
-          <Row>
-            <Col md="3">
-              <SideBarComponent onSidebarItemClick={handleSidebarItemClick} selectedBoardType={selectedBoardType}/>
-            </Col>
-            <Col>
-              <BoardComponent boardList={boardList} selectedBoardType={selectedBoardType}/>
-            </Col>
-          </Row>
-        </div>
-      </div>
+      <div className='community d-flex justify-content-center'>
+      <Row>
+        <Col style={{maxWidth:'280px'}}>
+          <SideBarComponent onSidebarItemClick={handleSidebarItemClick} selectedBoardType={selectedBoardType}/>
+        </Col>
+        <Col >
+          <BoardComponent boardList={boardList} selectedBoardType={selectedBoardType}/>
+        </Col>
+      </Row>
+    </div>
+    
     );
   };
   
