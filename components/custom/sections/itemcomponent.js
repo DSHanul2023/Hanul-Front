@@ -30,7 +30,7 @@ const ItemComponent = ({ movies }) => {
                         objectFit="cover"/>
                     </div>
                     <Container className="itemsummary">
-                      <p className="itemtitle" style={{ marginTop: "70px", fontSize: "13px" }}>{movie.itemNm}</p>
+                      <p className="itemtitle" style={{ marginTop: '315px', fontSize: '13px',  color: '#B95C37', textAlign: 'center' }}>{movie.itemNm}</p>
                     </Container>
                   </div>
                 </Link>
