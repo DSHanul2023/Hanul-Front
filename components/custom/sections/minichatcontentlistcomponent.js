@@ -1,27 +1,36 @@
-import React, { useState } from 'react';
-import { Container, Row } from 'reactstrap';
-import MinichatItemComponent from './minichatitemcomponent';
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col } from 'reactstrap';
+import Image from 'next/image';
+import Link from 'next/link';
 import MinichatPagination from './minichatpagination';
+import MinichatItemComponent from './minichatitemcomponent';
 
 const MinichatContentList = ({ recommendedMovies }) => {
   const itemsPerPage = 10; // 한 페이지에 표시할 아이템 수
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentItems, setCurrentItems] = useState([]);
   const totalPages = Math.ceil(recommendedMovies.length / itemsPerPage);
 
-  // 현재 페이지와 페이지 변경 함수를 상태로 관리
-  const [currentPage, setCurrentPage] = useState(1);
+  // 페이지 변경 시 해당 페이지의 아이템을 추출
+  useEffect(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const itemsToDisplay = recommendedMovies.slice(startIndex, endIndex);
+    setCurrentItems(itemsToDisplay);
+  }, [recommendedMovies, currentPage]);
 
-  // 현재 페이지에 해당하는 아이템들을 추출
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentItems = recommendedMovies.slice(startIndex, endIndex);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <Container style={{ position: 'relative' }}>
-      {currentItems.map((movie, index) => (
-        <MinichatItemComponent key={index} movie={movie} />
-      ))}
-      {/* currentPage와 onPageChange를 MinichatPagination 컴포넌트에 전달 */}
-      <MinichatPagination totalPages={totalPages} currentPage={currentPage} onPageChange={setCurrentPage} />
+      <Row>
+        {currentItems.map((movie, index) => (
+          <MinichatItemComponent key={index} movie={movie} />
+        ))}
+      </Row>
+      <MinichatPagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />
     </Container>
   );
 };
