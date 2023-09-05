@@ -36,7 +36,7 @@ const MovieDetailComponent = ({ movieId }) => {
   }
 
   return (
-    <Container className="moviedetail" style={{ marginTop: "20px" }}>
+    <Container className="moviedetail" style={{ marginTop: "20px" , marginBottom: "25px" }}>
       <Row className="justify-content-center ml-4 mr-4"> {/* 중앙 정렬 및 좌우 여백 */}
         <Col xs={12} md={3} className="poster">
           <Image
