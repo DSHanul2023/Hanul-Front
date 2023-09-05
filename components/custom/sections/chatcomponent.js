@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Container, Form, Input, Button } from "reactstrap";
 import UserChatComponent from "./UserChatComponent";
-import BotChatComponent from "./BotChatComponent";
+import BotChatComponent from "./botchatcomponent";
 import { useRouter } from "next/router";
-
+import Image from "next/image";
+import default_profile from "../../../public/profile/default_profile.png";
 const ChatComponent = () => {
   const router = useRouter();
   const [inputMessage, setInputMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
   const [showChat, setShowChat] = useState(false);
-
+  const [timestamp, setTimestamp] = useState(""); 
   useEffect(() => {
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
     if (!accessToken) {
       router.push("/login");
     }
+    const initialTimestamp = getCurrentTime(); 
+    setTimestamp(initialTimestamp);
   }, []);
 
   const handleMessageSubmit = async (e) => {
@@ -28,6 +31,7 @@ const ChatComponent = () => {
     const newUserMessage = {
       content: inputMessage,
       sender: "user",
+      time: new Date(),
     };
   
     setChatMessages((prevMessages) => [...prevMessages, newUserMessage]);
@@ -47,6 +51,8 @@ const ChatComponent = () => {
         const botResponse = {
           sender: "bot",
           content: responseData.message,
+          time: responseData.timestamp,
+          recommend_status: responseData.recommend_status,
         };
         setChatMessages((prevMessages) => [...prevMessages, botResponse]);
         setShowChat(true);
@@ -57,28 +63,44 @@ const ChatComponent = () => {
       console.error("오류:", error);
     }
   };
+  const getCurrentTime = () => {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const ampm = hours >= 12 ? "PM" : "AM";
+    const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+    return ` ${formattedHours}:${minutes < 10 ? "0" : ""}${minutes} ${ampm} `;
+  };
 
   return (
     <div className="full-height">
-      <div className="bg-light">
-        <section>
+      <div style={{display:'flex',justifyContent:'center',backgroundColor:'#F9F4E8'}}>
+        <section style={{width:'50%'}}>
           <div id="chat" className="banner spacer">
             <Container className="h-100">
-              <Row>
-                <Col md="6">
+              <Row className="ml-1">
+              <Image
+                    src={default_profile}
+                    alt="img"
+                    className="img-circle"
+                    width={43}
+                    height={43}
+                  />
+                <Col md="6" style={{paddingLeft:'10px',display: 'flex'}}>
                   <div className="chat-div">
                     안녕하세요! 저는 We:Lover에요. <br />
                     저한테 고민을 얘기해주세요!
                   </div>
-                  <p className="timestamp">12:00PM | 3월 28일</p>
+                  <p className="timestamp ml-2 mb-0" style={{marginTop:'auto'}}>
+                    {timestamp}
+                  </p>             
                 </Col>
               </Row>
 
               {showChat && (
-                <Row className="mt-4">
-                  <Col md="6"></Col>
-                  <Col md="6">
-                    <BotChatComponent messages={chatMessages} />
+                <Row>
+                  <Col md="12" style={{paddingRight:'6%'}}>
+                    <BotChatComponent messages={chatMessages}/>
                   </Col>
                 </Row>
               )}

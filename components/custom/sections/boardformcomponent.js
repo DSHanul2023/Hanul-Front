@@ -31,7 +31,7 @@ const BoardFormComponent = (...args) => {
                 console.log("Content upload successful");
             }
         } catch (error) {
-        
+            console.log(error);
         }
     };
 
@@ -89,6 +89,7 @@ const BoardFormComponent = (...args) => {
                         id="imgFile"
                         name="file"
                         type="file"
+                        accept="image/*"
                         onChange={handleImageChange}
                         />
                     </FormGroup>
