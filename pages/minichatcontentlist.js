@@ -10,7 +10,6 @@ const MinichatContentListPage = () => {
 
     return (
         <div>
-            <h1>추천된 영화 목록</h1>
             <MinichatContentList recommendedMovies={parsedRecommendedMovies} />
         </div>
     );
