@@ -9,9 +9,11 @@ const MinichatContentListPage = () => {
     const parsedRecommendedMovies = recommendedMovies ? JSON.parse(recommendedMovies) : [];
 
     return (
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '40px' }}>
+            <h4>추천된 영화 목록</h4>
             <MinichatContentList recommendedMovies={parsedRecommendedMovies} />
         </div>
+
     );
 }
 

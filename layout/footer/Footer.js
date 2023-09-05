@@ -10,53 +10,59 @@ const Footer = () => {
         <Row>
           <Col lg="3" md="6" className="m-b-30">
             <h5 className="m-b-20">Address</h5>
-            <p>71 Amsteroum Avenue Cronish Night, NY 35098</p>
+            {/* <p>덕성여자대학교</p> 
+            <p>대한민국 서울특별시 도봉구 삼양로 144길 33</p>
+            <p>우편번호: 01369</p> */}
+            <p>덕성여자대학교</p> 
+            <p>대한민국 서울특별시 도봉구<br/>삼양로 144길 33<br/></p>
+            <p>우편번호: 01369</p>
+
+            {/* <p>덕성여자대학교<br/> 
+            대한민국 서울특별시 도봉구 삼양로 144길 33<br/>
+            우편번호: 01369</p> */}
+
           </Col>
           <Col lg="3" md="6" className="m-b-30">
             <h5 className="m-b-20">Phone</h5>
             <p>
-              Reception : +205 123 4567 <br />
-              Office : +207 235 7890
+              Reception : +82 2 901 7000 <br />
+              Office : +82 2 901 8341
             </p>
           </Col>
           <Col lg="3" md="6" className="m-b-30">
             <h5 className="m-b-20">Email</h5>
             <p>
-              Office :
+              Office : 
               <Link href="#" className="link">
-                info@wrappixel.com
+              hanul8939@gmail.com
               </Link>
-              <br />
+              {/* <br />
               Site :
               <Link href="https://www.wrappixel.com" className="link">
                 wrappixel.com
-              </Link>
+              </Link> */}
             </p>
           </Col>
           <Col lg="3" md="6">
             <h5 className="m-b-20">Social</h5>
             <div className="round-social light">
-              <Link href="#" className="link">
+              <Link href="https://www.facebook.com/DukSungWU" className="link">
 
                 <i className="fa fa-facebook"></i>
 
               </Link>
-              <Link href="#" className="link">
 
-                <i className="fa fa-twitter"></i>
+              <Link href="https://blog.naver.com/dswuniv_blog" className="link">
 
-              </Link>
-              <Link href="#" className="link">
-
-                <i className="fa fa-google-plus"></i>
+              <i className="fa fa-bold"></i>
 
               </Link>
-              <Link href="#" className="link">
+              <Link href="https://www.youtube.com/channel/UCrda7r7df_GPinyBULMA6CA" className="link">
 
                 <i className="fa fa-youtube-play"></i>
 
               </Link>
-              <Link href="#" className="link">
+              <Link href="https://www.instagram.com/duksung_official/" className="link">
 
                 <i className="fa fa-instagram"></i>
 
@@ -64,7 +70,8 @@ const Footer = () => {
             </div>
           </Col>
         </Row>
-        <div className="f4-bottom-bar">
+
+        {/* <div className="f4-bottom-bar">
           <Row>
             <Col md="12">
               <div className="d-flex font-14">
@@ -85,10 +92,11 @@ const Footer = () => {
                     Privacy Policy
                   </Link>
                 </div>
-              </div>
+              </div> 
             </Col>
           </Row>
-        </div>
+        </div> */}
+
       </Container>
     </div>
   );
