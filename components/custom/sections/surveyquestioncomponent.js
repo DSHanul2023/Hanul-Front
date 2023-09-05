@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import { Button, Form, FormGroup, Input, Row, Col } from 'reactstrap';
+import { useRouter } from 'next/router'; // next/router를 import
+import MinichatContentList from './minichatcontentlistcomponent';
 
 const emotions = ['분노', '걱정', '불안', '우울', '공포', '슬픔', '기쁨', '설렘'];
 const genres = ['드라마', '로맨스', '가족', '액션', '범죄', '음악', '코미디', '판타지', '모험', '애니메이션'];
 
 const Question = () => {
     const [selectedItems, setSelectedItems] = useState([]);
-    const [selectedType, setSelectedType] = useState('오늘의 기분은 어떤가요?'); // 기본값: '기분'
+    const [selectedType, setSelectedType] = useState('오늘의 기분은 어떤가요?');
+    const [recommendedMovies, setRecommendedMovies] = useState([]);
+    const router = useRouter(); 
 
     const handleSelectChange = (e) => {
         setSelectedType(e.target.value);
-        setSelectedItems([]); // 선택한 항목 초기화
+        setSelectedItems([]);
     };
 
     const onCheckboxBtnClick = (item) =>  {
@@ -24,7 +28,7 @@ const Question = () => {
         });
     }
 
-    const handleRecommendClick = () => {
+    const handleRecommendClick = async () => {
         if (selectedItems.length === 0) {
             alert("아무 항목도 선택되지 않았습니다. 최소 하나의 항목을 선택해주세요.");
             return;
@@ -34,7 +38,7 @@ const Question = () => {
     
         const requestData = {
             selectedItems: selectedItems,
-            category: selectedCategory, // 선택한 카테고리 정보 추가
+            category: selectedCategory,
             emotions: selectedCategory === '기분' ? selectedItems : [],
             genres: selectedCategory === '장르' ? selectedItems : [],
         };
@@ -51,7 +55,17 @@ const Question = () => {
             })
             .then(response => response.json())
             .then(data => {
+                let responseMessage = `${selectedCategory} : ${selectedItems.toString()} 에 대한 추천 결과입니다.`;
+                data.response = responseMessage;
                 console.log('서버 응답:', data);
+
+                setRecommendedMovies(data.recommended_movies);
+
+                // 페이지 이동 및 추천된 영화 목록 전달
+                router.push({
+                    pathname: '/minichatcontentlist',
+                    query: { recommendedMovies: JSON.stringify(data.recommended_movies) },
+                });
             })
             .catch(error => {
                 console.error('에러 발생:', error);
@@ -60,8 +74,7 @@ const Question = () => {
             console.error('JSON 변환 에러:', error);
         }
     };
-
-
+    
     const itemsToDisplay = selectedType === '오늘의 기분은 어떤가요?' ? emotions : genres;
 
     const renderButtons = () => {
@@ -93,23 +106,25 @@ const Question = () => {
     };
 
     return (
-        <Form className="surveyform">
-            <FormGroup>
-                <Input type="select" name="select" className="selectquestion" onChange={handleSelectChange}>
-                    <option value="오늘의 기분은 어떤가요?">기분</option>
-                    <option value="선호하는 영화의 장르는 무엇인가요?">장르</option>
-                </Input>
-            </FormGroup>
-            <div className="questionpart">
-                Q. <span className="question">{selectedType}</span>
-            </div>
-            <div className="checkanswer">
-                <div className="checkdiv">
-                    {renderButtons()}
+        <div>
+            <Form className="surveyform">
+                <FormGroup>
+                    <Input type="select" name="select" className="selectquestion" onChange={handleSelectChange}>
+                        <option value="오늘의 기분은 어떤가요?">기분</option>
+                        <option value="선호하는 영화의 장르는 무엇인가요?">장르</option>
+                    </Input>
+                </FormGroup>
+                <div className="questionpart">
+                    Q. <span className="question">{selectedType}</span>
                 </div>
-            </div>
-            <Button className="commendbtn" onClick={handleRecommendClick}>콘텐츠 추천받기</Button>
-        </Form>
+                <div className="checkanswer">
+                    <div className="checkdiv">
+                        {renderButtons()}
+                    </div>
+                </div>
+                <Button className="commendbtn" onClick={handleRecommendClick}>콘텐츠 추천받기</Button>
+            </Form>
+        </div>
     );
 }
 
