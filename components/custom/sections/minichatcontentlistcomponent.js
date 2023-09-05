@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'reactstrap';
-import Image from 'next/image';
-import Link from 'next/link';
 import MinichatPagination from './minichatpagination';
 import MinichatItemComponent from './minichatitemcomponent';
 
@@ -30,7 +28,9 @@ const MinichatContentList = ({ recommendedMovies }) => {
           <MinichatItemComponent key={index} movie={movie} />
         ))}
       </Row>
-      <MinichatPagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />
+      <div className="listpagination" style={{ display: 'flex', justifyContent: 'center', marginTop: '80px' }}>
+        <MinichatPagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />
+      </div>
     </Container>
   );
 };
