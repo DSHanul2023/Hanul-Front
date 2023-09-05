@@ -1,42 +1,27 @@
-import React from 'react';
-import { Container, Row, Col } from 'reactstrap';
-import Image from 'next/image';
-import Link from 'next/link';
+import React, { useState } from 'react';
+import { Container, Row } from 'reactstrap';
+import MinichatItemComponent from './minichatitemcomponent';
+import MinichatPagination from './minichatpagination';
 
 const MinichatContentList = ({ recommendedMovies }) => {
-  // 5개씩 영화 데이터를 묶어 배열 생성
-  const chunkedMovies = [];
-  for (let i = 0; i < recommendedMovies.length; i += 5) {
-    chunkedMovies.push(recommendedMovies.slice(i, i + 5));
-  }
+  const itemsPerPage = 10; // 한 페이지에 표시할 아이템 수
+  const totalPages = Math.ceil(recommendedMovies.length / itemsPerPage);
+
+  // 현재 페이지와 페이지 변경 함수를 상태로 관리
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // 현재 페이지에 해당하는 아이템들을 추출
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = recommendedMovies.slice(startIndex, endIndex);
 
   return (
     <Container style={{ position: 'relative' }}>
-      {chunkedMovies.map((moviesRow, rowIndex) => (
-        <Row key={rowIndex}>
-          {moviesRow.map((movie, colIndex) => (
-            <Col key={colIndex} xs={12} md={2} className="item">
-              <Link href={`/items/${movie.movieId}`} passHref>
-                <div style={{ cursor: 'pointer' }}>
-                  <div className="itemimg" style={{ width: '100%', height: '80%' }}>
-                    <Image
-                      src={movie.posterUrl}
-                      alt={movie.itemNm}
-                      layout="fill"
-                      objectFit="cover"
-                    />
-                  </div>
-                  <Container className="itemsummary">
-                    <p className="itemtitle" style={{ marginTop: '70px', fontSize: '13px' }}>
-                      {movie.itemNm}
-                    </p>
-                  </Container>
-                </div>
-              </Link>
-            </Col>
-          ))}
-        </Row>
+      {currentItems.map((movie, index) => (
+        <MinichatItemComponent key={index} movie={movie} />
       ))}
+      {/* currentPage와 onPageChange를 MinichatPagination 컴포넌트에 전달 */}
+      <MinichatPagination totalPages={totalPages} currentPage={currentPage} onPageChange={setCurrentPage} />
     </Container>
   );
 };
