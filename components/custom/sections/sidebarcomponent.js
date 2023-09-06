@@ -22,7 +22,11 @@ const SideBarComponent = ({ onSidebarItemClick, selectedBoardType }) => {
 
     return (
         <div className="sidebar mt-3 mr-5">
-            <div className='block-1'>커뮤니티</div>
+            <div className='topRow'>
+                <div className='block-1'>커뮤니티</div>
+                
+            </div>
+            
             <div>
                 <div className="tab-row">
                     <div className="col">
@@ -81,15 +85,7 @@ const SideBarComponent = ({ onSidebarItemClick, selectedBoardType }) => {
                             >
                                 <i className="fa fa-heartbeat"/> &nbsp; 병원 후기
                             </a>
-                            <div style={{ marginTop: '48.5px' }}>
-                                <Input
-                                    placeholder='Q    검색'
-                                    style={{ height: '48.5px', fontSize: '14px', borderColor: 'white' }}
-                                    value={searchQuery}
-                                    onChange={handleSearchInputChange}
-                                    onKeyDown={handleSearchInputKeyPress}
-                                />
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
