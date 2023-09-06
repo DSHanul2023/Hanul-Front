@@ -854,7 +854,7 @@ Responsive
 Community
 *******************/
 .sidebar {
-  display: flex;
+  display: block;
   flex-direction: row;
   height: 100vh;
   border-color: $muted;
@@ -864,9 +864,44 @@ Community
   }
   .tab-row{
     flex-grow: 1;
+    background-color: #FDFCF8;
+    padding-top: 20px;
     width: 100%;
-    height: 100vh;
+    height: 85vh;
+    border-radius: 10px;
   }
+}
+
+.list-group1 {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.list-group-item1 {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  display: block;
+  font-weight: 600;
+  padding: 0.75rem 1.25rem;
+  background-color: #FDFCF8;
+  border-radius: 0.7em;
+}
+
+.list-group-item1.active, .list-group1 .list-group-item1.active:hover {
+  background: #EFA374;
+  border-color: #EFA374;
+}
+
+.block-1{
+  font-size: xx-large;
+  font-weight: 900;
+  color: $headingtext;
+  padding-top: 20px;
+  padding-bottom: 15px;
+  padding-left: 15px;
 }
 
 .board {
