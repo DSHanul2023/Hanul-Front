@@ -1420,6 +1420,14 @@ movieDetal
       font-weight: 500;
       margin-top:5px;
     }
+    .hearticon{
+      color: white;
+    }
+  }
+  .heartbtn.bookmarked{
+    .hearticon{
+      color:$themecolor;
+    }
   }
   .hearticon{
     color:white;

@@ -51,7 +51,7 @@ const SaveComponent = () => {
 
   const fetchItemsByMember = async (memberId) => {
     try {
-      const response = await fetch(`http://localhost:8080/items/members/${memberId}`);
+      const response = await fetch(`http://localhost:8080/members/${memberId}/bookmarked-items`);
       if (!response.ok) {
         throw new Error("Failed to fetch member's items");
       }
