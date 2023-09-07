@@ -10,6 +10,7 @@ const MovieDetailComponent = ({ movieId }) => {
   const [memberId,setMemberId] = useState();
   const [token,setToken] = useState();
   const [isBookmarked, setIsBookmarked] = useState(false); // 찜 상태 추가
+  const [providerLink, setProviderLink] = useState('');
   useEffect(() => {
     if (!movieId) {
       return;
@@ -32,12 +33,32 @@ const MovieDetailComponent = ({ movieId }) => {
       .then(data => {
         console.log('가져온 영화 데이터:', data);
         setMovie(data);
+        provider(data);
       })
       .catch(error => {
         console.error('데이터 가져오기 오류:', error);
       });
-  }, [movieId]);
+    
+    const provider = (movieData) => {
+      fetch(`http://localhost:8080/items/provider/${movieId}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('네트워크 응답이 올바르지 않습니다.');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('가져온 영화 provider:', data);
+        setProviderLink(data.link); // 이곳에서 프로바이더 링크를 설정합니다.
+      })
+      .catch(error => {
+        console.error('provider 가져오기 오류:', error);
+      });
+    };
 
+  
+  }, [movieId]);
+  
   const bookmarkcheck = (memberid) => {
     // 북마크된 멤버 목록을 가져오는 요청
     fetch(`http://localhost:8080/items/${movieId}/bookmarked-members`,{
@@ -92,6 +113,13 @@ const MovieDetailComponent = ({ movieId }) => {
         console.error('찜하기 오류:', error);
       });
   };
+    const handleWatchNowClick = () => {
+      if (providerLink) {
+        window.open(providerLink, '_blank');
+      } else {
+        console.error('프로바이더 링크를 사용할 수 없습니다.');
+      }
+    };
   if (!movie) {
     return <p>Loading...</p>;
   }
@@ -123,11 +151,12 @@ const MovieDetailComponent = ({ movieId }) => {
             {keyworddiv()}
           </div>
           <div className="playdiv">
-            <button type="button" href="/" className="playbtn">
+            {providerLink &&(
+            <button type="button" onClick={handleWatchNowClick} className="playbtn">
             <FontAwesomeIcon icon={faVideo} className='mr-3'/>
             <span>보러가기</span>
             <div></div>
-            </button>
+            </button>)}
             <div>
             <button className={`heartbtn ${isBookmarked ? 'bookmarked' : ''}`} onClick={handleBookmarkClick}>
             <FontAwesomeIcon icon={faHeart} className="hearticon"/>
