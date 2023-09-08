@@ -7,35 +7,38 @@ import { useEffect, useState } from 'react';
 import CustomComponents from '../components/custom/Custom-components';
 
 function MyApp({ Component, pageProps, router }) {
-
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // 3초 후에 로딩 상태를 변경하여 메인 페이지로 이동
+    // 컴포넌트가 마운트될 때 한 번만 실행됨
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 3000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, []); // 빈 배열을 전달하여 컴포넌트가 마운트될 때만 실행
 
   const isRootPath = router.pathname === '/';
 
   return (
-    <div>
-        {isLoading ? <div id="main-wrapper"><Loading /></div> : <div id="main-wrapper">
-      <Header />
-      <div className="page-wrapper">
-        <div className="container-fluid">{isRootPath ? (
-                <CustomComponents />
-              ) : (
-                <Component {...pageProps} />
-              )}</div>
-      </div>
-      <Footer />
-    </div>}
+    <div id="main-wrapper">
+      {isRootPath ? (
+        isLoading ? (
+          <Loading />
+        ) : (<div>
+          <Header />
+          <CustomComponents />
+          <Footer />
+        </div>
+        )
+      ) : (
+        <div>
+          <Header />
+          <Component {...pageProps} />
+          <Footer />
+        </div>
+      )}
     </div>
-    
   );
 }
 
