@@ -21,23 +21,28 @@ const SideBarComponent = ({ onSidebarItemClick, selectedBoardType }) => {
     };
 
     return (
-        <div className="sidebar mt-5 mr-5">
-            <Container>
+        <div className="sidebar mt-3 mr-5">
+            <div className='topRow'>
+                <div className='block-1'>커뮤니티</div>
+                
+            </div>
+            
+            <div>
                 <div className="tab-row">
                     <div className="col">
-                        <div className="list-group" id="list-tab" role="tablist">
+                        <div className="list-group1" id="list-tab" role="tablist">
                             <a
-                                className={`list-group-item list-group-item-action ${selectedBoardType === 'A5' ? 'active' : ''}`}
+                                className={`list-group-item1 list-group-item-action ${selectedBoardType === 'A5' ? 'active' : ''}`}
                                 id="list"
                                 data-bs-toggle="list"
                                 role="tab"
                                 aria-controls="list"
                                 onClick={() => handleItemClick('A5')}
                             >
-                                전체
+                                <i className="fa fa-list" aria-hidden="true"></i> &nbsp; 전체
                             </a>
                             <a
-                                className={`list-group-item list-group-item-action ${selectedBoardType === 'A1' ? 'active' : ''}`}
+                                className={`list-group-item1 list-group-item-action ${selectedBoardType === 'A1' ? 'active' : ''}`}
                                 id="list-home-list"
                                 data-bs-toggle="list"
                                 href="#list-home"
@@ -45,10 +50,10 @@ const SideBarComponent = ({ onSidebarItemClick, selectedBoardType }) => {
                                 aria-controls="list-home"
                                 onClick={() => handleItemClick('A1')}
                             >
-                                자유게시판
+                                <i className="fa fa-comments-o"/> &nbsp; 자유게시판
                             </a>
                             <a
-                                className={`list-group-item list-group-item-action ${selectedBoardType === 'A2' ? 'active' : ''}`}
+                                className={`list-group-item1 list-group-item-action ${selectedBoardType === 'A2' ? 'active' : ''}`}
                                 id="list-hobby-list"
                                 data-bs-toggle="list"
                                 href="#list-hobby"
@@ -56,10 +61,10 @@ const SideBarComponent = ({ onSidebarItemClick, selectedBoardType }) => {
                                 aria-controls="list-hobby"
                                 onClick={() => handleItemClick('A2')}
                             >
-                                취미게시판
+                                <i className="fa fa-futbol-o"/> &nbsp; 취미게시판
                             </a>
                             <a
-                                className={`list-group-item list-group-item-action ${selectedBoardType === 'A3' ? 'active' : ''}`}
+                                className={`list-group-item1 list-group-item-action ${selectedBoardType === 'A3' ? 'active' : ''}`}
                                 id="list-neigh-list"
                                 data-bs-toggle="list"
                                 href="#list-neigh"
@@ -67,10 +72,10 @@ const SideBarComponent = ({ onSidebarItemClick, selectedBoardType }) => {
                                 aria-controls="list-neigh"
                                 onClick={() => handleItemClick('A3')}
                             >
-                                우리 동네
+                                <i className="fa fa-handshake-o"/> &nbsp;우리 동네
                             </a>
                             <a
-                                className={`list-group-item list-group-item-action ${selectedBoardType === 'A4' ? 'active' : ''}`}
+                                className={`list-group-item1 list-group-item-action ${selectedBoardType === 'A4' ? 'active' : ''}`}
                                 id="list-hospital-list"
                                 data-bs-toggle="list"
                                 href="#list-hospital"
@@ -78,21 +83,13 @@ const SideBarComponent = ({ onSidebarItemClick, selectedBoardType }) => {
                                 aria-controls="list-hospital"
                                 onClick={() => handleItemClick('A4')}
                             >
-                                병원 후기
+                                <i className="fa fa-heartbeat"/> &nbsp; 병원 후기
                             </a>
-                            <div style={{ marginTop: '48.5px' }}>
-                                <Input
-                                    placeholder='Q    검색'
-                                    style={{ height: '48.5px', fontSize: '14px', borderColor: 'white' }}
-                                    value={searchQuery}
-                                    onChange={handleSearchInputChange}
-                                    onKeyDown={handleSearchInputKeyPress}
-                                />
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
-            </Container>
+            </div>
         </div>
     );
 };

@@ -62,7 +62,7 @@ const BoardComponent = ({ boardList, selectedBoardType }) => {
         );
     };
     return (
-        <div className='mt-5' style={{width:'770px'}}>
+        <div className='mt-3' style={{width:'770px'}}>
             {renderBoardList()}
             <div className='board-button'>
                 <Button color="themecolor" href="/boardform">글쓰기</Button>
