@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "reactstrap";
-import default_profile from "../../../public/profile/default_profile.png";
+import default_profile from "../../../public/profile/default_profile_1.png";
 
 const BotChatComponent = ({ messages }) => {
   const formatTime = (timeString) => {
