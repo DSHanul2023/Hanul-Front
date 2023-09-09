@@ -4,7 +4,7 @@ import UserChatComponent from "./UserChatComponent";
 import BotChatComponent from "./botchatcomponent";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import default_profile from "../../../public/profile/default_profile.png";
+import default_profile from "../../../public/profile/default_profile_1.png";
 const ChatComponent = () => {
   const router = useRouter();
   const [inputMessage, setInputMessage] = useState("");

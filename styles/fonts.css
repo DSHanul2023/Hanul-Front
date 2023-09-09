@@ -1,0 +1,18 @@
+  @font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('/fonts/GmarketSansTTFMedium.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+  } 
+  @font-face {
+    font-family: 'NotoSans';
+    src: url('/fonts/NotoSansKR-Light.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('/fonts/Pretendard-Medium.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
