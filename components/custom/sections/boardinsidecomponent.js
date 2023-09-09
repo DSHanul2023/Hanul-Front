@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import default_profile from "../../../public/profile/default_profile.png";
+import default_profile from "../../../public/profile/default_profile_1.png";
 import Image from "next/image";
 
 const BoardInsideComponent = (props) => {
