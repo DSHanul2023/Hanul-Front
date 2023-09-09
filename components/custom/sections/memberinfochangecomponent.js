@@ -40,6 +40,7 @@ const MemberInfoChange = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [profilePictureName, setProfilePictureName] = useState("");
+  const [modal3, setModal3] = useState(false);
 
   useEffect(() => {
     // Check if user is logged in (you can adjust this condition based on your login mechanism)
@@ -49,9 +50,9 @@ const MemberInfoChange = () => {
       window.location.href = "/login";
     } else {
       fetchMemberInfo(accessToken);
-      console.log("Updated profilePictureName:", profilePictureName);
+      // console.log("Updated profilePictureName:", profilePictureName);
     }
-  }, [profilePictureName]);
+  }, []);
 
   const fetchMemberInfo = async (token) => {
     try {
@@ -263,7 +264,7 @@ const MemberInfoChange = () => {
           setProfilePictureName(member.profilePictureName);
           setImagePreview(`/profile/${member.profilePictureName}`); // Update image preview with the uploaded image
           // router.push('/memberinfochangecomponent');
-          window.location.href('/memberinfochangecomponent');
+          // window.location.href('/memberinfochangecomponent');
         } else {
           console.error("Failed to upload profile picture");
         }
@@ -271,6 +272,7 @@ const MemberInfoChange = () => {
         console.error("Failed to fetch", error);
       }
     }
+    setModal3(!modal3);
   };
 
 
@@ -291,19 +293,52 @@ const MemberInfoChange = () => {
     }
   };
 
+  const toggle3 = () => {
+    setModal3(!modal3);
+  };
+
   return (
     <div className="text-center">
       <Container>
         <Row className="justify-content-center mb-5">
-          <Col md="8" lg="6">
-            <h1 className="title m-5 text-center">회원정보 변경</h1>
-
+          <Col md="12" lg="8">
+            <h1 className="my-title font-bold m-5 text-center">Information</h1>
+            
+            <div className="myinfo-contents">
             <Form onSubmit={handleSubmit}>
-              <FormGroup>
-                <div className="profile-picture-preview">
+              <div className="profile-picture-preview mb-4">
                   <Image
-                    // src={profilePictureName ? imagePreview : default_profile}
-                    src={imagePreview || default_profile}
+                    src={imagePreview ? imagePreview : default_profile}
+                    // src={default_profile || imagePreview}
+                    alt="profile"
+                    className="profile-picture img-circle"
+                    width={200}
+                    height={200}
+                  />
+                  <Button
+                    outline
+                    color="secondary"
+                    className="profile-picture-select-btn"
+                    onClick={toggle3.bind(null)}
+                  >
+                    사진 변경
+                  </Button>
+                </div>
+                <Modal
+                size="md"
+                isOpen={modal3}
+                toggle={toggle3}
+                className="my-modal"
+              >
+                <ModalHeader toggle={toggle3.bind(null)}>
+                  프로필 사진 변경
+                </ModalHeader>
+                <ModalBody>
+                  <FormGroup className="justify-content-center">
+                  <div className="profile-picture-preview">
+                  <Image
+                    src={imagePreview ? imagePreview : default_profile}
+                    // src={default_profile || imagePreview}
                     alt="profile"
                     className="profile-picture img-circle"
                     width={200}
@@ -330,25 +365,28 @@ const MemberInfoChange = () => {
                   // ref={fileInput}
                   style={{ display: "none" }}
                 />
-                <Button
-                  outline
-                  color="secondary"
-                  onClick={handleUpload} // 업로드 버튼 클릭 이벤트
-                  className="profile-picture-upload-btn mb-4"
-                >
-                  프로필 사진 변경
-                </Button>
-              </FormGroup>
+                  </FormGroup>
+                </ModalBody>
+                <ModalFooter className="modal-footer">
+                  <Button outline color="secondary" onClick={handleUpload} className="profile-picture-upload-btn">
+                    변경
+                  </Button>{" "}
+                  <Button outline color="secondary" onClick={toggle3.bind(null)}>
+                    취소
+                  </Button>
+                  
+                </ModalFooter>
+              </Modal>
               <Col>
                 <Row className="justify-content-center">
-                  <Card body className="card-shadow">
+                  <Card body>
                     <div className="d-flex justify-content-center align-items-center">
                       <div>
                         <div className="mb-3">
                           {member ? (
                             <CardTitle className="text-center">
                               {isEditingName ? (
-                                <div className="d-flex">
+                                <div className="d-flex row align-items-center">
                                   <Input
                                     type="text"
                                     value={nameInput}
@@ -357,9 +395,10 @@ const MemberInfoChange = () => {
                                     className="col-8"
                                   />
                                   <Button
-                                    color="primary"
+                                    // color="secondary"
+                                    outline
                                     onClick={handleNameUpdate}
-                                    className="ml-2"
+                                    className="ml-2 name-edit-btn"
                                   >
                                     수정
                                   </Button>
@@ -460,11 +499,11 @@ const MemberInfoChange = () => {
                     </div>
                   )}
                 </ModalBody>
-                <ModalFooter>
-                  <Button color="primary" onClick={handleSubmit}>
+                <ModalFooter className="modal-footer">
+                  <Button outline color="secondary" onClick={handleSubmit}>
                     변경
                   </Button>{" "}
-                  <Button color="secondary" onClick={toggle1.bind(null)}>
+                  <Button outline color="secondary" onClick={toggle1.bind(null)}>
                     취소
                   </Button>
                 </ModalFooter>
@@ -508,7 +547,8 @@ const MemberInfoChange = () => {
                 <div className="text-success">비밀번호가 변경되었습니다.</div>
               )} */}
             </Form>
-          </Col>
+            </div>
+            </Col>
         </Row>
       </Container>
     </div>

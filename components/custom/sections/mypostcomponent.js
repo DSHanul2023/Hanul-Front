@@ -21,9 +21,13 @@ import {
 import BoardCards from "./boardcardcomponent";
 import BoardComponent from "./boardcomponent";
 
+const ITEMS_PER_PAGE = 6; // 한 페이지에 보일 아이템 수
+const PAGES_TO_SHOW = 5; // 보여줄 페이지 수
+
 const MyPost = () => {
   const [boardList, setBoardList] = useState([]);
 //   const [selectedBoardType, setSelectedBoardType] = useState(1); // 기본값은 "1"로 자유게시판을 나타냅니다.
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
@@ -56,23 +60,76 @@ const MyPost = () => {
     }
   };
 
+  // 현재 페이지에 맞는 아이템을 반환하는 함수
+  const getCurrentPageItems = () => {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    return boardList.slice(startIndex, endIndex);
+  };
+
+  const totalPages = Math.ceil(boardList.length / ITEMS_PER_PAGE);
+
+  // 현재 페이지 범위를 계산하는 함수
+  const getCurrentPageRange = () => {
+    const startPage = Math.floor((currentPage - 1) / PAGES_TO_SHOW) * PAGES_TO_SHOW + 1;
+    const endPage = Math.min(startPage + PAGES_TO_SHOW - 1, totalPages);
+    return [startPage, endPage];
+  };
+
   return (
     <div className="mypost">
       <Container>
-        <Row>
-          <Col>
-            <h2 className="title font-bold">작성 게시물</h2>
+      <Container className="title-spacer">
+        <Row className="justify-content-center">
+          <Col md="6" className="text-center">
+            <h1 className="my-title font-bold">My Post</h1>
           </Col>
         </Row>
-        <Col>
-          {/* <BoardComponent
-            boardList={boardList}
-            selectedBoardType={selectedBoardType}
-          /> */}
-          {boardList.map((boarditem, index) => (
+      </Container>
+        {/* <Col className='mypost-container'>
+          {getCurrentPageItems().map((boarditem, index) => (
             <BoardCards boarditem={boarditem} key={index} />
           ))}
+        </Col> */}
+        <Container className="mypost-container">
+        <Col className="mypost-contents">
+          {getCurrentPageItems().length > 0 ? (
+            getCurrentPageItems().map((boarditem, index) => (
+              <BoardCards boarditem={boarditem} key={index} />
+            ))
+          ) : (
+            <p className='text-center'>작성한 게시글이 없습니다.</p>
+          )}
         </Col>
+        </Container>
+      </Container>
+      <Container>
+        <Row className="justify-content-center">
+          <Col md="6" className="m-b-30">
+            <Pagination aria-label="Page navigation example" className="paging">
+              <PaginationItem disabled={currentPage === 1}>
+                <PaginationLink previous href="#" onClick={() => setCurrentPage(currentPage - 1)} />
+              </PaginationItem>
+              {Array.from({ length: PAGES_TO_SHOW }).map((_, index) => {
+                const [startPage, endPage] = getCurrentPageRange();
+                const pageNumber = startPage + index;
+                if (pageNumber <= endPage) {
+                  return (
+                    <PaginationItem key={index} active={currentPage === pageNumber}>
+                      <PaginationLink href="#" onClick={() => setCurrentPage(pageNumber)}>
+                        {pageNumber}
+                      </PaginationLink>
+                    </PaginationItem>
+                  );
+                }
+                return null;
+              })}
+              <PaginationItem disabled={currentPage === totalPages}>
+                <PaginationLink next href="#" onClick={() => setCurrentPage(currentPage + 1)} />
+              </PaginationItem>
+            </Pagination>
+          </Col>
+        </Row>
       </Container>
     </div>
   );
