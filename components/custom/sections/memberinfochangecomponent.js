@@ -21,26 +21,30 @@ import { useRouter } from "next/router";
 import default_profile from "../../../public/profile/default_profile.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import LoadingComponent from "./loadingcomponent";
+import Loading from "../../../pages/loading";
 // const default_profile = "default_profile.png";
 
 const MemberInfoChange = () => {
   const router = useRouter();
   const [member, setMember] = useState(null);
   const [nameInput, setNameInput] = useState("");
+  const [isEditingName, setIsEditingName] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");
+  const [currentPasswordError, setCurrentPasswordError] = useState(false);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordMatch, setPasswordMatch] = useState(true);
-  const [isEditingName, setIsEditingName] = useState(false);
-  const [modal1, setModal1] = useState(false);
   const [passwordChanged, setPasswordChanged] = useState(false);
-  const [currentPasswordError, setCurrentPasswordError] = useState(false);
+  const [samePassword, setSamePassword] = useState(false);
+  const [modal1, setModal1] = useState(false);
   const [modal2, setModal2] = useState(false);
+  const [modal3, setModal3] = useState(false);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [profilePictureName, setProfilePictureName] = useState("");
-  const [modal3, setModal3] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Check if user is logged in (you can adjust this condition based on your login mechanism)
@@ -68,10 +72,16 @@ const MemberInfoChange = () => {
       if (response.ok) {
         const data = await response.json();
         setMember(data);
-        setNameInput(data.name); // Set initial value for name input
-        setImagePreview(`/profile/${data.profilePictureName}`);
+        setNameInput(data.name);
+        setCurrentPassword(data.password);
+        if(data.profilePictureName!=null){
+          setImagePreview(`/profile/${data.profilePictureName}`);
+        }
         setProfilePictureName(profilePictureName);
+        setLoading(false);
         // console.log("current password: " + data.password);
+        console.log("currentpassword: " + currentPassword);
+        console.log("data.password: " + data.password);
         console.log("profilePicturName: " + profilePictureName);
       } else {
         console.log("Failed to fetch member information");
@@ -143,9 +153,27 @@ const MemberInfoChange = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setPasswordChanged(false);
+    setSamePassword(false);
+    if(currentPassword=="" || newPassword==""){
+      return;
+    }
+
+    if(currentPassword !== member.password){
+      setCurrentPasswordError(true);
+      return;
+    }
+    else{
+      setCurrentPasswordError(false);
+    }
 
     if (newPassword !== confirmPassword) {
       setPasswordMatch(false);
+      return;
+    }
+
+    if((member.password==newPassword)&&passwordMatch){
+      setSamePassword(true);
       return;
     }
 
@@ -157,7 +185,7 @@ const MemberInfoChange = () => {
       }
 
       const response = await fetch(
-        "http://localhost:8080/members/updatePassword", // Change the URL endpoint
+        "http://localhost:8080/members/updatePassword", 
         {
           method: "PUT",
           headers: {
@@ -165,7 +193,7 @@ const MemberInfoChange = () => {
             Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({
-            id: member.id, // Pass the user ID
+            id: member.id, 
             password: currentPassword,
             newPassword: newPassword,
           }),
@@ -176,8 +204,12 @@ const MemberInfoChange = () => {
         setPasswordMatch(true);
         setPasswordChanged(true);
         setCurrentPasswordError(false);
+        setSamePassword(false);
+        setCurrentPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
       } else if (response.status === 500) {
-        setCurrentPasswordError(true); // Set current password error
+        setCurrentPasswordError(true); 
       } else {
         console.error("Failed to update member password");
       }
@@ -275,14 +307,21 @@ const MemberInfoChange = () => {
     setModal3(!modal3);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("ACCESS_TOKEN");
+    setModal1(!modal1); 
+    window.location.reload();
+  };
 
-
-  // const toggle1 = () => {
-  //   setModal1(!modal1);
-  // };
   const toggle1 = () => {
     setModal1(!modal1);
-    setPasswordChanged(false); // Reset password changed state when modal is closed
+    setPasswordChanged(false);
+    setCurrentPasswordError(false);
+    setPasswordMatch(true);
+    setSamePassword(false);
+    setNewPassword("");
+    setConfirmPassword("");
+    setCurrentPassword("");
   };
 
   const toggle2 = () => {
@@ -299,10 +338,21 @@ const MemberInfoChange = () => {
 
   return (
     <div className="text-center">
+      {loading?<Loading/>:(
+        <>
+        <div className="title-spacer" id="card-component">
+        <Container>
+          <Row className="justify-content-center">
+            <Col md="6" className="text-center">
+              <h1 className="my-title font-bold">회원정보변경</h1>
+            </Col>
+          </Row>
+        </Container>
+      </div>
       <Container>
         <Row className="justify-content-center mb-5">
           <Col md="12" lg="8">
-            <h1 className="my-title font-bold m-5 text-center">Information</h1>
+            {/* <h1 className="my-title font-bold m-5 text-center">Information</h1> */}
             
             <div className="myinfo-contents">
             <Form onSubmit={handleSubmit}>
@@ -368,7 +418,7 @@ const MemberInfoChange = () => {
                   </FormGroup>
                 </ModalBody>
                 <ModalFooter className="modal-footer">
-                  <Button outline color="secondary" onClick={handleUpload} className="profile-picture-upload-btn">
+                  <Button outline color="secondary" onClick={handleUpload}>
                     변경
                   </Button>{" "}
                   <Button outline color="secondary" onClick={toggle3.bind(null)}>
@@ -439,7 +489,8 @@ const MemberInfoChange = () => {
               <Button
                 type="button"
                 onClick={toggle1.bind(null)}
-                className="btn btn-block waves-effect waves-light btn-outline-secondary m-b-30"
+                outline
+                className="btn-block waves-effect waves-light btn-themecolor-darkbrown m-b-30"
               >
                 비밀번호 변경
               </Button>
@@ -453,6 +504,12 @@ const MemberInfoChange = () => {
                   비밀번호 변경
                 </ModalHeader>
                 <ModalBody>
+                {passwordChanged ? (
+                    <div className="text-secondary mt-3 text-center">
+                      비밀번호가 변경되었습니다.
+                    </div>
+                  ):(
+                    <>
                   <FormGroup>
                     <Label for="currentPassword">현재 비밀번호</Label>
                     <Input
@@ -489,33 +546,49 @@ const MemberInfoChange = () => {
                     />
                     {!passwordMatch && (
                       <div className="text-danger">
-                        비밀번호가 일치하지 않습니다.
+                        새 비밀번호가 일치하지 않습니다.
+                      </div>
+                    )}
+                    {samePassword && (
+                      <div className="text-danger">
+                        이전 비밀번호와 일치합니다.
+                      </div>
+                    )}
+                    {((newPassword=="") || (currentPassword=="")) && !passwordChanged && (
+                      <div className="text-orange font-bold mt-3">
+                        비밀번호를 입력해주세요.
                       </div>
                     )}
                   </FormGroup>
-                  {passwordChanged && (
-                    <div className="text-success mt-3">
-                      비밀번호가 변경되었습니다.
-                    </div>
-                  )}
+                  </>
+                    )}
                 </ModalBody>
                 <ModalFooter className="modal-footer">
+                {passwordChanged ? (
+                    <Button outline color="secondary" onClick={handleLogout}>
+                    로그인
+                  </Button>
+                  ):(
+                    <>
                   <Button outline color="secondary" onClick={handleSubmit}>
                     변경
-                  </Button>{" "}
+                  </Button>
                   <Button outline color="secondary" onClick={toggle1.bind(null)}>
                     취소
                   </Button>
+                  </>
+                  )}
                 </ModalFooter>
+                
               </Modal>
               {/* <Button outline color="danger" type="submit" className="w-100">
                 회원탈퇴
               </Button> */}
               <Button
               outline
-              color="danger"
+              color="redbrown"
               onClick={toggle2.bind(null)}
-              className="btn btn-block waves-effect waves-light btn-outline-danger m-b-30"
+              className="btn btn-block waves-effect waves-light btn-redbrown m-b-30"
             >
               회원탈퇴
             </Button>
@@ -530,7 +603,7 @@ const MemberInfoChange = () => {
                 정말 탈퇴하시겠습니까?
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" onClick={handleDeleteMember}>
+                <Button color="red" onClick={handleDeleteMember}>
                   탈퇴
                 </Button>{" "}
                 <Button color="secondary" onClick={toggle2.bind(null)}>
@@ -551,6 +624,8 @@ const MemberInfoChange = () => {
             </Col>
         </Row>
       </Container>
+      </>
+      )}
     </div>
   );
 };
