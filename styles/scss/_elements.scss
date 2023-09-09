@@ -872,6 +872,9 @@ Community
   }
 }
 
+.wrap_head {
+}
+
 .list-group1 {
   display: flex;
   flex-direction: column;
@@ -893,6 +896,13 @@ Community
 .list-group-item1.active, .list-group1 .list-group-item1.active:hover {
   background: #F3BE9C;
   border-color: #EFA374;
+}
+
+.catg {
+  color: $headingtext;
+  vertical-align: middle;
+  margin-bottom: 0.3rem;
+  font-weight: bold;
 }
 
 .block-1{
@@ -923,7 +933,7 @@ Community
   width: 90%;
   grid-template-rows: 100%;
   padding:7px;
-  padding-top:32px;
+  padding-top:25px;
   padding-bottom:18px;
   .card {
     margin-bottom:0px;
@@ -959,6 +969,7 @@ Community
 }
 .list_data,.txt_id,.list_datac{
   font-size:13px;
+  padding-right: 10px;
   margin-bottom:0px;
   color:#909090;
 }
@@ -966,7 +977,8 @@ Community
   color:#000;
 }
 .wrap_data{
-  width:160px;
+  width:80%;
+  display: flex;
   float:left;
 }
 .inner_desc_tit{
