@@ -123,10 +123,11 @@ const Header = () => {
               <div className="act-buttons">
                 <NavLink
                 // href="/login"
-                className="btn btn-light font-14 text-white"
+                className="btn btn-light font-14"
                 onClick={handleLogIn}
                 >
                   {logState}
+                  {/* {accessToken?"LogOut":"LogIn"} */}
                 </NavLink>
               </div>
             </Collapse>
