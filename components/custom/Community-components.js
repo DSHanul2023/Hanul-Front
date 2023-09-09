@@ -2,6 +2,7 @@ import SideBarComponent from "./sections/sidebarcomponent";
 import BoardComponent from "./sections/boardcomponent";
 import { Row, Col } from 'reactstrap';
 import React, {useEffect, useState} from 'react';
+import SearchBarComponent from './sections/searchbarcomponent';
 
 const CommunityComponents = () => {
   const [boardList, setBoardList] = useState([]);
@@ -47,11 +48,16 @@ const CommunityComponents = () => {
     return (
       <div className='community d-flex justify-content-center'>
       <Row>
-        <Col style={{maxWidth:'280px'}}>
+        <Col style={{maxWidth:'280px', paddingRight: '25px'}}>
           <SideBarComponent onSidebarItemClick={handleSidebarItemClick} selectedBoardType={selectedBoardType}/>
         </Col>
         <Col >
-          <BoardComponent boardList={boardList} selectedBoardType={selectedBoardType}/>
+          <Row>
+            <SearchBarComponent onSidebarItemClick={handleSidebarItemClick} />
+          </Row>
+          <Row>
+            <BoardComponent boardList={boardList} selectedBoardType={selectedBoardType}/>
+          </Row>
         </Col>
       </Row>
     </div>

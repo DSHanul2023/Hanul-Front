@@ -6,6 +6,7 @@ import {
   Col,
 } from "reactstrap";
 import Image from "next/image";
+import Link from 'next/link';
 
 const Contents = ({ items }) => {
   const rowStyle = {
@@ -19,6 +20,7 @@ const Contents = ({ items }) => {
     <Row className="row-cols-1 row-cols-md-2 row-cols-lg-4" style={rowStyle}>
       {items.map((item) => (
         <Col key={item.id} className="d-flex">
+          <Link href={`/items/${item.id}`} passHref>
           <Card body className="card-shadow">
             <a href="#" className="img-ho">
               <div
@@ -69,6 +71,7 @@ const Contents = ({ items }) => {
               </div>
             </CardBody>
           </Card>
+          </Link>
         </Col>
       ))}
     </Row>

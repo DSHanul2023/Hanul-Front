@@ -55,12 +55,11 @@ const MyPageComponents = () => {
 
   return (
     <div className="my-page-container">
-      <div className="spacer" id="card-component">
+      <div className="mypage-title-spacer" id="card-component">
         <Container>
           <Row className="justify-content-center">
             <Col md="6" className="text-center">
               <h1 className="my-title font-bold">My Page</h1>
-              <h6 className="subtitle">마이페이지입니다.</h6>
             </Col>
           </Row>
         </Container>
