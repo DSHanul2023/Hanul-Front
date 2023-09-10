@@ -34,8 +34,8 @@ const BotChatComponent = ({ messages }) => {
               <div className={`message ${message.sender}-message`}>{message.content}
                 {message.recommend_status && (
                   <div className="recommendBtn mt-3" style={{ display: "flex", justifyContent: "center" }}>
-                    {/* Link 컴포넌트를 사용하여 버튼 클릭 시 페이지 전환 */}
-                    <Link href="/usermovie">
+                    {/* Link 컴포넌트에 passHref 프로퍼티 추가 */}
+                    <Link href="/usermovie" passHref>
                       <Button>추천 영화 보기</Button>
                     </Link>
                   </div>
