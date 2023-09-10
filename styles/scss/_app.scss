@@ -571,6 +571,22 @@ Text Colors
   color: $inverse !important;
 }
 
+.text-darkbrown {
+  color: $themecolor-darkbrown !important;
+}
+
+.text-themecolor {
+  color: $themecolor !important;
+}
+
+.text-orange {
+  color: #F99052 !important;
+}
+
+.text-brownred{
+  color:#BF5846 !important;
+}
+
 .text-success-gradiant {
   @include linear-gradient(to right, $success 0%, $success-dark 100%);
   -webkit-background-clip: text;
@@ -1128,6 +1144,46 @@ Buttons
   }
 }
 
+.btn-themecolor-darkbrown,
+.btn-themecolor-darkbrown.disabled {
+  background: $white;
+  color: $themecolor-darkbrown;
+  border: 1px solid $themecolor-darkbrown;
+
+  &:hover {
+    background: $themecolor-darkbrown;
+    color: $white;
+
+    border: 1px solid $themecolor-darkbrown
+  }
+
+  &.active,
+  &:active,
+  &:focus {
+    background: $themecolor-darkbrown;
+  }
+}
+
+.btn-redbrown,
+.btn-redbrown.disabled {
+  background: $white;
+  color: $redbrown;
+  border: 1px solid $redbrown;
+
+  &:hover {
+    background: $redbrown;
+    color: $white;
+
+    border: 1px solid $redbrown
+  }
+
+  &.active,
+  &:active,
+  &:focus {
+    background: $redbrown;
+  }
+}
+
 .btn-success,
 .btn-success.disabled {
   background: $success;
@@ -1289,6 +1345,23 @@ Buttons
   &:focus {
     box-shadow: 0px;
     opacity: 1;
+  }
+}
+
+.btn-outline-themecolor-darkbrown {
+  background-color: $white;
+  color: $themecolor-darkbrown;
+  transition: 0.2s ease-in;
+
+  &:hover,
+  &:focus,
+  &.focus {
+  }
+
+  &.active,
+  &:active,
+  &:focus {
+    background: $themecolor-darkbrown;
   }
 }
 
@@ -1470,6 +1543,21 @@ a.btn-outline-success {
 .btn-primary:focus {
   background-color: $primary-dark;
   border: 1px solid $primary-dark;
+}
+
+.btn-themecolor-darkbrown.active.focus,
+.btn-themecolor-darkbrown.active:focus,
+.btn-themecolor-darkbrown.active:hover,
+.btn-themecolor-darkbrown.focus:active,
+.btn-themecolor-darkbrown:active:focus,
+.btn-themecolor-darkbrown:active:hover,
+.open > .dropdown-toggle.btn-themecolor-darkbrown.focus,
+.open > .dropdown-toggle.btn-themecolor-darkbrown:focus,
+.open > .dropdown-toggle.btn-themecolor-darkbrown:hover,
+.btn-themecolor-darkbrown.focus,
+.btn-themecolor-darkbrown:focus {
+  background-color: $themecolor-darkbrown;
+  border: 1px solid $themecolor-darkbrown;
 }
 
 .btn-success.active.focus,

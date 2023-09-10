@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Button } from "reactstrap";
 import default_profile from "../../../public/profile/default_profile_1.png";
 
-const BotChatComponent = ({ messages }) => {
+const BotChatComponent = ({ messages, loading }) => {
   const formatTime = (timeString) => {
     const date = new Date(timeString);
     const hours = date.getHours();
@@ -30,7 +30,8 @@ const BotChatComponent = ({ messages }) => {
                   height={43}
                 />           
               </div>
-              <div className={`message ${message.sender}-message`}>{message.content}
+              <div className={`message ${message.sender}-message`}>
+                {message.content}
                 {message.recommend_status &&(
                   <div className="recommendBtn mt-3"  style={{ display: "flex", justifyContent: "center" }}>
                     <Button>추천 영화 보기</Button>
