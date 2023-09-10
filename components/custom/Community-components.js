@@ -2,10 +2,11 @@ import SideBarComponent from "./sections/sidebarcomponent";
 import BoardComponent from "./sections/boardcomponent";
 import { Row, Col } from 'reactstrap';
 import React, {useEffect, useState} from 'react';
+import SearchBarComponent from './sections/searchbarcomponent';
 
 const CommunityComponents = () => {
   const [boardList, setBoardList] = useState([]);
-  const [selectedBoardType, setSelectedBoardType] = useState(5); // 기본값은 "1"로 자유게시판을 나타냅니다.
+  const [selectedBoardType, setSelectedBoardType] = useState('A5'); // 기본값은 "1"로 자유게시판을 나타냅니다.
 
   useEffect(() => {
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
@@ -32,7 +33,7 @@ const CommunityComponents = () => {
         throw new Error('Failed to fetch boardList');
         }
         const data = await response.json(); 
-        setBoardList(data.data);     
+        setBoardList(data.data.reverse());     
       }} catch (error) {
         console.error(error);
         throw error;
@@ -47,11 +48,16 @@ const CommunityComponents = () => {
     return (
       <div className='community d-flex justify-content-center'>
       <Row>
-        <Col style={{maxWidth:'280px'}}>
+        <Col style={{maxWidth:'280px', paddingRight: '25px'}}>
           <SideBarComponent onSidebarItemClick={handleSidebarItemClick} selectedBoardType={selectedBoardType}/>
         </Col>
         <Col >
-          <BoardComponent boardList={boardList} selectedBoardType={selectedBoardType}/>
+          <Row>
+            <SearchBarComponent onSidebarItemClick={handleSidebarItemClick} />
+          </Row>
+          <Row>
+            <BoardComponent boardList={boardList} selectedBoardType={selectedBoardType}/>
+          </Row>
         </Col>
       </Row>
     </div>

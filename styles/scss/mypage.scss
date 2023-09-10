@@ -6,8 +6,15 @@
     padding-bottom: 90px;
   }
 
+.mypage-title-spacer{
+  padding-top: 60px;
+  padding-bottom: 80px;
+}
+
 .my-title {
-  color: #B95C37;
+  // color: #B95C37;
+  color: $themecolor-darkbrown;
+  // color: #645E4E;
 }
 
 .buttons {
@@ -20,4 +27,43 @@
     color:white;
     border:none;
   }
+}
+
+.mypost-container{
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+  min-height: 800px;
+}
+
+.mypost-contents{
+  background-color: white;
+  border-radius: 10px;
+  // height: 100vh;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  // height: 800px;
+}
+
+.mycomment-container{
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  justify-content: center; 
+  min-height: 800px; 
+}
+
+.mycomment-contents{
+  background-color: white;
+  border-radius: 10px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  height: 800px;
+  padding: auto;
+}
+
+.title-spacer{
+  padding-top: 60px;
+  padding-bottom: 60px;
 }

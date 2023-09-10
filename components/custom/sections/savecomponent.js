@@ -51,7 +51,7 @@ const SaveComponent = () => {
 
   const fetchItemsByMember = async (memberId) => {
     try {
-      const response = await fetch(`http://localhost:8080/items/members/${memberId}`);
+      const response = await fetch(`http://localhost:8080/members/${memberId}/bookmarked-items`);
       if (!response.ok) {
         throw new Error("Failed to fetch member's items");
       }
@@ -81,16 +81,15 @@ const SaveComponent = () => {
 
   return (
     <div className="save-page">
-      <Container className="spacer">
+      <Container className="title-spacer">
         <Row className="justify-content-center">
           <Col md="6" className="text-center">
-            <h1 className="save-title font-bold">북마크</h1>
-            <h6 className="subtitle">북마크페이지입니다.</h6>
+            <h1 className="save-title font-bold">Bookmark</h1>
           </Col>
         </Row>
       </Container>
       <Container className="save-page-container">
-        <Contents items={getCurrentPageItems()} /> {/* 아이템 목록을 전달 */}
+        <Contents items={getCurrentPageItems()}/> {/* 아이템 목록을 전달 */}
       </Container>
       <Container>
         <Row className="justify-content-center">

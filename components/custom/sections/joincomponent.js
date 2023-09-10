@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Row, Col, Container, Form } from "reactstrap";
 import { useRouter } from "next/router";
+import Link from 'next/link';
 
 const JoinComponent = () => {
     const [name, setName] = useState("");
@@ -22,6 +23,7 @@ const JoinComponent = () => {
             router.push("/login"); // 회원가입 후 로그인 페이지로 이동
         } else {
             console.log("Failed to register member");
+            alert("이미 존재하는 이메일입니다.");
         }
         } catch (error) {
         console.error("Error:", error);
@@ -39,12 +41,13 @@ const JoinComponent = () => {
             <section>
             <div id="login" className="login spacer">
                 <Container>
-                <Row className="justify-content-center align-items-center">
+                <Row className="justify-content-center align-items-center" style={{minHeight:500}}>
                     <Col lg="7" md="7" className="align-self-center text-center">
-                    <p className="m-t-15 m-b-30">
+                    <h1 className="my-title font-bold m-4 text-center" style={{fontSize:"40px"}}>회원가입</h1>
+                    {/* <p className="m-t-15 m-b-30">
                         회원가입 후 서비스를 이용해 보세요
-                    </p>
-                    <Form className="m-t-40" onSubmit={handleRegister}>
+                    </p> */}
+                    <Form className="m-t-40" onSubmit={handleRegister} style={{marginTop:"60px"}}>
                         <div>
                         <input
                             type="text"
@@ -81,12 +84,14 @@ const JoinComponent = () => {
                         />
                         </div>
                     </Form>
-                    <button className="m-t-10 font-14 text-white text-center" onClick={surveyHandleClick}>
+                    {/* <button className="m-t-10 font-14 text-white text-center" onClick={surveyHandleClick}>
                         이야기 치료법 체험해보기
-                    </button>
-                    <p className="m-t-15 m-b-30" onClick={loginHandleClick} style={{textDecoration:'underline'}}>
-                    이미 회원이신가요? 로그인하기
-                    </p>
+                    </button> */}
+                    <Link href="/login">
+                  <p className="m-t-40 m-b-30" style={{color:'black', textDecoration:'underline'}}>
+                  이미 회원이신가요? 로그인하기
+                  </p>
+                  </Link>
                     </Col>
                 </Row>
                 </Container>

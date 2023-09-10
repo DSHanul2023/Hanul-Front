@@ -4,13 +4,15 @@ import UserChatComponent from "./UserChatComponent";
 import BotChatComponent from "./botchatcomponent";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import default_profile from "../../../public/profile/default_profile.png";
+import default_profile from "../../../public/profile/default_profile_1.png";
 const ChatComponent = () => {
   const router = useRouter();
   const [inputMessage, setInputMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
   const [showChat, setShowChat] = useState(false);
   const [timestamp, setTimestamp] = useState(""); 
+  const [showLoading, setShowLoading] = useState(false);
+
   useEffect(() => {
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
     if (!accessToken) {
@@ -36,6 +38,7 @@ const ChatComponent = () => {
   
     setChatMessages((prevMessages) => [...prevMessages, newUserMessage]);
     setInputMessage("");
+    setShowLoading(true);
   
     try {
       const response = await fetch("http://localhost:8080/chats/chatdialogflow", {
@@ -56,6 +59,7 @@ const ChatComponent = () => {
         };
         setChatMessages((prevMessages) => [...prevMessages, botResponse]);
         setShowChat(true);
+        setShowLoading(false);
       } else {
         console.log("메시지 전송 실패");
       }
@@ -77,7 +81,7 @@ const ChatComponent = () => {
       <div style={{display:'flex',justifyContent:'center',backgroundColor:'#F9F4E8'}}>
         <section style={{width:'50%'}}>
           <div id="chat" className="banner spacer">
-            <Container className="h-100">
+            <Container className="chat-box">
               <Row className="ml-1">
               <Image
                     src={default_profile}
@@ -96,16 +100,34 @@ const ChatComponent = () => {
                   </p>             
                 </Col>
               </Row>
-
-              {showChat && (
                 <Row>
-                  <Col md="12" style={{paddingRight:'6%'}}>
-                    <BotChatComponent messages={chatMessages}/>
+                  <Col md="12" style={{paddingRight:'6%'}}> 
+                    <BotChatComponent messages={chatMessages} loading={showLoading}/>
                   </Col>
                 </Row>
-              )}
-
-              <Row className="mt-4 justify-content-between">
+                {showLoading && (
+                  <Row className="ml-1">
+                  <Image
+                        src={default_profile}
+                        alt="img"
+                        className="img-circle"
+                        width={43}
+                        height={43}
+                      />
+                    <Col md="6" style={{paddingLeft:'10px',display: 'flex'}}>
+                      <div className="message bot-message">
+                        입력중. . .
+                      </div>
+                      <p className="timestamp ml-2 mb-0" style={{marginTop:'auto'}}>
+                        {timestamp}
+                      </p>             
+                    </Col>
+                  </Row>
+                )}
+              
+            </Container>
+            <Container className="chat-input-box">
+            <Row className="mt-4 justify-content-between">
                 <Col className="col-10">
                   <Form onSubmit={handleMessageSubmit} className="w-100">
                     <Input
