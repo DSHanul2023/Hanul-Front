@@ -2,6 +2,7 @@ import "../styles/scss/style.scss";
 import Header from '../layout/header/Header';
 import Footer from '../layout/footer/Footer';
 import Layout from "../layout/Layout";
+import '../styles/fonts.css';
 import Loading from './loading';
 import { useEffect, useState } from 'react';
 import CustomComponents from '../components/custom/Custom-components';

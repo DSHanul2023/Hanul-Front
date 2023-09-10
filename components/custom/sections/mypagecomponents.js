@@ -10,7 +10,7 @@ import {
   Col,
   Container,
 } from "reactstrap";
-import default_profile from "../../../public/profile/default_profile.png";
+import default_profile from "../../../public/profile/default_profile_1.png";
 import { useRouter } from "next/router";
 import Loading from "../../../pages/loading";
 

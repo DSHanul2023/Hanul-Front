@@ -18,7 +18,7 @@ import {
   CardText,
 } from "reactstrap";
 import { useRouter } from "next/router";
-import default_profile from "../../../public/profile/default_profile.png";
+import default_profile from "../../../public/profile/default_profile_1.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import LoadingComponent from "./loadingcomponent";

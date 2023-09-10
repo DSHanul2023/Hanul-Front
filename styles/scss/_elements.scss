@@ -901,6 +901,9 @@ Community
   }
 }
 
+.wrap_head {
+}
+
 .list-group1 {
   display: flex;
   flex-direction: column;
@@ -922,6 +925,13 @@ Community
 .list-group-item1.active, .list-group1 .list-group-item1.active:hover {
   background: #F3BE9C;
   border-color: #EFA374;
+}
+
+.catg {
+  color: $headingtext;
+  vertical-align: middle;
+  margin-bottom: 0.3rem;
+  font-weight: bold;
 }
 
 .block-1{
@@ -952,7 +962,7 @@ Community
   width: 90%;
   grid-template-rows: 100%;
   padding:7px;
-  padding-top:32px;
+  padding-top:25px;
   padding-bottom:18px;
   .card {
     margin-bottom:0px;
@@ -988,6 +998,7 @@ Community
 }
 .list_data,.txt_id,.list_datac{
   font-size:13px;
+  padding-right: 10px;
   margin-bottom:0px;
   color:#909090;
 }
@@ -995,7 +1006,8 @@ Community
   color:#000;
 }
 .wrap_data{
-  width:160px;
+  width:80%;
+  display: flex;
   float:left;
 }
 .inner_desc_tit{
@@ -1432,4 +1444,90 @@ contents
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   text-align: center;
+}
+
+/*****************
+movieDetal
+****************/
+.moviedetail{
+  margin-top: 20px;
+  .tag{
+    margin:0.5rem 0.5rem 0px 0px;
+    padding: 0 0.5em;
+    height: 2rem;
+    box-shadow: inset 0 0 0 1px $themecolor;
+    border-radius: 0.2rem;
+    align-items: center;
+    display: flex;
+    font-size: 1.1.67rem;
+    color:$themecolor;
+  }
+  .itemNm{
+    width: 500px;
+    height: 60px;
+    margin-top: 38px;
+    h2{color:black;
+    font-weight: 600;}
+  }
+  .tag_wrap{
+    display: flex;
+    flex-direction: row;
+  }
+  .playdiv{
+    display: flex;
+    flex-direction: row;
+    padding: 2rem 0px 1rem;
+  }
+  .playbtn{
+    position: relative;
+    margin-right:1.333rem;
+    padding:1.5rem 5rem;
+    background-color:white;
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.89;
+    color:$themecolor;
+    border-radius: 4px;
+    backdrop-filter: blur(30px);
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    white-space: nowrap;
+    border:0px;
+    box-shadow:$themecolor;
+  }
+  .playbtn:active{
+    background-color: $themecolor;
+    color:white;
+  }
+  .heartbtn{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 0px;
+    background-color: transparent;
+    justify-content: center;
+    margin-top: 15px;
+    span{
+      color:$themecolor;
+      font-weight: 500;
+      margin-top:5px;
+    }
+    .hearticon{
+      color: white;
+    }
+  }
+  .heartbtn.bookmarked{
+    .hearticon{
+      color:$themecolor;
+    }
+  }
+  .hearticon{
+    color:white;
+    font-size: 33px;
+    margin-bottom: 3px;
+  }
+  .hearticon:active{
+    color:$themecolor;
+  }
 }
