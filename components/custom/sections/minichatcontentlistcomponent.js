@@ -28,7 +28,7 @@ const MinichatContentList = ({ recommendedMovies }) => {
           <MinichatItemComponent key={index} movie={movie} />
         ))}
       </Row>
-      <div className="listpagination" style={{ display: 'flex', justifyContent: 'center', marginTop: '30px', marginBottom: '30px' }}>
+      <div className="listpagination" style={{ display: 'flex', justifyContent: 'center', marginTop: '65px', marginBottom: '25px' }}>
         <MinichatPagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />
       </div>
     </Container>
