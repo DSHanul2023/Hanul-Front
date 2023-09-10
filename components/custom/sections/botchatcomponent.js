@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link"; // Next.js의 Link 컴포넌트를 import 합니다.
 import { Button } from "reactstrap";
 import default_profile from "../../../public/profile/default_profile.png";
 
@@ -31,17 +32,20 @@ const BotChatComponent = ({ messages }) => {
                 />           
               </div>
               <div className={`message ${message.sender}-message`}>{message.content}
-                {message.recommend_status &&(
-                  <div className="recommendBtn mt-3"  style={{ display: "flex", justifyContent: "center" }}>
-                    <Button>추천 영화 보기</Button>
+                {message.recommend_status && (
+                  <div className="recommendBtn mt-3" style={{ display: "flex", justifyContent: "center" }}>
+                    {/* Link 컴포넌트를 사용하여 버튼 클릭 시 페이지 전환 */}
+                    <Link href="/usermovie">
+                      <Button>추천 영화 보기</Button>
+                    </Link>
                   </div>
                 )}
               </div>      
-              <p className="timestamp ml-2 mb-0" style={{marginTop:'auto'}}>{formatTime(message.time)}</p>
+              <p className="timestamp ml-2 mb-0" style={{ marginTop:'auto' }}>{formatTime(message.time)}</p>
             </>
           ) : (
             <>
-              <p className={`timestamp ${message.sender}-timestamp mr-2 mb-0`} style={{ marginTop: 'auto'}}>
+              <p className={`timestamp ${message.sender}-timestamp mr-2 mb-0`} style={{ marginTop: 'auto' }}>
                 {formatTime(message.time)}
               </p>            
               <div className={`message ${message.sender}-message`}>{message.content}</div>      
@@ -52,4 +56,5 @@ const BotChatComponent = ({ messages }) => {
     </div>
   );
 };
+
 export default BotChatComponent;
