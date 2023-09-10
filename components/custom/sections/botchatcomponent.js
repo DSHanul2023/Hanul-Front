@@ -55,10 +55,12 @@ const BotChatComponent = ({ messages }) => {
                   height={43}
                 />
               </div>
+
               <div className={`message ${message.sender}-message`}>{message.content}
                 {message.recommend_status && (
                   <div className="recommendBtn mt-3" style={{ display: "flex", justifyContent: "center" }}>
                     <Button onClick={handleRecommendMovieButtonClick}>추천 영화 보기</Button>
+
                   </div>
                 )}
               </div>

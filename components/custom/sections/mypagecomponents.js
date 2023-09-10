@@ -10,13 +10,15 @@ import {
   Col,
   Container,
 } from "reactstrap";
-import default_profile from "../../../public/profile/default_profile.png";
+import default_profile from "../../../public/profile/default_profile_1.png";
 import { useRouter } from "next/router";
+import Loading from "../../../pages/loading";
 
 const MyPageComponents = () => {
   const router = useRouter();
   const [member, setMember] = useState(null);
   const [profilePictureName, setProfilePictureName] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Check if user is logged in (you can adjust this condition based on your login mechanism)
@@ -40,6 +42,7 @@ const MyPageComponents = () => {
         const data = await response.json();
         setMember(data);
         setProfilePictureName(data.profilePictureName);
+        setLoading(false);
       } else {
         console.log("Failed to fetch member information");
       }
@@ -55,12 +58,13 @@ const MyPageComponents = () => {
 
   return (
     <div className="my-page-container">
-      <div className="spacer" id="card-component">
+      {loading?<Loading/>:(
+        <>
+      <div className="mypage-title-spacer" id="card-component">
         <Container>
           <Row className="justify-content-center">
             <Col md="6" className="text-center">
               <h1 className="my-title font-bold">My Page</h1>
-              <h6 className="subtitle">마이페이지입니다.</h6>
             </Col>
           </Row>
         </Container>
@@ -94,37 +98,11 @@ const MyPageComponents = () => {
         </Row>
         <Row className="justify-content-center buttons">
           <Col md="6">
-            <div className="mb-3">
+          <div className="mb-3">
               <Button
+                color="themecolor-darkbrown"
                 outline
-                className="w-100"
-                href="/mypost"
-              >
-                작성게시물
-              </Button>
-            </div>
-            <div className="mb-3">
-              <Button
-                outline
-                className="w-100"
-                href="/mycomment"
-              >
-                작성댓글
-              </Button>
-            </div>
-            <div className="mb-3">
-              <Button
-                outline
-                className="w-100"
-                href="/savepage"
-              >
-                북마크
-              </Button>
-            </div>
-            <div className="mb-3">
-              <Button
-                outline
-                className="w-100"
+                className="w-100 btn-md"
                 href="/memberinfochange"
               >
                 회원정보변경
@@ -132,16 +110,49 @@ const MyPageComponents = () => {
             </div>
             <div className="mb-3">
               <Button
+              color="themecolor-darkbrown"
+                outline
+                className="w-100 btn-md"
+                href="/mypost"
+              >
+                작성게시물
+              </Button>
+            </div>
+            <div className="mb-3">
+              <Button
+              color="themecolor-darkbrown"
+                outline
+                className="w-100 btn-md"
+                href="/mycomment"
+              >
+                작성댓글
+              </Button>
+            </div>
+            <div className="mb-3">
+              <Button
+              color="themecolor-darkbrown"
+                outline
+                className="w-100 btn-md"
+                href="/savepage"
+              >
+                북마크
+              </Button>
+            </div>
+                  
+            {/* <div className="mb-3">
+              <Button
                 onClick={handleLogout}
                 outline
                 className="w-100"
               >
                 로그아웃
               </Button>
-            </div>
+            </div> */}
           </Col>
         </Row>
       </Container>
+      </>
+      )}
     </div>
   );
 };
