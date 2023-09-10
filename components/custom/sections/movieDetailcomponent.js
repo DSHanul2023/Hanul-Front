@@ -104,6 +104,7 @@ const MovieDetailComponent = ({ movieId }) => {
         } else if (response.status === 409) {
           // 중복된 아이템인 경우
           setIsBookmarked(false);
+          deleteBookmark(memberId, movieId);
           console.log('찜 취소되었습니다.');
         } else {
           console.error('찜하기 오류:', response.statusText);
@@ -113,6 +114,23 @@ const MovieDetailComponent = ({ movieId }) => {
         console.error('찜하기 오류:', error);
       });
   };
+  const deleteBookmark = (memberId, movieId) => {
+    fetch(`http://localhost:8080/items/${movieId}/deletebookmark/${memberId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`
+    },
+    }).then(response => {
+      if (response.status === 200) {
+        console.log('북마크가 해제되었습니다.');
+      } else {
+        console.error('북마크 삭제 오류:', response.statusText);
+      }
+    })
+    .catch(error => {
+      console.error('북마크 삭제 오류:', error);
+    });
+  }
     const handleWatchNowClick = () => {
       if (providerLink) {
         window.open(providerLink, '_blank');
