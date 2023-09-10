@@ -11,8 +11,8 @@ const MinichatItemComponent = ({ movie }) => {
           <div className="itemimg" style={{ width: '100%', height: '80%' }}>
             <Image src={movie.posterUrl} alt={movie.itemNm} layout="fill" objectFit="cover" />
           </div>
-          <Container className="itemsummary">
-            <p className="itemtitle" style={{ marginTop: '70px', fontSize: '13px' }}>
+          <Container>
+            <p className="itemtitle" style={{ marginTop: '315px', fontSize: '13px',  color: '#B95C37', textAlign: 'center' }}>
               {movie.itemNm}
             </p>
           </Container>

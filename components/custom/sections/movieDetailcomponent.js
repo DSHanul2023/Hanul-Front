@@ -152,9 +152,11 @@ const MovieDetailComponent = ({ movieId }) => {
     ));
   }
   return (
+
     <Container className="moviedetail">
       <Row className="justify-content-center" style={{paddingTop:'30px',paddingBottom:'50px'}}> {/* 중앙 정렬 및 좌우 여백 */}
         <Col xs={12} md={4} className="poster mt-2">
+
           <Image
             src={movie.posterUrl}
             alt={movie.itemNm}
