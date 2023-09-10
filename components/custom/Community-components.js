@@ -6,7 +6,7 @@ import SearchBarComponent from './sections/searchbarcomponent';
 
 const CommunityComponents = () => {
   const [boardList, setBoardList] = useState([]);
-  const [selectedBoardType, setSelectedBoardType] = useState(5); // 기본값은 "1"로 자유게시판을 나타냅니다.
+  const [selectedBoardType, setSelectedBoardType] = useState('A5'); // 기본값은 "1"로 자유게시판을 나타냅니다.
 
   useEffect(() => {
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
@@ -33,7 +33,7 @@ const CommunityComponents = () => {
         throw new Error('Failed to fetch boardList');
         }
         const data = await response.json(); 
-        setBoardList(data.data);     
+        setBoardList(data.data.reverse());     
       }} catch (error) {
         console.error(error);
         throw error;
