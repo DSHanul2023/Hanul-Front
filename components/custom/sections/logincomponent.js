@@ -3,6 +3,7 @@ import { Row, Col, Container, Form } from "reactstrap";
 import Image from "next/image";
 import { useRouter } from "next/router";
 const ACCESS_TOKEN = "ACCESS_TOKEN";
+import Link from 'next/link';
 
 const LoginComponent = () => {
   const [email, setEmail] = useState("");
@@ -33,6 +34,7 @@ const LoginComponent = () => {
         window.location.href = "/chat";
       } else {
         console.log("Invalid credentials");
+        alert("아이디 또는 비밀번호를 잘못 입력했습니다. \n입력하신 내용을 다시 확인해주세요.");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -45,12 +47,13 @@ const LoginComponent = () => {
         <section>
           <div id="login" className="login spacer">
             <Container>
-              <Row className="justify-content-center align-items-center">
-                <Col lg="7" md="7" className="align-self-center text-center">
-                  <p className="m-t-15 m-b-30">
+              <Row className="justify-content-center align-items-center" style={{minHeight:500}}>
+                <Col lg="7" md="10" className="align-self-center text-center">
+                  {/* <p className="m-t-15 m-b-30">
                     로그인 후 서비스를 이용해 보세요
-                  </p>
-                  <Form className="m-t-40" onSubmit={handleLogin}>
+                  </p> */}
+                  <h1 className="my-title font-bold m-4 text-center" style={{fontSize:"50px"}}>LogIn</h1>
+                  <Form onSubmit={handleLogin} style={{marginTop:"80px"}}>
                     <div>
                       <input
                         type="text"
@@ -72,11 +75,16 @@ const LoginComponent = () => {
                       />
                       <input
                         type="submit"
-                        value="Enter"
+                        value="LogIn"
                         className="font-14 btn-rounded text-white text-center ml-2"
                       />
                     </div>
                   </Form>
+                  <Link href="/join">
+                  <p className="m-t-40 m-b-30" style={{color:'black', textDecoration:'underline'}}>
+                    회원가입 후 서비스를 이용해 보세요
+                  </p>
+                  </Link>
                 </Col>
               </Row>
             </Container>

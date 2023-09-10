@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import siginupimage from "../../../assets/images/form-banners/banner1/siginupimage.jpg";
 import { useRouter } from "next/router";
+import Link from 'next/link';
 
 const FormBannerComponent = () => {
   const [email, setEmail] = useState("");
@@ -51,10 +52,11 @@ const FormBannerComponent = () => {
         <section>
           <div id="banner1" className="banner spacer">
             <Container>
-              <Row>
+              <Row className="justify-content-center">
                 <Col lg="7" md="7" className="align-self-center">
-                  <h2 className="title font-bold">
-                    고민 상담 AI 챗봇 기반 이야기 치료법 제공 서비스
+                  <h2 className="title text-darkbrown font-bold" style={{fontSize:"30px"}}>
+                    고민 상담 AI 챗봇 기반<br/><br/>
+                    이야기 치료법 제공 서비스
                   </h2>
                   
                   <Form className="m-t-40" onSubmit={handleLogin}>
@@ -67,6 +69,7 @@ const FormBannerComponent = () => {
                         className="font-14"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        style={{width:"70%"}}
                       />
                     </div>
                     <div className="m-t-10">
@@ -85,12 +88,14 @@ const FormBannerComponent = () => {
                       />
                     </div>
                   </Form>
-                  <button className="m-t-10 font-14 text-white text-center" onClick={surveyHandleClick}>
+                  {/* <button className="m-t-10 font-14 text-white text-center" onClick={surveyHandleClick}>
                     이야기 치료법 체험해보기
-                  </button>
-                  <p className="m-t-15 m-b-30" onClick={joinHandleClick} style={{textDecoration:'underline'}}>
+                  </button> */}
+                  <Link href="/join">
+                  <p className="m-t-15 m-b-30 font-bold" style={{color:"#645E4E", textDecoration:'underline'}}>
                     회원가입 후 서비스를 이용해 보세요
                   </p>
+                  </Link>
                 </Col>
                 <Col lg="5" md="5" className="align-self-center ml-auto">
                   <Image
