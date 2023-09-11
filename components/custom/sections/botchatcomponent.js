@@ -23,19 +23,22 @@ const BotChatComponent = ({ messages }) => {
   const handleRecommendMovieButtonClick = () => {
     const memberId = localStorage.getItem("MEMBER_ID");
 
-    // memberId가 정의되어 있는지 확인하고 fetch 요청을 보냅니다.
     if (memberId) {
       fetch(`http://localhost:8080/items/recommend/${memberId}`)
         .then((response) => response.json())
         .then((data) => {
           setRecommendedMovies(data);
-          setShowRecommendedMovies(true); // 데이터를 가져온 후 목록을 표시합니다.
+          setShowRecommendedMovies(true);
+
+          // 추천 영화 데이터와 함께 /usermovie 페이지로 이동합니다.
+          router.push("/usermovie", { recommendedMovies: data });
         })
         .catch((error) => {
           console.error("추천 영화 불러오기 오류:", error);
         });
     }
   };
+
 
   return (
     <div className="mt-4">
