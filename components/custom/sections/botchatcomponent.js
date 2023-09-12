@@ -29,9 +29,13 @@ const BotChatComponent = ({ messages }) => {
         .then((data) => {
           setRecommendedMovies(data);
           setShowRecommendedMovies(true);
+          console.log(data);
 
           // 추천 영화 데이터와 함께 /usermovie 페이지로 이동합니다.
-          router.push("/usermovie", { recommendedMovies: data });
+          router.push({
+            pathname: '/usermovie',
+            query: { recommendedMovies: JSON.stringify(data.recommended_movies) },
+        });
         })
         .catch((error) => {
           console.error("추천 영화 불러오기 오류:", error);
@@ -62,28 +66,13 @@ const BotChatComponent = ({ messages }) => {
               <div className={`message ${message.sender}-message`}>{message.content}
                 {message.recommend_status && (
                   <div className="recommendBtn mt-3" style={{ display: "flex", justifyContent: "center" }}>
-                    <Button onClick={handleRecommendMovieButtonClick}>추천 영화 보기</Button>
-
+                    <Link href="/usermovie" passHref>
+                      <Button>추천 영화 보기</Button>
+                    </Link>
                   </div>
                 )}
               </div>
               <p className="timestamp ml-2 mb-0" style={{ marginTop: 'auto' }}>{formatTime(message.time)}</p>
-              {/* 추천 영화 목록을 표시합니다. */}
-              {showRecommendedMovies && (
-                <div className="recommended-movies mt-3">
-                  <h4>추천 영화 목록</h4>
-                  {recommendedMovies.map((movie) => (
-                    <Card key={movie.id}>
-                      <CardImg top src={movie.posterUrl} alt={movie.itemNm} />
-                      <CardBody>
-                        <CardTitle>{movie.itemNm}</CardTitle>
-                        <CardSubtitle>{movie.genreName}</CardSubtitle>
-                        <CardText>{movie.itemDetail}</CardText>
-                      </CardBody>
-                    </Card>
-                  ))}
-                </div>
-              )}
             </>
           ) : (
             <>
