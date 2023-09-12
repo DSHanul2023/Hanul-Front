@@ -22,7 +22,10 @@ const Contents = ({ items }) => {
         <Col key={item.id} className="d-flex">
           <Link href={`/items/${item.id}`} passHref>
           <Card body className="card-shadow">
-            <a href="#" className="img-ho">
+          <a onClick={(e) => {
+              e.preventDefault(); // 기본 동작(링크 이동)을 막음
+              window.open(`/items/${item.id}`, "_blank"); // 새 창으로 열기
+            }} className="img-ho" rel="noopener noreferrer">
               <div
                 style={{
                   display: "inline-block",
