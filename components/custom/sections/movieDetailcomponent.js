@@ -167,9 +167,12 @@ const MovieDetailComponent = ({ movieId }) => {
         </Col>
         <Col xs={12} md={7} className="info ml-5">
           <div className="itemNm"><h2>{movie.itemNm}</h2></div>
-          <div className="tag_wrap tag_detail">
+          {/* <div className="tag_wrap tag_detail">
             {keyworddiv()}
-          </div>
+          </div> */}
+          <Row className="tag_wrap tag_detail" style={{padding: "0 15px"}}>
+            {keyworddiv()}
+          </Row>
           <div className="playdiv">
             {providerLink &&(
             <button type="button" onClick={handleWatchNowClick} className="playbtn">
