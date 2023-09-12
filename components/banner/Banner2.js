@@ -25,9 +25,6 @@ const Banner2 = () => {
             </h4>
             <button
               onClick={surveyHandleClick}
-              color="themecolor-darkbrown"
-                outline
-                // className="w-70 btn-md m-t-30 font-16 font-bold"
               className="try-btn m-t-30 font-16 font-bold"
             >
               이야기 치료법 체험해보기
