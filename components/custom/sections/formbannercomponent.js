@@ -88,14 +88,16 @@ const FormBannerComponent = () => {
                       />
                     </div>
                   </Form>
-                  {/* <button className="m-t-10 font-14 text-white text-center" onClick={surveyHandleClick}>
-                    이야기 치료법 체험해보기
-                  </button> */}
-                  <Link href="/join">
-                  <p className="m-t-15 m-b-30 font-bold" style={{color:"#645E4E", textDecoration:'underline'}}>
-                    회원가입 후 서비스를 이용해 보세요
-                  </p>
-                  </Link>
+                 
+                <div className="m-t-15 m-b-30 font-bold">
+                <Link href="/join" style={{ color: "#645E4E", textDecoration: 'underline' }}>
+                회원가입 후 서비스를 이용해 보세요
+                </Link>
+                <span style={{ margin: '0 10px', color: "#645E4E" }}>|</span>
+                <Link href="/reset" style={{ color: "#645E4E", textDecoration: 'underline' }}>
+                비밀번호 초기화
+                </Link>
+                </div>
                 </Col>
                 <Col lg="5" md="5" className="align-self-center ml-auto">
                   <Image
