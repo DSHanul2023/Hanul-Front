@@ -43,7 +43,7 @@ const JoinComponent = () => {
                 <Container>
                 <Row className="justify-content-center align-items-center" style={{minHeight:500}}>
                     <Col lg="7" md="7" className="align-self-center text-center">
-                    <h1 className="my-title font-bold m-4 text-center" style={{fontSize:"40px"}}>회원가입</h1>
+                    <h1 className="my-title font-bold m-4 text-center" style={{fontSize:"40px"}}>Sign Up</h1>
                     {/* <p className="m-t-15 m-b-30">
                         회원가입 후 서비스를 이용해 보세요
                     </p> */}
@@ -88,9 +88,9 @@ const JoinComponent = () => {
                         이야기 치료법 체험해보기
                     </button> */}
                     <Link href="/login">
-                  <p className="m-t-40 m-b-30" style={{color:'black', textDecoration:'underline'}}>
-                  이미 회원이신가요? 로그인하기
-                  </p>
+                    <p className="m-t-15 m-b-30 font-bold" style={{color:"#645E4E", textDecoration:'underline'}}>
+                    이미 회원이신가요? 로그인하기
+                    </p>
                   </Link>
                     </Col>
                 </Row>
