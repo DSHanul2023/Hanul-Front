@@ -2,11 +2,20 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button, Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from "reactstrap";
-import default_profile from "../../../public/profile/default_profile.png";
 import { useRouter } from "next/router";
+import { petimages } from "./petImages";
 
 const BotChatComponent = ({ messages }) => {
   const router = useRouter();
+  const [petNum,setPetNum] = useState(0);
+  useEffect(() => {
+    const PetNum = localStorage.getItem("PET_NUM");
+    setPetNum(PetNum);
+    if(!PetNum){
+      setPetNum(0);
+    }
+  }, []);
+
 
   const formatTime = (timeString) => {
     const date = new Date(timeString);
@@ -53,13 +62,12 @@ const BotChatComponent = ({ messages }) => {
         >
           {message.sender === 'bot' ? (
             <>
-              <div>
+              <div className="chatimgdiv">
                 <Image
-                  src={default_profile}
+                  src={petimages[petNum]}
                   alt="img"
                   className="img-circle mr-2"
-                  width={43}
-                  height={43}
+                  height={60}
                 />
               </div>
 
