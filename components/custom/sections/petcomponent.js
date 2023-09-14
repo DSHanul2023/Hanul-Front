@@ -42,8 +42,8 @@ const PetComponent = () => {
                     src={currentImage}
                     alt="img"
                     className="img"
-                    width={150}
-                    height={150}
+                    width="auto"
+                    height={180}
                     onClick={handleImageClick}/>
                 </div>
                 <div className="paginationdiv">
