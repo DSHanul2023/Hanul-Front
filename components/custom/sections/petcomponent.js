@@ -37,20 +37,25 @@ const PetComponent = () => {
                     <h2>Choose Your Pet Bot</h2>
                     <h5>채팅하고 싶은 펫을 골라보세요</h5>
                 </div>
-                <br/>
+                <div className="petcontent">
                 <ButtonGroup>
                     <div className="paginationdiv">
                         <Button className="paginationbtn" onClick={handlePrevImage}>{"<"}</Button>
                     </div>
+                    <div className="petcard">
                     <div className="petimg">
                         <Image
                             src={currentImage}
                             alt="img"
                             className="img"
-                            width="auto"
+                            width="175"
                             height="auto"
                             onClick={handleImageClick}
                         />
+                    </div>
+                    <h5>
+                        {petlist[currentImageIndex]}
+                    </h5> 
                     </div>
                     <div className="paginationdiv">
                         <Button className="paginationbtn" onClick={handleNextImage}>{">"}</Button>
@@ -67,6 +72,7 @@ const PetComponent = () => {
                         >
                         </Button>
                     ))}
+                </div>
                 </div>
             </Container>
             <div className="text-center"style={{ marginBottom: "40px" }}>
