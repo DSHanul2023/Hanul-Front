@@ -4,7 +4,7 @@ import UserChatComponent from "./UserChatComponent";
 import BotChatComponent from "./botchatcomponent";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import default_profile from "../../../public/profile/default_profile_1.png";
+import { petimages } from "./petImages";
 const ChatComponent = () => {
   const router = useRouter();
   const [inputMessage, setInputMessage] = useState("");
@@ -12,11 +12,16 @@ const ChatComponent = () => {
   const [showChat, setShowChat] = useState(false);
   const [timestamp, setTimestamp] = useState(""); 
   const [showLoading, setShowLoading] = useState(false);
-
+  const [petNum,setPetNum] = useState(0);
   useEffect(() => {
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
     if (!accessToken) {
       router.push("/login");
+    }
+    const PetNum = localStorage.getItem("PET_NUM");
+    setPetNum(PetNum);
+    if(!PetNum){
+      setPetNum(0);
     }
     const initialTimestamp = getCurrentTime(); 
     setTimestamp(initialTimestamp);
@@ -77,14 +82,14 @@ const ChatComponent = () => {
   };
 
   return (
-    <div className="full-height">
+    <div className="full-height" style={{minHeight:"470px"}}>
       <div style={{display:'flex',justifyContent:'center',backgroundColor:'#F9F4E8'}}>
         <section style={{width:'50%'}}>
           <div id="chat" className="banner spacer">
             <Container className="chat-box">
               <Row className="ml-1">
               <Image
-                    src={default_profile}
+                    src={petimages[petNum]}
                     alt="img"
                     className="img-circle"
                     width={43}
