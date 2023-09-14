@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container, ButtonGroup, Button, Row, Col } from "reactstrap";
 import Image from "next/image";
 import { useRouter } from 'next/router';
-import { petimages } from "./petImages";
+import { petimages,petlist } from "./petImages";
 import signupimage from "../../../assets/images/logos/Group 40.png"; // 추가 이미지 경로
 
 const PetComponent = () => {
