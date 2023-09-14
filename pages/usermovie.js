@@ -5,6 +5,7 @@ import { Container, Row, Col } from "reactstrap";
 import Contents from "../components/basic/contents";
 import MinichatContentList from "../components/custom/sections/minichatcontentlistcomponent";
 import Loading from "./loading";
+import Animation from "./animation";
 
 const UserMoviePage = () => {
   const router = useRouter();
@@ -42,7 +43,7 @@ const UserMoviePage = () => {
 
   return (
     <div className="usermovie-container">
-      {recommendedMovies.length == 0 ? <Loading/> : 
+      {recommendedMovies.length == 0 ? <Animation/> : 
       <>
       <Container className="title-spacer">
         <Row className="justify-content-center">
