@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container, ButtonGroup, Button } from "reactstrap";
 import Image from "next/image";
 import { useRouter } from 'next/router';
-import { petimages } from "./petImages";
+import { petimages,petlist } from "./petImages";
 const PetComponent = () => {
     const router = useRouter();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -33,6 +33,7 @@ const PetComponent = () => {
             <div className="pettitle"><h2>Choose Your Pet Bot</h2>
             <h5>채팅하고 싶은 펫을 골라보세요</h5>
             </div>
+            <div className="petcontent">
             <br/>
             <ButtonGroup>
                 <div className="paginationdiv">
@@ -42,9 +43,11 @@ const PetComponent = () => {
                     src={currentImage}
                     alt="img"
                     className="img"
-                    width={150}
-                    height={150}
-                    onClick={handleImageClick}/>
+                    width={155}
+                    height={155}
+                    onClick={handleImageClick}
+                    />
+                {petlist[currentImageIndex]}
                 </div>
                 <div className="paginationdiv">
                 <Button className="paginationbtn" onClick={handleNextImage}>{">"}</Button></div>
@@ -61,6 +64,7 @@ const PetComponent = () => {
                         
                     </Button>
                 ))}
+            </div>
             </div>
         </Container>
     );
