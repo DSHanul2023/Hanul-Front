@@ -13,3 +13,10 @@ import default_profile10 from "../../../public/profile/Group 19_head.png";
 
 export const petimages = [default_profile, default_profile2, default_profile3, default_profile4, default_profile5,
     default_profile6, default_profile7, default_profile8, default_profile9, default_profile10];
+
+const name1 = 'puppy'
+const name2 = 'puppy2'
+const name3 = 'kitty1'
+const name4 = 'kitty2'
+export const petlist = [name1,name2,name3,name4];
+
