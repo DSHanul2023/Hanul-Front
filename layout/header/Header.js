@@ -10,43 +10,69 @@ import {
   Nav,
   NavItem,
   Container,
-  NavLink,
 } from "reactstrap";
 import logo from "../../assets/images/logos/LOGO2.png";
-// import { access } from "fs";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const toggle = () => setIsOpen(!isOpen);
   const [logState, setLogState] = useState("");
+  const accessToken =
+    typeof localStorage !== "undefined"
+      ? localStorage.getItem("ACCESS_TOKEN")
+      : null;
+  const memberId =
+    typeof localStorage !== "undefined"
+      ? localStorage.getItem("MEMBER_ID")
+      : null;
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("ACCESS_TOKEN");
     if (!accessToken) {
       setLogState("LogIn");
     } else {
       setLogState("LogOut");
     }
-  }, []);
+  }, [accessToken]);
 
-  // const handleLogOut = () => {
-  //   router.push("/");
-  //   localStorage.removeItem("ACCESS_TOKEN");
-  //   setLogState("LogIn");
-  // };
+  const handleLogOut = async () => {
+    if (accessToken) {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/members/${memberId}/logout`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+
+        if (response.ok) {
+          if (typeof localStorage !== "undefined") {
+            localStorage.removeItem("ACCESS_TOKEN");
+            localStorage.removeItem("MEMBER_ID");
+            localStorage.removeItem("PET_NUM")
+          }
+          setLogState("LogIn");
+          router.push("/"); // 로그아웃 후 홈페이지로 이동
+        } else {
+          console.error("로그아웃 실패");
+        }
+      } catch (error) {
+        console.error("로그아웃 중 오류 발생:", error);
+      }
+    } else {
+      console.error("이미 로그아웃된 상태");
+    }
+  };
 
   const handleLogIn = () => {
-    if(localStorage.getItem("ACCESS_TOKEN")){
-      // router.push("/");
-      window.location.href = "/";
-      localStorage.removeItem("ACCESS_TOKEN");
-      localStorage.removeItem("MEMBER_ID");
-      // setLogState("LogIn");
-    } else{
+    if (accessToken) {
+      handleLogOut();
+    } else {
       window.location.href = "/login";
-      // router.push("/login");
-      // setLogState("LogOut");
     }
   };
 
@@ -56,7 +82,7 @@ const Header = () => {
         <Container className="po-relative">
           <Navbar className="navbar-expand-lg h6-nav-bar">
             <NavbarBrand href="/">
-              <Image src={logo} alt="wrapkit"/>
+              <Image src={logo} alt="wrapkit" />
             </NavbarBrand>
             <NavbarToggler onClick={toggle}>
               <span className="ti-menu"></span>
@@ -80,7 +106,7 @@ const Header = () => {
                     Chatbot
                   </Link>
                 </NavItem>
-              
+
                 <NavItem>
                   <Link
                     href="/community"
@@ -121,14 +147,12 @@ const Header = () => {
                 </NavItem>
               </Nav>
               <div className="act-buttons">
-                <NavLink
-                // href="/login"
-                className="btn btn-light font-14"
-                onClick={handleLogIn}
+                <button
+                  className="btn btn-light font-14"
+                  onClick={handleLogIn}
                 >
                   {logState}
-                  {/* {accessToken?"LogOut":"LogIn"} */}
-                </NavLink>
+                </button>
               </div>
             </Collapse>
           </Navbar>
