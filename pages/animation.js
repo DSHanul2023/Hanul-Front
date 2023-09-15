@@ -1,8 +1,4 @@
 import React from "react";
-import simg from "C:/Welover/Front-next-js/assets/images/animation/Group13.svg";
-import tail from "C:/Welover/Front-next-js/assets/images/animation/Vector142.png"
-import Image from "next/image"
-
 export default function Animation() {
 
     
