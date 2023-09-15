@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button, Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from "reactstrap";
 import { useRouter } from "next/router";
-import { petimages } from "./petImages";
+import { petprofiles } from "./petImages";
 
 const BotChatComponent = ({ messages }) => {
   const router = useRouter();
@@ -64,10 +64,10 @@ const BotChatComponent = ({ messages }) => {
             <>
               <div className="chatimgdiv">
                 <Image
-                  src={petimages[petNum]}
+                  src={petprofiles[petNum]}
                   alt="img"
                   className="img-circle mr-2"
-                  height={60}
+                  height={55}
                 />
               </div>
 
