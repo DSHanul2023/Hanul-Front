@@ -4,7 +4,7 @@ import UserChatComponent from "./UserChatComponent";
 import BotChatComponent from "./botchatcomponent";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { petimages,petlist } from "./petImages";
+import { petprofiles,petlist } from "./petImages";
 const ChatComponent = () => {
   const router = useRouter();
   const [inputMessage, setInputMessage] = useState("");
@@ -90,10 +90,10 @@ const ChatComponent = () => {
               <Row>
                 <div className="chatimgdiv" style={{marginLeft:'15px'}}>
                   <Image
-                        src={petimages[petNum]}
+                        src={petprofiles[petNum]}
                         alt="img"
                         className="img-circle mr-2"
-                        width={60}
+                        width={55}
                       />
                   </div>
                 <Col md="6" style={{paddingLeft:'0px',display: 'flex'}}>
@@ -101,7 +101,7 @@ const ChatComponent = () => {
                     안녕하세요! 저는 We:Lover의 {petlist[petNum]}에요. <br />
                     저한테 고민을 얘기해주세요!
                   </div>
-                  <p className="timestamp ml-2 mb-0" style={{marginTop:'auto',minWidth:'60px'}}>
+                  <p className="timestamp mb-0" style={{marginTop:'auto',minWidth:'60px'}}>
                     {timestamp}
                   </p>             
                 </Col>
@@ -115,10 +115,10 @@ const ChatComponent = () => {
                   <Row className="ml-1">
                   <div className="chatimgdiv">
                   <Image
-                        src={petimages[petNum]}
+                        src={petprofiles[petNum]}
                         alt="img"
                         className="img-circle mr-2"
-                        width={60}
+                        width={55}
                       /></div>
                     <Col md="6" style={{paddingLeft:'0px',display: 'flex'}}>
                       <div className="message bot-message">
