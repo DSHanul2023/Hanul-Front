@@ -3,7 +3,7 @@ import { Container, Row, Col } from "reactstrap";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faVideo} from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faVideo, faSpinner} from "@fortawesome/free-solid-svg-icons";
 const MovieDetailComponent = ({ movieId }) => {
   const router = useRouter();
   const [movie, setMovie] = useState(null);
@@ -15,6 +15,7 @@ const MovieDetailComponent = ({ movieId }) => {
   const [flatrate, setFlatrate] = useState(null);
   const [rent, setRent] = useState(null);
   const [buy, setBuy] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!movieId) {
@@ -26,6 +27,7 @@ const MovieDetailComponent = ({ movieId }) => {
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
     setToken(accessToken);
     bookmarkcheck(memberid);
+    setLoading(true)
 
     // 영화 정보를 가져오는 요청
     fetch(`http://localhost:8080/items/${movieId}`)
@@ -108,9 +110,12 @@ const MovieDetailComponent = ({ movieId }) => {
           console.log("buy : ", buyData);
 
           setProviderLink(data.link); // 이곳에서 프로바이더 링크를 설정합니다.
+          setLoading(false);
+          if(!providerLink) setLoading(false);
         })
         .catch((error) => {
           console.error("provider 가져오기 오류:", error);
+          setLoading(false);
         });
     };
   }, [movieId]);
@@ -252,6 +257,7 @@ const MovieDetailComponent = ({ movieId }) => {
             {keyworddiv()}
           </Row> */}
           <div className="playdiv">
+            {!providerLink && loading && (<FontAwesomeIcon icon={faSpinner} style={{fontSize:"30px", color:"#645E4E"}}/>)}
             {providerLink && (
               <Col className="justify-content-center">
                 {flatrate.length>0 && (
