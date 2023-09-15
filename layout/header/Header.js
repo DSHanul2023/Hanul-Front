@@ -53,6 +53,7 @@ const Header = () => {
           if (typeof localStorage !== "undefined") {
             localStorage.removeItem("ACCESS_TOKEN");
             localStorage.removeItem("MEMBER_ID");
+            localStorage.removeItem("PET_NUM")
           }
           setLogState("LogIn");
           router.push("/"); // 로그아웃 후 홈페이지로 이동
