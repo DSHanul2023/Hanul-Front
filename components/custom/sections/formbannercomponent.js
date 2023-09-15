@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Container, Form } from "reactstrap";
 import Image from "next/image";
+import { gsap } from "gsap/dist/gsap";
+import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 
 import siginupimage from "../../../assets/images/form-banners/banner1/siginupimage.jpg";
 import { useRouter } from "next/router";
@@ -31,7 +33,7 @@ const FormBannerComponent = () => {
         localStorage.setItem(ACCESS_TOKEN, token);
         localStorage.setItem(MEMBER_ID, memberId);
         // router.push("/chat"); // 로그인 후 채팅 페이지로 이동
-        window.location.href = "/chat";
+        window.location.href = "/pet";
       } else {
         console.log("Invalid credentials");
         alert("아이디 또는 비밀번호를 잘못 입력했습니다. \n입력하신 내용을 다시 확인해주세요.");
@@ -46,6 +48,19 @@ const FormBannerComponent = () => {
   const surveyHandleClick = () => {
     router.push("/survey");
   }
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.from(".img-fluid", {
+      scrollTrigger: {
+      trigger: ".img-fluid",
+      toggleActions: "restart none reverse none",
+      //markers: true,
+      start: "top center"
+    },
+    rotation: 100, x: 300, duration: 1, opacity: 0});
+  }, []);
+
   return (
     <div>
       <div className="bg-light">
@@ -88,14 +103,16 @@ const FormBannerComponent = () => {
                       />
                     </div>
                   </Form>
-                  {/* <button className="m-t-10 font-14 text-white text-center" onClick={surveyHandleClick}>
-                    이야기 치료법 체험해보기
-                  </button> */}
-                  <Link href="/join">
-                  <p className="m-t-15 m-b-30 font-bold" style={{color:"#645E4E", textDecoration:'underline'}}>
-                    회원가입 후 서비스를 이용해 보세요
-                  </p>
-                  </Link>
+                
+                <div className="m-t-15 m-b-30 font-bold">
+                <Link href="/join" style={{ color: "#645E4E", textDecoration: 'underline' }}>
+                회원가입 후 서비스를 이용해 보세요
+                </Link>
+                <span style={{ margin: '0 10px', color: "#645E4E" }}>|</span>
+                <Link href="/reset" style={{ color: "#645E4E", textDecoration: 'underline' }}>
+                비밀번호 초기화
+                </Link>
+                </div>
                 </Col>
                 <Col lg="5" md="5" className="align-self-center ml-auto">
                   <Image

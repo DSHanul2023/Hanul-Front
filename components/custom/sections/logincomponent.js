@@ -31,7 +31,7 @@ const LoginComponent = () => {
         localStorage.setItem(ACCESS_TOKEN, token);
         localStorage.setItem(MEMBER_ID, memberId);
         // router.push("/chat"); // 로그인 후 채팅 페이지로 이동
-        window.location.href = "/chat";
+        window.location.href = "/pet";
       } else {
         console.log("Invalid credentials");
         alert("아이디 또는 비밀번호를 잘못 입력했습니다. \n입력하신 내용을 다시 확인해주세요.");
@@ -52,7 +52,7 @@ const LoginComponent = () => {
                   {/* <p className="m-t-15 m-b-30">
                     로그인 후 서비스를 이용해 보세요
                   </p> */}
-                  <h1 className="my-title font-bold m-4 text-center" style={{fontSize:"50px"}}>LogIn</h1>
+                  <h1 className="my-title font-bold m-4 text-center" style={{fontSize:"40px"}}>Log In</h1>
                   <Form onSubmit={handleLogin} style={{marginTop:"80px"}}>
                     <div>
                       <input
@@ -80,11 +80,15 @@ const LoginComponent = () => {
                       />
                     </div>
                   </Form>
-                  <Link href="/join">
-                  <p className="m-t-40 m-b-30" style={{color:'black', textDecoration:'underline'}}>
-                    회원가입 후 서비스를 이용해 보세요
-                  </p>
-                  </Link>
+                  <div className="m-t-15 m-b-30 font-bold">
+                <Link href="/join" style={{ color: "#645E4E", textDecoration: 'underline' }}>
+                회원가입 후 서비스를 이용해 보세요
+                </Link>
+                <span style={{ margin: '0 10px', color: "#645E4E" }}>|</span>
+                <Link href="/reset" style={{ color: "#645E4E", textDecoration: 'underline' }}>
+                비밀번호 초기화
+                </Link>
+                </div>
                 </Col>
               </Row>
             </Container>
