@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Container, Form } from "reactstrap";
 import Image from "next/image";
+import { gsap } from "gsap/dist/gsap";
+import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 
 import siginupimage from "../../../assets/images/form-banners/banner1/siginupimage.jpg";
 import { useRouter } from "next/router";
@@ -46,6 +48,19 @@ const FormBannerComponent = () => {
   const surveyHandleClick = () => {
     router.push("/survey");
   }
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.from(".img-fluid", {
+      scrollTrigger: {
+      trigger: ".img-fluid",
+      toggleActions: "restart none reverse none",
+      //markers: true,
+      start: "top center"
+    },
+    rotation: 100, x: 300, duration: 1, opacity: 0});
+  }, []);
+
   return (
     <div>
       <div className="bg-light">
