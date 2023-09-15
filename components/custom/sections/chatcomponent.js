@@ -4,7 +4,7 @@ import UserChatComponent from "./UserChatComponent";
 import BotChatComponent from "./botchatcomponent";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { petimages } from "./petImages";
+import { petprofiles,petlist } from "./petImages";
 const ChatComponent = () => {
   const router = useRouter();
   const [inputMessage, setInputMessage] = useState("");
@@ -87,20 +87,21 @@ const ChatComponent = () => {
         <section style={{width:'50%'}}>
           <div id="chat" className="banner spacer">
             <Container className="chat-box">
-              <Row className="ml-1">
-              <Image
-                    src={petimages[petNum]}
-                    alt="img"
-                    className="img-circle"
-                    width={43}
-                    height={43}
-                  />
-                <Col md="6" style={{paddingLeft:'10px',display: 'flex'}}>
+              <Row>
+                <div className="chatimgdiv" style={{marginLeft:'15px'}}>
+                  <Image
+                        src={petprofiles[petNum]}
+                        alt="img"
+                        className="img-circle mr-2"
+                        width={55}
+                      />
+                  </div>
+                <Col md="6" style={{paddingLeft:'0px',display: 'flex'}}>
                   <div className="chat-div">
-                    안녕하세요! 저는 We:Lover에요. <br />
+                    안녕하세요! 저는 We:Lover의 {petlist[petNum]}에요. <br />
                     저한테 고민을 얘기해주세요!
                   </div>
-                  <p className="timestamp ml-2 mb-0" style={{marginTop:'auto'}}>
+                  <p className="timestamp mb-0" style={{marginTop:'auto',minWidth:'60px'}}>
                     {timestamp}
                   </p>             
                 </Col>
@@ -112,20 +113,17 @@ const ChatComponent = () => {
                 </Row>
                 {showLoading && (
                   <Row className="ml-1">
+                  <div className="chatimgdiv">
                   <Image
-                        src={default_profile}
+                        src={petprofiles[petNum]}
                         alt="img"
-                        className="img-circle"
-                        width={43}
-                        height={43}
-                      />
-                    <Col md="6" style={{paddingLeft:'10px',display: 'flex'}}>
+                        className="img-circle mr-2"
+                        width={55}
+                      /></div>
+                    <Col md="6" style={{paddingLeft:'0px',display: 'flex'}}>
                       <div className="message bot-message">
                         입력중. . .
-                      </div>
-                      <p className="timestamp ml-2 mb-0" style={{marginTop:'auto'}}>
-                        {timestamp}
-                      </p>             
+                      </div>           
                     </Col>
                   </Row>
                 )}
