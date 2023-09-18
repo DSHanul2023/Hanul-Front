@@ -1509,7 +1509,7 @@ movieDetal
     border: 0px;
     background-color: transparent;
     justify-content: center;
-    margin-top: 15px;
+    margin-top: 38px;
     span{
       color:$themecolor;
       font-weight: 500;
@@ -1531,6 +1531,13 @@ movieDetal
   }
   .hearticon:active{
     color:$themecolor;
+  }
+  .providerImg{
+    border-radius:20%;
+    margin-right: 15px;
+  }
+  .providerImg:hover{
+    opacity: 70%;
   }
 }
 
