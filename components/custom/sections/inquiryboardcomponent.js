@@ -160,7 +160,7 @@ const InquiryBoard = () => {
     };
     return (
         <div className='inquiry'>
-            <Card style={{padding:'30px', height:"90vh", width:"70vw", margin:"auto"}}>
+            <Card style={{padding:'30px', height:"60vh", width:"70vw", margin:"auto"}}>
             {!showCreateForm && (
             <Container>
                 <Row>

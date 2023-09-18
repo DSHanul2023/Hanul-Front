@@ -896,7 +896,7 @@ Community
     flex-grow: 1;
     background-color: #FDFCF8;
     padding-top: 20px;
-    height: 85vh;
+    height: 28vh;
     border-radius: 10px;
   }
 }
@@ -1056,10 +1056,13 @@ asg{
     padding-bottom:5px;
     background:none;
     .dropdown-action{
-      font-size:12px;
+      font-size:13px;
       padding:5px;
       padding-left:20px;
       padding-right:20px;   
+      svg{
+        height:16px;
+      }
     }
   }
   .dropdown-item:active,.dropdown-item:hover{
@@ -1151,7 +1154,6 @@ Inquiry
   justify-items: center;
   align-items: center;
   font-size:14px;
-
   .btn-group-board{
     display: inline-flex;
     margin-left: 10px;
