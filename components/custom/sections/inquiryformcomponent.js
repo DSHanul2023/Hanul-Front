@@ -53,7 +53,7 @@ const InquiryForm = ({ onFormSubmit, onFormCancel }) => {
     };
     
     return (
-        <form onSubmit={handleSubmit} className="mt-3 mb-5">
+        <form onSubmit={handleSubmit} className="mt-3">
             <FormGroup>
                 <Label for="inquiryNm">제목</Label>
                 <Input
