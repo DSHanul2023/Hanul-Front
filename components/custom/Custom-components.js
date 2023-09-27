@@ -6,6 +6,7 @@ import Banner2 from "../banner/Banner2";
 // sections for this page
 
 import FormBannerComponent from "./sections/formbannercomponent";
+import AnimalBannerComponent from "./sections/animalbannercomponent";
 
 const CustomComponents = () => {
   const [isLocalStorageAvailable, setIsLocalStorageAvailable] = useState(false);
@@ -23,6 +24,7 @@ const CustomComponents = () => {
   return (
     <div>
       <Banner2 />
+      <AnimalBannerComponent/>
       {!isLocalStorageAvailable || !token ? <FormBannerComponent /> : null}
     </div>
   );
