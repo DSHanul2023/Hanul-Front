@@ -18,7 +18,7 @@ const Banner2 = () => {
         <Row>
           <Col lg="6" md="6">
             
-            <h5 className="subtitle font-light">
+          <h5 className="subtitle font-light">
             <br/>
             we:lover는 단순 상담 수준에서 그쳤던 기존 서비스들과 달리<br/>
             오늘의 채팅펫이 선택 가능하고 상담이 끝난 뒤<br/>
@@ -37,7 +37,7 @@ const Banner2 = () => {
             </button>
           </Col>
           <Col lg="6" md="6">
-          <Image src={bannerimg} alt="hero banner" className="m-t-40 ml-4" 
+          <Image src={bannerimg} alt="hero banner" className="ml-4" 
           style={{ width: '100%', height: 'auto' }} />
 
           </Col>
