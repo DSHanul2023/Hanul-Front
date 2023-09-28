@@ -65,13 +65,18 @@ const AnimalBannerComponent = () => {
                       </div>
                     ))}
                   </div>
-                  <div className="chat-div">{selectedImageIndex !== -1 ? (
+                  <Col className="d-flex align-items-center justify-content-center">
+                    <div className="chat-div">
+                    {selectedImageIndex !== -1 ? (
                     <>
-                      <h4>{petlist[selectedImageIndex]}</h4><p>{petcontents[selectedImageIndex]}</p>
+                    <h4>{petlist[selectedImageIndex]}</h4>
+                    <p>{petcontents[selectedImageIndex]}</p>
                     </>
-                  ):(
+                    ) : (
                     <p>강아지를 클릭해 더 자세히 알아보세요!</p>
-                  )}</div>
+                    )}
+                    </div>
+                  </Col>
                 </Col>
               </Row>
             </Container>
