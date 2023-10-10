@@ -6,6 +6,7 @@ import Banner2 from "../banner/Banner2";
 // sections for this page
 import FormBannerComponent from "./sections/formbannercomponent";
 import AnimalBannerComponent from "./sections/animalbannercomponent";
+import { Row } from "reactstrap";
 
 const CustomComponents = () => {
   const [isLocalStorageAvailable, setIsLocalStorageAvailable] = useState(false);
@@ -33,11 +34,13 @@ const CustomComponents = () => {
 
   return (
     <div>
-      <div style={{ backgroundColor: divBackgroundColor }}>
-        <button onClick={() => toggleSection("banner2")}>Banner2</button>
-        <button onClick={() => toggleSection("form")}>Form</button>
-        <button onClick={() => toggleSection("animal")}>Animal</button>
-      </div>
+      <Row style={{ backgroundColor: divBackgroundColor, justifyContent: "center" }}>
+        <button onClick={() => toggleSection("banner2")} style={{ border: "none", marginRight: "10px", backgroundColor: divBackgroundColor }}>1</button>
+        <button onClick={() => toggleSection("form")} style={{ border: "none", marginRight: "10px", backgroundColor: divBackgroundColor }}>2</button>
+        <button onClick={() => toggleSection("animal")} style={{ border: "none", backgroundColor: divBackgroundColor}}>3</button>
+      </Row>
+
+
       {renderCurrentSection()}
     </div>
   );
