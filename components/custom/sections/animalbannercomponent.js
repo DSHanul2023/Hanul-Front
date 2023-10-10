@@ -42,7 +42,7 @@ const AnimalBannerComponent = () => {
     <div>
       <div className="bg-light">
         <section>
-          <div id="banner1" className="banner spacer">
+          <div id="banner1" className="banner" style={{}}>
             <Container>
               <Row className="anibanner justify-content-center">
                 <Col lg="12" md="7" className="align-self-center">

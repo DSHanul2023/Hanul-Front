@@ -32,14 +32,20 @@ const CustomComponents = () => {
     }
   };
 
+  const buttonStyle = {
+    color: "#FFE8D1",
+    border: "none",
+    marginRight: "10px",
+    backgroundColor: divBackgroundColor,
+  };
+
   return (
     <div>
       <Row style={{ backgroundColor: divBackgroundColor, justifyContent: "center" }}>
-        <button onClick={() => toggleSection("banner2")} style={{ color: "#645E4E", border: "none", marginRight: "10px", backgroundColor: divBackgroundColor }}>●</button>
-        <button onClick={() => toggleSection("form")} style={{ color: "#645E4E", border: "none", marginRight: "10px", backgroundColor: divBackgroundColor }}>●</button>
-        <button onClick={() => toggleSection("animal")} style={{color: "#645E4E",  border: "none", backgroundColor: divBackgroundColor}}>●</button>
+        <button onClick={() => toggleSection("banner2")} style={currentSection === "banner2" ? { ...buttonStyle, color: "#645E4E" } : buttonStyle}>●</button>
+        <button onClick={() => toggleSection("form")} style={currentSection === "form" ? { ...buttonStyle, color: "#645E4E" } : buttonStyle}>●</button>
+        <button onClick={() => toggleSection("animal")} style={currentSection === "animal" ? { ...buttonStyle, color: "#645E4E" } : buttonStyle}>●</button>
       </Row>
-
 
       {renderCurrentSection()}
     </div>
