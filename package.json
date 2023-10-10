@@ -32,6 +32,7 @@
     "react-fullpage": "^0.1.19",
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.15.0",
+    "react-scroll": "^1.9.0",
     "reactstrap": "^8.10.1",
     "sass": "^1.62.1",
     "tailwindcss": "3.3.2"
