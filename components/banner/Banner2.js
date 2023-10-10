@@ -13,7 +13,7 @@ const Banner2 = () => {
     router.push("/survey");
   }
   return (
-    <div className="static-slider-head banner2" style={{minHeight:"500px"}}>
+    <div className="static-slider-head banner2">
       <Container>
         <Row>
           <Col lg="6" md="6">
