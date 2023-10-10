@@ -11,6 +11,9 @@ const CustomComponents = () => {
   const [isLocalStorageAvailable, setIsLocalStorageAvailable] = useState(false);
   const [currentSection, setCurrentSection] = useState("banner2");
 
+  // 배경 색상 상태 추가
+  const [divBackgroundColor, setDivBackgroundColor] = useState("#EFA374");
+
   const toggleSection = (sectionName) => {
     setCurrentSection(sectionName);
   };
@@ -30,7 +33,7 @@ const CustomComponents = () => {
 
   return (
     <div>
-      <div>
+      <div style={{ backgroundColor: divBackgroundColor }}>
         <button onClick={() => toggleSection("banner2")}>Banner2</button>
         <button onClick={() => toggleSection("form")}>Form</button>
         <button onClick={() => toggleSection("animal")}>Animal</button>
