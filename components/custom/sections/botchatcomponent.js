@@ -8,6 +8,7 @@ import { petprofiles } from "./petImages";
 const BotChatComponent = ({ messages }) => {
   const router = useRouter();
   const [petNum,setPetNum] = useState(0);
+
   useEffect(() => {
     const PetNum = localStorage.getItem("PET_NUM");
     setPetNum(PetNum);
@@ -75,7 +76,7 @@ const BotChatComponent = ({ messages }) => {
                 {message.recommend_status && (
                   <div className="recommendBtn mt-3" style={{ display: "flex", justifyContent: "center" }}>
                     <Link href="/usermovie" passHref>
-                      <Button>추천 영화 보기</Button>
+                      <Button style={{width:"150px", height:"45px"}}>추천 영화 보기</Button>
                     </Link>
                   </div>
                 )}
