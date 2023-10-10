@@ -17,12 +17,18 @@ const Banner2 = () => {
       <Container>
         <Row>
           <Col lg="6" md="6">
-            <h1 className="m-t-40 title font-bold">
-            we:lover
-            </h1>
-            <h4 className="subtitle font-light">
-            we:lover는 상담 기반으로 이야기 치료법을 제공합니다
-            </h4>
+            
+          <h5 className="subtitle font-light">
+            <br/>
+            we:lover는 단순 상담 수준에서 그쳤던 기존 서비스들과 달리<br/>
+            오늘의 채팅펫이 선택 가능하고 상담이 끝난 뒤<br/>
+            사용자의 고민과 감정 상태를 고려하여<br/> 
+            이야기 치료법의 일환으로써 영화 콘텐츠를 제공합니다.<br/><br/>
+
+           자유게시판 / 취미 게시판 / 우리 동네 / 병원 후기 커뮤니티에서<br/>
+           비슷한 고민을 가진 사람들과 소통을 할 수 있습니다.
+            </h5>
+           
             <button
               onClick={surveyHandleClick}
               className="try-btn m-t-30 font-16 font-bold"
@@ -31,7 +37,7 @@ const Banner2 = () => {
             </button>
           </Col>
           <Col lg="6" md="6">
-          <Image src={bannerimg} alt="hero banner" className="m-t-40 ml-4" 
+          <Image src={bannerimg} alt="hero banner" className="ml-4" 
           style={{ width: '100%', height: 'auto' }} />
 
           </Col>

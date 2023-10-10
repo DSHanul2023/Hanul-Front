@@ -15,6 +15,7 @@ const BoardInsideComponent = (props) => {
     const id = props.id;
     const [token,setToken] = useState([]);
     const [boardData, setBoardData] = useState({});
+    const [contentsWithEnter,setContentsWithEnter] = useState("");
     const [isEditMode, setIsEditMode] = useState(false);
     const [title, setTitle] = useState("");
     const [contents, setContents] = useState("");
@@ -24,7 +25,7 @@ const BoardInsideComponent = (props) => {
     const [isCommentEditMode,setIsCommentEditMode]=useState(false);
     const [editingCommentId, setEditingCommentId] = useState(null);
     const [editingCommentText, setEditingCommentText] = useState("");
-    const [imageSrc, setImageSrc] = useState('');
+    const [image, setImage] = useState('');
     const [selectedImage, setSelectedImage] = useState(null);
     const [showButtons, setShowButtons] = useState(Array(comments.length).fill(false));
     const [profilePictureName, setProfilePictureName] = useState("");
@@ -73,6 +74,8 @@ const BoardInsideComponent = (props) => {
                 const data = await response.json();
                 setBoardData(data.data[0]);
                 console.log(data);
+                const contentsWithEnter = data.data[0].contents.replace(/<br>/g, '\n'); 
+                setContentsWithEnter(contentsWithEnter);
             }
         } catch (error) {
             console.error("Error:", error);
@@ -83,6 +86,7 @@ const BoardInsideComponent = (props) => {
         setTitle(boardData.title);
         setContents(boardData.contents);
         setSelected(boardData.type);
+        setImage(boardData.image);
     };
 
     const handleCancelClick = () => {
@@ -151,7 +155,7 @@ const BoardInsideComponent = (props) => {
             });
             if (response.ok) {
                 const data = await response.json();
-                setComments(data.data || []); // If data is null or undefined, set an empty array
+                setComments(data.data || []);
             }
         } catch (error) {
             console.error("댓글 가져오기 오류:", error);
@@ -293,10 +297,10 @@ const BoardInsideComponent = (props) => {
                                 type="textarea"
                                 className="form-control"
                                 id="contents"
-                                value={contents}
+                                value={contents.replace(/<br>/g, '\n')}
                                 onChange={(e) => setContents(e.target.value)}
                                 placeholder="내용을 입력하세요."
-                            />
+                            ></Input>
                         </FormGroup>
                         <FormGroup className="col-md-12">
                         <Label for="imgFile">
@@ -307,7 +311,16 @@ const BoardInsideComponent = (props) => {
                         name="file"
                         type="file"
                         onChange={handleImageChange}
-                        />
+                        /> {image && (
+                            <div className="image-info mt-1">
+                                수정 전 파일: <CardImg
+                                    src={`/boardImg/${image}`}
+                                    alt="img"
+                                    className="mr-4"
+                                    style={{maxHeight: '100px', width: 'auto'}}
+                                    />
+                            </div>
+                        )}
                     </FormGroup>
                         <Button className="editbtn" onClick={handleCancelClick}>취소</Button>
                         <Button className="editbtn" onClick={handleUpdateClick}>수정하기</Button>                        
@@ -333,11 +346,11 @@ const BoardInsideComponent = (props) => {
                                     <DropdownMenu>
                                         <DropdownItem>
                                             <div onClick={handleEditClick} className="dropdown-action">
-                                            <FontAwesomeIcon icon={faPencil} className="kebab-icon mr-2 mt-1" /> 수정
+                                            <FontAwesomeIcon icon={faPencil} className="kebab-icon mr-2" /> 수정
                                             </div></DropdownItem>
                                         <DropdownItem>
                                             <div onClick={handleDeleteClick} className="dropdown-action">
-                                            <FontAwesomeIcon icon={faTrashCan} className="kebab-icon mr-2 mt-1" /> 삭제
+                                            <FontAwesomeIcon icon={faTrashCan} className="kebab-icon mr-2" /> 삭제
                                             </div>
                                         </DropdownItem>
                                     </DropdownMenu>
@@ -353,16 +366,21 @@ const BoardInsideComponent = (props) => {
                             </Col>
                         </Row>
                         <Row style={{marginTop:'25px',fontSize:'17px' }}>
-                            <Col md="12">
+                            <Col md="11">
                                 {/* 내용 */}
-                                <p className="content">{boardData.contents}</p>
+                                <div className="content">{boardData.contents?.split('\n').map((line, index) => (
+                                    <React.Fragment key={index}>
+                                    {line}
+                                    <br />
+                                    </React.Fragment>
+                                ))}</div>
                                 {/* 이미지 */}
                                 {boardData.image && (
                                     <CardImg
                                     src={`/boardImg/${boardData.image}`}
                                     alt="img"
                                     className="mr-4"
-                                    style={{maxHeight: '500px', width: 'auto'}}
+                                    style={{maxHeight: '300px', width: 'auto'}}
                                     />
                                 )}
                             </Col>

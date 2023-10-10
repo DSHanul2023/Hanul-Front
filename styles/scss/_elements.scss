@@ -294,6 +294,30 @@ form-banner 1
   }
 }
 
+.anibanner{
+  .image-container {
+    display: inline-block;
+    margin: 10px;
+    cursor: pointer;
+  }
+  
+  .image-container.blurred {
+    filter: blur(0.8px);
+  }
+  .chat-div {
+    color: #B95C37; /* Set text color to black */
+    border-radius: 16px;
+    text-indent: 0; /* Remove indentation */
+    padding: 10px; /* Add padding to all sides */
+    font-size: 15px;
+    box-shadow: -58px 0 30px 0 rgba(0, 0, 0, 0.05);
+    text-overflow: ellipsis;
+    flex-grow: 1;
+    max-width: 55%;
+    background-color: #FFEAC8; /* Set background color to white */
+    margin-left:10px;
+  }
+}
 /*******************
 Login
 *******************/
@@ -896,7 +920,7 @@ Community
     flex-grow: 1;
     background-color: #FDFCF8;
     padding-top: 20px;
-    height: 85vh;
+    height: 28vh;
     border-radius: 10px;
   }
 }
@@ -993,8 +1017,8 @@ Community
 }
 .board-button {
   position: fixed;
-  right: 3%;
-  bottom: 3%;
+  right: 13%;
+  bottom: 5%;
 }
 .list_data,.txt_id,.list_datac{
   font-size:13px;
@@ -1032,7 +1056,7 @@ asg{
     border:none;
     font-weight:bold;
     color:$themecolor;
-    margin-left: 30px;
+    margin-left: 10%;
   }
   .togglebtn,.togglebtn:hover,.togglebtn:focus,.togglebtn:active,.btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active, .show > .btn-secondary.dropdown-toggle,.btn-secondary:not(:disabled):not(.disabled):active:focus, .btn-secondary:not(:disabled):not(.disabled).active:focus, .show > .btn-secondary.dropdown-toggle:focus{
     background: none;
@@ -1056,10 +1080,13 @@ asg{
     padding-bottom:5px;
     background:none;
     .dropdown-action{
-      font-size:12px;
+      font-size:13px;
       padding:5px;
       padding-left:20px;
       padding-right:20px;   
+      svg{
+        height:16px;
+      }
     }
   }
   .dropdown-item:active,.dropdown-item:hover{
@@ -1151,7 +1178,6 @@ Inquiry
   justify-items: center;
   align-items: center;
   font-size:14px;
-
   .btn-group-board{
     display: inline-flex;
     margin-left: 10px;
