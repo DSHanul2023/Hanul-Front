@@ -76,7 +76,7 @@ const PetComponent = () => {
                 </div>
                 </div>
             </Container>
-            <div className="text-center"style={{ marginBottom: "40px" }}>
+            <div className="text-center"style={{ marginTop: "40px", marginBottom: "40px" }}>
                 <Image
                     src={signupimage}
                     alt="Signup"
