@@ -705,7 +705,7 @@ Responsive
     border-radius: 16px;
     text-indent: 35px;
     font-weight: 300;
-    box-shadow: -58px 0 30px 0 rgba(0, 0, 0, 0.05);
+    // box-shadow: -58px 0 30px 0 rgba(0, 0, 0, 0.05);
     text-overflow: ellipsis;
     flex-grow: 1;
     width: 100%; /* Set width to 100% */
@@ -729,6 +729,44 @@ Responsive
     &:hover {
       opacity: 0.7;
     }
+  }
+
+  .chat-box {
+    // background-color: white;
+    // box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    height: 620px;
+    overflow-y: auto;
+    margin-bottom: 50px;
+    padding-top: 35px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+
+    /* IE 브라우저용 스크롤 바 스타일링 */
+    /* 스크롤 바 스타일링 */
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+  }
+
+  /* 스크롤 바 스타일링 */
+  .chat-box::-webkit-scrollbar {
+    width: 8px; /* 수직 스크롤 바 너비 */
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .chat-box::-webkit-scrollbar-thumb {
+    background-color: #FFEAC8; /* 스크롤 바 색상 */
+    border-radius: 5px; /* 스크롤 바 모서리의 둥글기 */
+  }
+
+  .chat-box::-webkit-scrollbar-thumb:hover {
+    background-color: $themecolor; /* 스크롤 바에 마우스를 가져갔을 때의 색상 */
+  }
+
+  /* 수평 스크롤 바 스타일링 */
+  .chat-box::-webkit-scrollbar-track {
+    // background: #f1f1f1; /* 스크롤 바 트랙 배경 색상 */
   }
 
   // .chat-box {
@@ -762,7 +800,8 @@ Responsive
     text-indent: 0; /* Remove indentation */
     padding: 10px; /* Add padding to all sides */
     font-size: 15px;
-    box-shadow: -58px 0 30px 0 rgba(0, 0, 0, 0.05);
+    // box-shadow: -58px 0 30px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 1px 1px 2px rgba(53, 53, 53, 0.2);
     text-overflow: ellipsis;
     flex-grow: 1;
     width: 300px;
@@ -777,7 +816,7 @@ Responsive
     text-indent: 0; /* Remove indentation */
     padding: 10px; /* Add padding to all sides */
     font-weight: 300;
-    box-shadow: -58px 0 30px 0 rgba(0, 0, 0, 0.05);
+    // box-shadow: -58px 0 30px 0 rgba(0, 0, 0, 0.05);
     text-overflow: ellipsis;
     flex-grow: 1;
     width: 100%;
@@ -791,7 +830,7 @@ Responsive
     text-indent: 0; /* Remove indentation */
     padding: 10px; /* Add padding to all sides */
     font-weight: 300;
-    box-shadow: -58px 0 30px 0 rgba(0, 0, 0, 0.05);
+    // box-shadow: -58px 0 30px 0 rgba(0, 0, 0, 0.05);
     text-overflow: ellipsis;
     flex-grow: 1;
     width: 100%;
@@ -804,7 +843,7 @@ Responsive
     text-indent: 0; /* Remove indentation */
     padding: 10px; /* Add padding to all sides */
     font-weight: 300;
-    box-shadow: -58px 0 30px 0 rgba(0, 0, 0, 0.05);
+    // box-shadow: -58px 0 30px 0 rgba(0, 0, 0, 0.05);
     text-overflow: ellipsis;
     flex-grow: 1;
     width: 100%;
@@ -840,11 +879,13 @@ Responsive
 
 .message {
   border-radius: 16px;
-  padding: 10px;
+  padding: 10px 15px;
   font-size: 15px;
-  box-shadow: -58px 0 30px 0 rgba(0, 0, 0, 0.05);
+  // box-shadow: -58px 0 30px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 1px 1px 2px rgba(53, 53, 53, 0.2);
   word-wrap: break-word;
   max-width: 45%;
+  align-self: center;
 }
 
 /* User message styles */
