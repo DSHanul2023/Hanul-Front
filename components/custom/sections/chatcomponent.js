@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Row, Col, Container, Form, Input, Button } from "reactstrap";
 import UserChatComponent from "./UserChatComponent";
 import BotChatComponent from "./botchatcomponent";
@@ -13,6 +13,8 @@ const ChatComponent = () => {
   const [timestamp, setTimestamp] = useState(""); 
   const [showLoading, setShowLoading] = useState(false);
   const [petNum,setPetNum] = useState(0);
+  const chatBoxRef = useRef(null);
+
   useEffect(() => {
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
     if (!accessToken) {
@@ -26,6 +28,11 @@ const ChatComponent = () => {
     const initialTimestamp = getCurrentTime(); 
     setTimestamp(initialTimestamp);
   }, []);
+
+  useEffect(() => {
+    console.log(chatBoxRef)
+    scrollToBottom();
+  }, [chatMessages]);
 
   const handleMessageSubmit = async (e) => {
     const memberId = localStorage.getItem("MEMBER_ID");
@@ -64,12 +71,14 @@ const ChatComponent = () => {
         };
         setChatMessages((prevMessages) => [...prevMessages, botResponse]);
         setShowChat(true);
-        setShowLoading(false);
       } else {
         console.log("메시지 전송 실패");
       }
     } catch (error) {
       console.error("오류:", error);
+    } finally {
+      setShowLoading(false); // 로딩이 끝났을 때
+      scrollToBottom(); // 스크롤을 맨 아래로 이동
     }
   };
   const getCurrentTime = () => {
@@ -80,12 +89,15 @@ const ChatComponent = () => {
     const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
     return ` ${formattedHours}:${minutes < 10 ? "0" : ""}${minutes} ${ampm} `;
   };
+  const scrollToBottom = () => {
+    chatBoxRef.current?.scrollIntoView({ behavior: 'smooth', block: "end", inline: 'nearest'});
+  };
 
   return (
     <div className="full-height" style={{minHeight:"470px"}}>
       <div style={{display:'flex',justifyContent:'center',backgroundColor:'#F9F4E8'}}>
         <section style={{width:'50%'}}>
-          <div id="chat" className="banner spacer">
+          <div id="chat" className="banner spacer" style={{paddingBottom:"80px", maxHeight:"100vh", paddingTop:"40px"}}>
             <Container className="chat-box">
               <Row>
                 <div className="chatimgdiv" style={{marginLeft:'15px'}}>
@@ -127,9 +139,9 @@ const ChatComponent = () => {
                     </Col>
                   </Row>
                 )}
-              
+                <div ref={chatBoxRef}></div>
             </Container>
-            <Container className="chat-input-box">
+            <Container className="chat-input-box" style={{ position: "absolute", bottom: 0, width: "100%", marginBottom: "40px"}}>
             <Row className="mt-4 justify-content-between">
                 <Col className="col-10">
                   <Form onSubmit={handleMessageSubmit} className="w-100">

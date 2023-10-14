@@ -53,3 +53,16 @@ import profile10 from "../../../public/profile/pet2/ddog19_head.png";
 
 export const petprofiles = [profile, profile2, profile3, profile4, profile5,
     profile6, profile7, profile8, profile9, profile10];
+
+const content1 = '사모예드 - 생기있는, 장난스러운, 우호적인, 경계심이 많은, 사교성 좋은, 고집스러운';
+const content2 = '도베르만 핀셔 - 총명한, 경계심이 많은, 에너제틱한, 겁이 없는, 충성스러운, 순종적인';
+const content3 ='골든리트리버 - 우호적인, 총명한, 부드러운, 믿음직한, 신뢰할 만한, 자신감에 차있는';
+const content4 ='슈나우저 - 총명한, 헌신적인, 생기있는, 성격이 좋은, 장난스러운, 훈련 능력이 뛰어난';
+const content5 ='푸들 - 총명한, 경계심이 많은, 활동적인, 훈련 능력이 뛰어난, 본능적인, 충실한';
+const content6 ='불도그 -  사교적인, 유순한, 고집 센, 우호적인';
+const content7 ='닥스훈트 - 생기있는, 영리한, 장난스러운, 고집스러운, 활동적인, 독립심이 강한, 용맹스러운';
+const content8 ='그레이하운드 - 침착한, 총명한, 애정이 풍부한, 온화한, 탄탄한, 조용한';
+const content9 ='셰퍼드 - 고집스러운, 총명한, 호기심이 많은, 경계심이 많은, 충성스러운';
+const content10 ='시추 - 장난스러운, 애정이 풍부한, 영리한, 생기있는, 우호적인, 총명한';
+
+export const petcontents = [content1,content2,content3,content4,content5,content6,content7,content8,content9,content10];
