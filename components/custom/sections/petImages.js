@@ -26,6 +26,18 @@ const name9 = 'Rudy'
 const name10 = 'Pyoebe'
 export const petlist = [name1,name2,name3,name4,name5,name6,name7,name8,name9,name10];
 
+import bella from "../../../public/profile/pet3/bella.svg";
+import rex from "../../../public/profile/pet3/Rex.svg";
+import Charlie from "../../../public/profile/pet3/Charlie.svg";
+import Bob from "../../../public/profile/pet3/Bob.svg";
+import Daisy from "../../../public/profile/pet3/Daisy.svg";
+import Max from "../../../public/profile/pet3/Max.svg";
+import Jake from "../../../public/profile/pet3/Jake.svg";
+import Ollie from "../../../public/profile/pet3/Ollie.svg";
+import Rudy from "../../../public/profile/pet3/Rudy.svg";
+import Pyoebe from "../../../public/profile/pet3/Pyoebe.svg";
+export const petimg = [bella, rex, Charlie, Bob, Daisy, Max, Jake, Ollie, Rudy, Pyoebe];
+
 //펫 프로필 이미지 배열
 import profile from "../../../public/profile/pet2/ddog11_head.png";
 import profile2 from "../../../public/profile/pet2/ddog12_head.png";
