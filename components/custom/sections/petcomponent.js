@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container, ButtonGroup, Button, Row, Col } from "reactstrap";
 import Image from "next/image";
 import { useRouter } from 'next/router';
-import { petimages,petlist } from "./petImages";
+import { petimages,petlist,petcontents } from "./petImages";
 import signupimage from "../../../assets/images/logos/Group 40.png"; // 추가 이미지 경로
 
 const PetComponent = () => {
@@ -35,7 +35,7 @@ const PetComponent = () => {
             <Container className="pet text-center">
                 <div className="pettitle">
                     <h2>Choose Your Pet Bot</h2>
-                    <h5>채팅하고 싶은 펫을 골라보세요</h5>
+                    <h5>채팅하고 싶은 펫봇을 골라보세요</h5>
                 </div>
                 <div className="petcontent">
                 <ButtonGroup>
@@ -54,13 +54,14 @@ const PetComponent = () => {
                         />
                     </div>
                     <h5>
-                        {petlist[currentImageIndex]}
-                    </h5> 
+                        {petlist[currentImageIndex]}<br/><br/></h5> 
+                        
+                    
                     </div>
                     <div className="paginationdiv">
                         <Button className="paginationbtn" onClick={handleNextImage}>{">"}</Button>
                     </div>
-                </ButtonGroup>
+                </ButtonGroup><br/><h5>{petcontents[currentImageIndex]}</h5>
                 <div className="pagination mt-4 d-flex justify-content-center">
                     {petimages.map((image, index) => (
                         <Button
@@ -75,7 +76,7 @@ const PetComponent = () => {
                 </div>
                 </div>
             </Container>
-            <div className="text-center"style={{ marginBottom: "40px" }}>
+            <div className="text-center"style={{ marginTop: "40px", marginBottom: "40px" }}>
                 <Image
                     src={signupimage}
                     alt="Signup"
