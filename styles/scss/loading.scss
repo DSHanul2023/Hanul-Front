@@ -18,6 +18,34 @@
   top:39%;
 }
 
+.talk-bubble {
+  width: 97%;
+  margin: 10px;
+  margin-left: 30px;
+  background: white;
+  border-radius: 25px 25px 25px 0px;
+  padding: 20px;
+  padding-left: 20px;
+  margin-top: 0px;
+
+  .emotion {
+    color: $headingtext;
+    font-weight: 900;
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+
+  .basic {
+    color: #838383;
+    font-size: 20px;
+  }
+
+  .plain {
+    margin-bottom:5px;
+    word-break: keep-all;
+  }
+}
+
 .mld .letter {
     display: inline-block;
     line-height: 1em;
