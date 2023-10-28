@@ -308,7 +308,7 @@ form-banner 1
     color: #B95C37; /* Set text color to black */
     border-radius: 16px;
     text-indent: 0; /* Remove indentation */
-    padding: 10px; /* Add padding to all sides */
+    padding: 15px; /* Add padding to all sides */
     font-size: 15px;
     box-shadow: -58px 0 30px 0 rgba(0, 0, 0, 0.05);
     text-overflow: ellipsis;
@@ -316,6 +316,8 @@ form-banner 1
     max-width: 55%;
     background-color: #FFEAC8; /* Set background color to white */
     margin-left:10px;
+    align-items: center;
+    margin-top: 40px;
   }
 }
 /*******************
@@ -734,7 +736,7 @@ Responsive
   .chat-box {
     // background-color: white;
     // box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-    height: 620px;
+    height: 580px;
     overflow-y: auto;
     margin-bottom: 50px;
     padding-top: 35px;
