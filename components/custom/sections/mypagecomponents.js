@@ -72,7 +72,7 @@ const MyPageComponents = () => {
       <Container className="my-page-content">
         <Row className="justify-content-center">
           <Col md="6">
-            <Card body className="card-shadow">
+            <Card body className="card-shadow" style={{height:"auto"}}>
               <div className="d-flex">
                 <div className="align-self-center">
                   <Image

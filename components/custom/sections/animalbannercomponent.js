@@ -42,7 +42,7 @@ const AnimalBannerComponent = () => {
     <div>
       <div className="bg-light">
         <section>
-          <div id="banner1" className="banner spacer">
+          <div id="banner1" className="banner" style={{paddingTop:"100px", paddingBottom:"100px"}}>
             <Container>
               <Row className="anibanner justify-content-center">
                 <Col lg="12" md="7" className="align-self-center">
@@ -66,14 +66,14 @@ const AnimalBannerComponent = () => {
                     ))}
                   </div>
                   <Col className="d-flex align-items-center justify-content-center">
-                    <div className="chat-div">
+                    <div className="chat-div text-center">
                     {selectedImageIndex !== -1 ? (
                     <>
                     <h4>{petlist[selectedImageIndex]}</h4>
-                    <p>{petcontents[selectedImageIndex]}</p>
+                    <p style={{marginBottom:"0px"}}>{petcontents[selectedImageIndex]}</p>
                     </>
                     ) : (
-                    <p>강아지를 클릭해 더 자세히 알아보세요!</p>
+                    <p style={{marginBottom:"0px"}}>강아지를 클릭해 더 자세히 알아보세요!</p>
                     )}
                     </div>
                   </Col>
