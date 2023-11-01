@@ -42,13 +42,13 @@ const AnimalBannerComponent = () => {
     <div>
       <div className="bg-light">
         <section>
-          <div id="banner1" className="banner" style={{paddingTop:"100px", paddingBottom:"100px"}}>
+          <div id="banner1" className="banner" style={{paddingTop:"50px", paddingBottom:"50px"}}>
             <Container>
               <Row className="anibanner justify-content-center">
                 <Col lg="12" md="7" className="align-self-center">
-                  <h2 className="title text-darkbrown font-bold" style={{ fontSize: "30px" }}>
+                  <h2 className="title text-darkbrown font-bold text-center" style={{ fontSize: "30px" }}>
                     CHOOSE YOUR PETBOT!
-                  </h2><h3 className="title text-darkbrown font-bold">다양한 강아지 펫봇을 만나보세요!</h3>
+                  </h2><h3 className="title text-darkbrown font-bold text-center">다양한 강아지 펫봇을 만나보세요!</h3>
                   <div className="d-flex justify-content-center align-items-end">
                     {dogImages.map((dogImage, index) => (
                       <div
