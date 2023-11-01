@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Row, Col, Container, Form, Input, Button } from "reactstrap";
-import UserChatComponent from "./UserChatComponent";
 import BotChatComponent from "./botchatcomponent";
 import { useRouter } from "next/router";
 import Image from "next/image";

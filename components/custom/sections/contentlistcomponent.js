@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from 'reactstrap';
-import ItemComponent from './ItemComponent';
+import ItemComponent from './itemcomponent';
 import ListPagination from './listpaginationcomponent';
 import MovieDetailComponent from './movieDetailcomponent';
 
