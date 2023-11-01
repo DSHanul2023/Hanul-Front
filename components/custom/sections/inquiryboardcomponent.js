@@ -181,7 +181,7 @@ const InquiryBoard = () => {
                                     value={searchQuery}
                                     onChange={handleSearchInputChange}
                                 />
-                            <Col md="5"><Button onClick={handleSearchSubmit}>검색</Button></Col> 
+                            <Col md="6"><Button onClick={handleSearchSubmit}>검색</Button></Col> 
                         </FormGroup>
                     </Col>
                 </Row>

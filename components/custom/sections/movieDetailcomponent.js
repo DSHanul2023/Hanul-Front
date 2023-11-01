@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faVideo, faSpinner} from "@fortawesome/free-solid-svg-icons";
+import { v4 as uuidv4 } from 'uuid';
 const MovieDetailComponent = ({ movieId }) => {
   const router = useRouter();
   const [movie, setMovie] = useState(null);
@@ -206,8 +207,8 @@ const MovieDetailComponent = ({ movieId }) => {
     const keywordsString = movie.keyword;
     const keywordsArray = keywordsString.split(",");
 
-    return keywordsArray.slice(0, 5).map((keyword, index) => (
-      <div key={index} className="tag tag-blank">
+    return keywordsArray.slice(0, 5).map((keyword) => (
+      <div key={uuidv4()} className="tag tag-blank">
         #{keyword.replace(/\s+/g, "_").replace("_", "")}
       </div>
     ));
@@ -268,7 +269,7 @@ const MovieDetailComponent = ({ movieId }) => {
                   <Row className="mb-2">                
                     <div className="ml-2">
                     {flatrate.map((provider) => (
-                      <a href={provider.url} target="_blank" rel="noopener noreferrer">
+                      <a key={uuidv4()} href={provider.url} target="_blank" rel="noopener noreferrer">
                         <Image
                           src={provider.logo_path}
                           alt={provider.provider_name}
@@ -290,7 +291,7 @@ const MovieDetailComponent = ({ movieId }) => {
                   <Row className="mb-2">                
                     <div className="ml-2">
                     {rent.map((provider) => (
-                      <a href={provider.url} target="_blank" rel="noopener noreferrer">
+                      <a key={uuidv4()} href={provider.url} target="_blank" rel="noopener noreferrer">
                         <Image
                           src={provider.logo_path}
                           alt={provider.provider_name}
@@ -312,7 +313,7 @@ const MovieDetailComponent = ({ movieId }) => {
                   <Row className="mb-2">                
                     <div className="ml-2">
                     {buy.map((provider) => (
-                      <a href={provider.url} target="_blank" rel="noopener noreferrer">
+                      <a key={uuidv4()} href={provider.url} target="_blank" rel="noopener noreferrer">
                         <Image
                           src={provider.logo_path}
                           alt={provider.provider_name}
@@ -329,15 +330,6 @@ const MovieDetailComponent = ({ movieId }) => {
               </Col>
             )}            
           </div>
-          {/* <div>
-              <button
-                className={`heartbtn ${isBookmarked ? "bookmarked" : ""}`}
-                onClick={handleBookmarkClick}
-              >
-                <FontAwesomeIcon icon={faHeart} className="hearticon" />
-                <span>찜</span>
-              </button>
-            </div> */}
           <div style={{ marginTop: "12px" }}>감독 {movie.director}</div>
           <div>출연 {movie.cast}</div>
           <div style={{ marginTop: "12px" }}>{movie.itemDetail}</div>
