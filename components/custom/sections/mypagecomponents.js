@@ -32,7 +32,7 @@ const MyPageComponents = () => {
 
   const fetchMemberInfo = async (token) => {
     try {
-      const response = await fetch("http://localhost:8080/members/getMemberInfo", {
+      const response = await fetch("http://43.201.180.174:8080/members/getMemberInfo", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

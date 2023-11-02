@@ -25,7 +25,7 @@ const InquiryInsideComponent = (props) => {
     const handleFetchInquirydData = async (accessToken) => {
         console.log(accessToken);
         try {
-            const response = await fetch(`http://localhost:8080/api/inquiry/${id}`, {
+            const response = await fetch(`http://43.201.180.174:8080/api/inquiry/${id}`, {
                 method: "GET",
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
@@ -50,7 +50,7 @@ const InquiryInsideComponent = (props) => {
 
     const handleUpdateClick = async () => {
         try {
-            const requestUrl = `http://localhost:8080/api/inquiry`;
+            const requestUrl = `http://43.201.180.174:8080/api/inquiry`;
             const method = 'PUT';
 
             const response = await fetch(requestUrl, {
@@ -82,7 +82,7 @@ const InquiryInsideComponent = (props) => {
     };
     const handleDeleteClick = async () => {
         try {
-            const requestUrl = `http://localhost:8080/api/inquiry`;
+            const requestUrl = `http://43.201.180.174:8080/api/inquiry`;
             const method = 'DELETE';
 
             const response = await fetch(requestUrl, {

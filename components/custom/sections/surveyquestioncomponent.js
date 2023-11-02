@@ -44,7 +44,7 @@ const Question = () => {
         };
     
         try {
-            fetch('http://localhost:8080/survey', {
+            fetch('http://43.201.180.174:8080/survey', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

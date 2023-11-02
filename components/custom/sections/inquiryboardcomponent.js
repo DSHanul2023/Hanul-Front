@@ -18,7 +18,7 @@ const InquiryBoard = () => {
     const [inquiries, setInquiries] = useState([]);
     const [showCreateForm, setShowCreateForm] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
-    const apiUrl = 'http://localhost:8080/api/inquiry';
+    const apiUrl = 'http://43.201.180.174:8080/api/inquiry';
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 2; // 한 페이지에 보여질 항목 수
     const router = useRouter();

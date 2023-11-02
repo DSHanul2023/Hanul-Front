@@ -17,7 +17,7 @@ const ContentList = () => {
 
   const fetchMovies = async (page) => {
     try {
-      const response = await fetch(`http://localhost:8080/items/all?page=${page}&size=${itemsPerPage}`);
+      const response = await fetch(`http://43.201.180.174:8080/items/all?page=${page}&size=${itemsPerPage}`);
       if (!response.ok) {
         throw new Error('데이터를 가져오는 중 오류 발생');
       }

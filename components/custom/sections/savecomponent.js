@@ -29,7 +29,7 @@ const SaveComponent = () => {
   const fetchMemberInfo = async (token) => {
     try {
       const response = await fetch(
-        "http://localhost:8080/members/getMemberInfo",
+        "http://43.201.180.174:8080/members/getMemberInfo",
         {
           method: "GET",
           headers: {
@@ -51,7 +51,7 @@ const SaveComponent = () => {
 
   const fetchItemsByMember = async (memberId) => {
     try {
-      const response = await fetch(`http://localhost:8080/members/${memberId}/bookmarked-items`);
+      const response = await fetch(`http://43.201.180.174:8080/members/${memberId}/bookmarked-items`);
       if (!response.ok) {
         throw new Error("Failed to fetch member's items");
       }

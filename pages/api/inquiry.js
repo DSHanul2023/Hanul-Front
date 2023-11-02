@@ -6,7 +6,7 @@
 }}*/
 // api/inquiry.js
 
-const apiUrl = 'http://localhost:8080/api/inquiry';
+const apiUrl = 'http://43.201.180.174:8080/api/inquiry';
 
 /*export const retrieveInquiryList = async () => {
     try {

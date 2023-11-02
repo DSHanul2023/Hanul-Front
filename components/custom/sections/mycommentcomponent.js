@@ -29,7 +29,7 @@ const MyComment = () => {
   const getBoardList = async (token) => {
     try {
       if (token && token !== null) {
-        const response = await fetch("http://localhost:8080/comments/mycomment", {
+        const response = await fetch("http://43.201.180.174:8080/comments/mycomment", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

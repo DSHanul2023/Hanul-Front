@@ -52,7 +52,7 @@ const ChatComponent = () => {
     setShowLoading(true);
   
     try {
-      const response = await fetch("http://localhost:8080/chats/chatdialogflow", {
+      const response = await fetch("http://43.201.180.174:8080/chats/chatdialogflow", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

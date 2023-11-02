@@ -61,7 +61,7 @@ const MemberInfoChange = () => {
   const fetchMemberInfo = async (token) => {
     try {
       const response = await fetch(
-        "http://localhost:8080/members/getMemberInfo",
+        "http://43.201.180.174:8080/members/getMemberInfo",
         {
           method: "GET",
           headers: {
@@ -109,7 +109,7 @@ const MemberInfoChange = () => {
         }
 
         const response = await fetch(
-          "http://localhost:8080/members/updateMemberInfo",
+          "http://43.201.180.174:8080/members/updateMemberInfo",
           {
             method: "PUT",
             headers: {
@@ -185,7 +185,7 @@ const MemberInfoChange = () => {
       }
 
       const response = await fetch(
-        "http://localhost:8080/members/updatePassword", 
+        "http://43.201.180.174:8080/members/updatePassword", 
         {
           method: "PUT",
           headers: {
@@ -226,7 +226,7 @@ const MemberInfoChange = () => {
         return;
       }
 
-      const response = await fetch("http://localhost:8080/members/deleteMember", {
+      const response = await fetch("http://43.201.180.174:8080/members/deleteMember", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -280,7 +280,7 @@ const MemberInfoChange = () => {
         }
 
         const response = await fetch(
-          `http://localhost:8080/members/uploadProfilePicture/${member.id}`,
+          `http://43.201.180.174:8080/members/uploadProfilePicture/${member.id}`,
           {
             method: "POST",
             headers: {

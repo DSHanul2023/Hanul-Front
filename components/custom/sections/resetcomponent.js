@@ -9,7 +9,7 @@ const ResetComponent = () => {
   const handleresetpassword = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8080/members/forgot-password", {
+      const response = await fetch("http://43.201.180.174:8080/members/forgot-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

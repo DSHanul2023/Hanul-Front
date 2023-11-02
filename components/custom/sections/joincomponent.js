@@ -11,7 +11,7 @@ const JoinComponent = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-        const response = await fetch("http://localhost:8080/members/register", {
+        const response = await fetch("http://43.201.180.174:8080/members/register", {
             method: "POST",
             headers: {
             "Content-Type": "application/json",
