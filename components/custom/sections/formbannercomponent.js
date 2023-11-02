@@ -17,7 +17,7 @@ const FormBannerComponent = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8080/members/login", {
+      const response = await fetch("http://43.201.180.174:8080/members/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -31,7 +31,7 @@ const BoardInsideComponent = (props) => {
     const [profilePictureName, setProfilePictureName] = useState("");
     const fetchMemberInfo = async (token) => {
         try {
-            const response = await fetch("http://localhost:8080/members/getMemberInfo", {
+            const response = await fetch("http://43.201.180.174:8080/members/getMemberInfo", {
                 method: "GET",
                 headers: {
                 Authorization: `Bearer ${token}`,
@@ -63,7 +63,7 @@ const BoardInsideComponent = (props) => {
     const handleFetchBoardData = async (accessToken) => {
         console.log(accessToken);
         try {
-            const response = await fetch(`http://localhost:8080/board/${id}`, {
+            const response = await fetch(`http://43.201.180.174:8080/board/${id}`, {
                 method: "GET",
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
@@ -101,7 +101,7 @@ const BoardInsideComponent = (props) => {
         formData.append('title', title);
         formData.append('contents', contents);
         try {
-            const response = await fetch(`http://localhost:8080/board`, {
+            const response = await fetch(`http://43.201.180.174:8080/board`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
@@ -124,7 +124,7 @@ const BoardInsideComponent = (props) => {
     const handleDeleteClick = async () => {
         const accessToken = token;
         try {
-            const response = await fetch(`http://localhost:8080/board`, {
+            const response = await fetch(`http://43.201.180.174:8080/board`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -146,7 +146,7 @@ const BoardInsideComponent = (props) => {
     //댓글기능
     const fetchComments = async (accessToken) => {
         try {
-            const response = await fetch(`http://localhost:8080/comments/${id}`, {
+            const response = await fetch(`http://43.201.180.174:8080/comments/${id}`, {
                 method: "GET",
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
@@ -165,7 +165,7 @@ const BoardInsideComponent = (props) => {
         e.preventDefault();
     
         try {
-            const response = await fetch(`http://localhost:8080/comments`, {
+            const response = await fetch(`http://43.201.180.174:8080/comments`, {
                 method: "POST",
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -209,7 +209,7 @@ const BoardInsideComponent = (props) => {
         const accessToken = token;
     
         try {
-            const response = await fetch(`http://localhost:8080/comments`, {
+            const response = await fetch(`http://43.201.180.174:8080/comments`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -233,7 +233,7 @@ const BoardInsideComponent = (props) => {
     const handleDeleteComment = async (commentId) => {
     const accessToken = token;
     try {
-        const response = await fetch(`http://localhost:8080/comments`, {
+        const response = await fetch(`http://43.201.180.174:8080/comments`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,

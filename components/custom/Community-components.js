@@ -22,7 +22,7 @@ const CommunityComponents = () => {
     try {
       console.log(accessToken);
         if( accessToken && accessToken !== null ) {
-        const response = await fetch("http://localhost:8080/board", {
+        const response = await fetch("http://43.201.180.174:8080/board", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

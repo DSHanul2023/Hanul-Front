@@ -34,7 +34,7 @@ const BotChatComponent = ({ messages }) => {
     const memberId = localStorage.getItem("MEMBER_ID");
 
     if (memberId) {
-      fetch(`http://localhost:8080/items/recommend/${memberId}`)
+      fetch(`http://43.201.180.174:8080/items/recommend/${memberId}`)
         .then((response) => response.json())
         .then((data) => {
           setRecommendedMovies(data);

@@ -31,7 +31,7 @@ const MovieDetailComponent = ({ movieId }) => {
     setLoading(true)
 
     // 영화 정보를 가져오는 요청
-    fetch(`http://localhost:8080/items/${movieId}`)
+    fetch(`http://43.201.180.174:8080/items/${movieId}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("네트워크 응답이 올바르지 않습니다.");
@@ -48,7 +48,7 @@ const MovieDetailComponent = ({ movieId }) => {
       });
 
     const provider = (movieData) => {
-      fetch(`http://localhost:8080/items/providers/${movieId}`)
+      fetch(`http://43.201.180.174:8080/items/providers/${movieId}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error("네트워크 응답이 올바르지 않습니다.");
@@ -123,7 +123,7 @@ const MovieDetailComponent = ({ movieId }) => {
 
   const bookmarkcheck = (memberid) => {
     // 북마크된 멤버 목록을 가져오는 요청
-    fetch(`http://localhost:8080/items/${movieId}/bookmarked-members`, {
+    fetch(`http://43.201.180.174:8080/items/${movieId}/bookmarked-members`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -152,7 +152,7 @@ const MovieDetailComponent = ({ movieId }) => {
   const handleBookmarkClick = () => {
     // 찜 버튼을 눌렀을 때 실행되는 함수
     // 여기서 백엔드 API에 요청을 보내면 됩니다.
-    fetch(`http://localhost:8080/items/${movieId}/bookmark/${memberId}`, {
+    fetch(`http://43.201.180.174:8080/items/${movieId}/bookmark/${memberId}`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -176,7 +176,7 @@ const MovieDetailComponent = ({ movieId }) => {
       });
   };
   const deleteBookmark = (memberId, movieId) => {
-    fetch(`http://localhost:8080/items/${movieId}/deletebookmark/${memberId}`, {
+    fetch(`http://43.201.180.174:8080/items/${movieId}/deletebookmark/${memberId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

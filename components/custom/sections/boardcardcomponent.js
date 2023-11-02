@@ -44,7 +44,7 @@ const BoardCards = ({boarditem,type,key2}) => {
                         Authorization: `Bearer ${accessToken}`,
                     };
     
-                    const response = await fetch(`http://localhost:8080/comments/all`, {
+                    const response = await fetch(`http://43.201.180.174:8080/comments/all`, {
                         method: 'GET',
                         headers: headers,
                     });
