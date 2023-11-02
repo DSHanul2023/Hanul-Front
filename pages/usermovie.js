@@ -37,7 +37,7 @@ const UserMoviePage = () => {
     const memberId = localStorage.getItem("MEMBER_ID");
 
     if (memberId) {
-      fetch(`http://localhost:8080/items/recommend/${memberId}`)
+      fetch(`http://43.201.180.174:8080/items/recommend/${memberId}`)
         .then((response) => response.json())
         .then((data) => {
           setRecommendedMovies(data);
@@ -56,7 +56,7 @@ const UserMoviePage = () => {
     const memberId = localStorage.getItem("MEMBER_ID");
 
     if (memberId) {
-      fetch(`http://localhost:8080/items/emotion2/${memberId}`)
+      fetch(`http://43.201.180.174:8080/items/emotion2/${memberId}`)
       .then((response) => response.text())  // Use response.text() instead of response.json()
       .then((data) => {
         setEmotion(data);

@@ -39,7 +39,7 @@ const Header = () => {
     if (accessToken) {
       try {
         const response = await fetch(
-          `http://localhost:8080/members/${memberId}/logout`,
+          `http://43.201.180.174:8080/members/${memberId}/logout`,
           {
             method: "POST",
             headers: {

@@ -23,7 +23,7 @@ const InquiryForm = ({ onFormSubmit, onFormCancel }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const requestUrl = 'http://localhost:8080/api/inquiry';
+            const requestUrl = 'http://43.201.180.174:8080/api/inquiry';
             const method = 'POST';
     
             const response = await fetch(requestUrl, {
